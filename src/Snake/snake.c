@@ -59,13 +59,28 @@ void Snake_Exit(void)
 void Snake_UpdateInput(void)
 {
 	if (CP_Input_KeyTriggered(KEY_W) || CP_Input_KeyTriggered(KEY_UP))
-		the_snake.direction = UP;
+	{
+		if (the_snake.direction != DOWN)
+			the_snake.direction = UP;
+
+	}
 	else if (CP_Input_KeyTriggered(KEY_A) || CP_Input_KeyTriggered(KEY_LEFT))
-		the_snake.direction = LEFT;
+	{
+		if (the_snake.direction != RIGHT)
+			the_snake.direction = LEFT;
+
+	}
 	else if (CP_Input_KeyTriggered(KEY_S) || CP_Input_KeyTriggered(KEY_DOWN))
-		the_snake.direction = DOWN;
+	{
+		if (the_snake.direction != UP)
+			the_snake.direction = DOWN;
+
+	}
 	else if (CP_Input_KeyTriggered(KEY_D) || CP_Input_KeyTriggered(KEY_RIGHT))
-		the_snake.direction = RIGHT;
+	{
+		if (the_snake.direction != LEFT)
+			the_snake.direction = RIGHT;
+	}
 
 }
 
