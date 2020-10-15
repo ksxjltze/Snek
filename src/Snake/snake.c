@@ -1,5 +1,8 @@
 #include "snake.h"
 #include "CProcessing.h"
+#include <stdio.h>
+#include <stdlib.h> //malloc
+
 //Define in Snake.c
 static const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
 
@@ -24,12 +27,20 @@ struct Sprite
 	float height;
 };
 
+struct Segment
+{
+	struct Segment* next;
+	CP_Vector position;
+	int direction;
+};
+
 struct Snake
 {
 	struct Sprite sprite;
-	CP_Vector position;
-	int direction;
+	struct Segment* head;
 	float speed;
+	//int direction;
+	//CP_Vector position;
 }the_snake;
 
 void Snake_Init(void)
@@ -39,9 +50,20 @@ void Snake_Init(void)
 	CELL_WIDTH = (float)WINDOW_WIDTH / GRID_SIZE;
 	CELL_HEIGHT = (float)WINDOW_HEIGHT / GRID_SIZE;
 
+	struct Segment* head = malloc(sizeof* head);
+	if (head == 0)
+	{
+		return;
+	}
+
+	head->direction = RIGHT;
+	head->position = WINDOW_CENTRE;
+	head->next = NULL;
+
 	the_snake.sprite.image = img_snake;
-	the_snake.position = WINDOW_CENTRE;
-	the_snake.direction = RIGHT;
+	the_snake.head = head;
+	//the_snake.position = WINDOW_CENTRE;
+	//the_snake.direction = RIGHT;
 	the_snake.speed = (speed * (CELL_WIDTH + CELL_HEIGHT) / 2);
 
 	the_snake.sprite.width = (float)CP_Image_GetWidth(img_snake);
@@ -60,6 +82,14 @@ void Snake_Update(void)
 
 void Snake_Exit(void)
 {
+	struct Segment* tmp;
+
+	while (the_snake.head != NULL)
+	{
+		tmp = the_snake.head;
+		the_snake.head = the_snake.head->next;
+		free(tmp);
+	}
 
 }
 
@@ -67,26 +97,26 @@ void Snake_UpdateInput(void)
 {
 	if (CP_Input_KeyTriggered(KEY_W) || CP_Input_KeyTriggered(KEY_UP))
 	{
-		if (the_snake.direction != DOWN)
-			the_snake.direction = UP;
+		if (the_snake.head->direction != DOWN)
+			the_snake.head->direction = UP;
 
 	}
 	else if (CP_Input_KeyTriggered(KEY_A) || CP_Input_KeyTriggered(KEY_LEFT))
 	{
-		if (the_snake.direction != RIGHT)
-			the_snake.direction = LEFT;
+		if (the_snake.head->direction != RIGHT)
+			the_snake.head->direction = LEFT;
 
 	}
 	else if (CP_Input_KeyTriggered(KEY_S) || CP_Input_KeyTriggered(KEY_DOWN))
 	{
-		if (the_snake.direction != UP)
-			the_snake.direction = DOWN;
+		if (the_snake.head->direction != UP)
+			the_snake.head->direction = DOWN;
 
 	}
 	else if (CP_Input_KeyTriggered(KEY_D) || CP_Input_KeyTriggered(KEY_RIGHT))
 	{
-		if (the_snake.direction != LEFT)
-			the_snake.direction = RIGHT;
+		if (the_snake.head->direction != LEFT)
+			the_snake.head->direction = RIGHT;
 	}
 
 }
@@ -95,16 +125,16 @@ void Snake_UpdateMovement(void)
 {
 	CP_Vector movement_vector = CP_Vector_Set(0, 0);
 
-	if (the_snake.direction % 2 == 0)
+	if (the_snake.head->direction % 2 == 0)
 		movement_vector = CP_Vector_Scale(
 			CP_Vector_Normalize(
-				CP_Vector_Set((float)the_snake.direction, 0)), the_snake.speed * CP_System_GetDt()); //Horizontal
+				CP_Vector_Set((float)the_snake.head->direction, 0)), the_snake.speed * CP_System_GetDt()); //Horizontal
 	else
 		movement_vector = CP_Vector_Scale(
 			CP_Vector_Normalize(
-				CP_Vector_Set(0, (float)the_snake.direction)), the_snake.speed * CP_System_GetDt()); //Vertical
+				CP_Vector_Set(0, (float)the_snake.head->direction)), the_snake.speed * CP_System_GetDt()); //Vertical
 
-	the_snake.position = CP_Vector_Add(the_snake.position, movement_vector);
+	the_snake.head->position = CP_Vector_Add(the_snake.head->position, movement_vector);
 }
 
 void Snake_Draw(void)
@@ -121,5 +151,5 @@ void Snake_Draw(void)
 	//}
 
 	CP_Settings_Background(CP_Color_Create(0, 0, 0, 255));
-	CP_Image_Draw(the_snake.sprite.image, the_snake.position.x, the_snake.position.y, the_snake.sprite.width, the_snake.sprite.height, 255);
+	CP_Image_Draw(the_snake.sprite.image, the_snake.head->position.x, the_snake.head->position.y, the_snake.sprite.width, the_snake.sprite.height, 255);
 }
