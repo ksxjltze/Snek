@@ -1,5 +1,6 @@
 #include "snake.h"
 #include "CProcessing.h"
+#include <stdbool.h>
 //Define in Snake.c
 static const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
 
@@ -31,12 +32,22 @@ struct Sprite
 	float height;
 };
 
+struct Segment
+{
+	CP_Vector position;
+	int grid_position;
+	bool active;
+};
+
 struct Snake
 {
 	struct Sprite sprite;
+	struct Segment segments[GRID_SIZE - 1];
+
 	CP_Vector position;
 	int grid_position;
 	int direction;
+	
 }the_snake;
 
 void Snake_Init(void)
@@ -50,12 +61,33 @@ void Snake_Init(void)
 	move_timer = grid_seconds;
 
 	the_snake.sprite.image = img_snake;
-	the_snake.position = grid[0];
+	the_snake.grid_position = 3;
+	the_snake.position = grid[3];
 	the_snake.direction = RIGHT;
+
+	for (int i = 0; i < GRID_SIZE - 1; i++)
+	{
+		the_snake.segments[i].active = 0;
+		the_snake.segments[i].position = CP_Vector_Set(0, 0);
+		the_snake.segments[i].grid_position = 0;
+	}
 
 	the_snake.sprite.width = (float)CP_Image_GetWidth(img_snake) * 2;
 	the_snake.sprite.height = (float)CP_Image_GetHeight(img_snake) * 2;
 
+}
+
+void Snake_Update(void)
+{
+	Snake_UpdateInput();
+	Snake_Timer();
+	Snake_UpdateMovement();
+	Snake_Draw();
+
+}
+
+void Snake_Exit(void)
+{
 
 }
 
@@ -69,6 +101,8 @@ void Snake_SetGrid()
 			offset + i / GRID_WIDTH * CELL_WIDTH + CELL_WIDTH / 2);
 	}
 }
+
+
 
 void Snake_DrawGrid()
 {
@@ -85,24 +119,11 @@ void Snake_DrawGrid()
 
 }
 
-void Snake_Update(void)
-{
-	Snake_UpdateInput();
-	Snake_Timer();
-	Snake_UpdateMovement();
-	Snake_Draw();
-
-}
-
 void Snake_Timer(void)
 {
 	move_timer -= CP_System_GetDt();
 }
 
-void Snake_Exit(void)
-{
-
-}
 
 void Snake_UpdateInput(void)
 {
@@ -145,6 +166,21 @@ void Snake_UpdateMovement(void)
 		else
 			pos += direction * GRID_WIDTH;
 
+		for (int i = GRID_SIZE - 1; i >= 0; i--)
+		{
+			struct Segment* segment = &the_snake.segments[i];
+			if (segment->active)
+			{
+				if (i > 1)
+					segment->grid_position = the_snake.segments[i - 1].grid_position;
+				else
+					segment->grid_position = pos;
+
+				segment->position = grid[segment->grid_position];
+
+			}
+		}
+
 		the_snake.grid_position = pos;
 		the_snake.position = grid[pos];
 	}
@@ -155,5 +191,15 @@ void Snake_Draw(void)
 	CP_Settings_Background(CP_Color_Create(255, 255, 255, 255));
 	//CP_Image_Draw(the_snake.sprite.image, the_snake.position.x, the_snake.position.y, the_snake.sprite.width, the_snake.sprite.height, 255);
 	CP_Image_Draw(the_snake.sprite.image, the_snake.position.x, the_snake.position.y, the_snake.sprite.width, the_snake.sprite.height, 255);
+	for (int i = 0; i < GRID_SIZE - 1; i++)
+	{
+		struct Segment segment = the_snake.segments[i];
+		if (segment.active)
+		{
+			CP_Image_Draw(the_snake.sprite.image, 
+				segment.position.x, segment.position.y,
+				the_snake.sprite.width, the_snake.sprite.height, 255);
+		}
+	}
 	Snake_DrawGrid();
 }
