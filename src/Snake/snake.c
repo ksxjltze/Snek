@@ -49,12 +49,15 @@ struct Snake
 void Snake_Init(void)
 {
 	CP_Image img_snake = CP_Image_Load("./Assets/snake.png");
+	CP_Image img_food = CP_Image_Load("./Assets/food.png");
 	WINDOW_CENTRE = CP_Vector_Set((float)WINDOW_WIDTH / 2, (float)WINDOW_HEIGHT / 2);
 
 	target = (float)(WINDOW_WIDTH + WINDOW_HEIGHT) / 4;
 	offset = ((float)(WINDOW_WIDTH + WINDOW_HEIGHT) / 4) / 2;
 	Snake_SetGrid();
 	move_timer = grid_seconds;
+
+	Food_Init(&food, img_food, grid);
 
 	the_snake.sprite.image = img_snake;
 	the_snake.grid_position = 3;
@@ -78,6 +81,7 @@ void Snake_Update(void)
 	Snake_UpdateInput();
 	Snake_Timer();
 	Snake_UpdateMovement();
+	Food_Update(&food);
 	Snake_Draw();
 
 }
