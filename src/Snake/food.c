@@ -20,7 +20,8 @@ void Food_Draw(struct Food food)
 	CP_Image_Draw(food.sprite.image, food.position.x, food.position.y, food.sprite.width, food.sprite.height, 255);
 }
 
-void Food_Eaten(struct Food* food)
+void Food_Respawn(struct Food* food, CP_Vector grid[])
 {
-
+	food->grid_pos = Random_Grid_Pos();
+	food->position = grid[food->grid_pos];
 }

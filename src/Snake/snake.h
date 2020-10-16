@@ -10,3 +10,5 @@ void Snake_Draw(void);
 void Snake_DrawGrid(void);
 void Snake_SetGrid(void);
 void Snake_Timer(void);
+void Snake_Eat(void);
+void Snake_Grow(void);

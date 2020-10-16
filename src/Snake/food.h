@@ -12,4 +12,4 @@ struct Food
 void Food_Init(struct Food* food, CP_Image sprite, CP_Vector grid[]);
 void Food_Update(struct Food* food);
 void Food_Draw(struct Food food);
-void Food_Eaten(struct Food* food);
+void Food_Respawn(struct Food* food, CP_Vector grid[]);

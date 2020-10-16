@@ -82,6 +82,7 @@ void Snake_Update(void)
 	Snake_Timer();
 	Snake_UpdateMovement();
 	Food_Update(&food);
+	Snake_Eat();
 	Snake_Draw();
 
 }
@@ -89,6 +90,41 @@ void Snake_Update(void)
 void Snake_Exit(void)
 {
 
+}
+
+
+void Snake_Eat()
+{
+	if (the_snake.grid_position == food.grid_pos)
+	{
+		Snake_Grow();
+		Food_Respawn(&food, grid);
+	}
+}
+
+void Snake_Grow()
+{
+	int direction = the_snake.direction;
+	if (direction % 2 == 0)
+		direction /= 2;
+	else
+		direction *= GRID_WIDTH;
+
+	for (int i = 0; i < GRID_SIZE - 1; i++)
+	{
+		struct Segment* segment = &the_snake.segments[i];
+		if (!segment->active)
+		{
+			segment->active = true;
+			if (i > 0)
+				segment->grid_position = the_snake.segments[i - 1].grid_position - direction;
+			else
+				segment->grid_position = the_snake.grid_position - direction;
+
+			segment->position = grid[segment->grid_position];
+			return;
+		}
+	}
 }
 
 void Snake_SetGrid()
