@@ -6,14 +6,14 @@ static const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
 #define GRID_SIZE 100
 static int GRID_WIDTH = 10;
 static float CELL_WIDTH;
-static float CELL_HEIGHT;
-static float speed = 1.0f; //Grid per second
+
+static float grid_seconds = 0.5f; //seconds per grid
+float move_timer;
 
 float offset;
 float target;
 static CP_Vector WINDOW_CENTRE;
 
-float moveTimer;
 CP_Vector grid[GRID_SIZE];
 
 enum direction
@@ -43,18 +43,19 @@ void Snake_Init(void)
 {
 	CP_Image img_snake = CP_Image_Load("./Assets/snake.png");
 	WINDOW_CENTRE = CP_Vector_Set((float)WINDOW_WIDTH / 2, (float)WINDOW_HEIGHT / 2);
+
+	target = (float)(WINDOW_WIDTH + WINDOW_HEIGHT) / 4;
+	offset = ((float)(WINDOW_WIDTH + WINDOW_HEIGHT) / 4) / 2;
+	Snake_SetGrid();
+	move_timer = grid_seconds;
+
 	the_snake.sprite.image = img_snake;
-	the_snake.position = WINDOW_CENTRE;
+	the_snake.position = grid[0];
 	the_snake.direction = RIGHT;
 
 	the_snake.sprite.width = (float)CP_Image_GetWidth(img_snake);
 	the_snake.sprite.height = (float)CP_Image_GetHeight(img_snake);
 
-	target = (float)(WINDOW_WIDTH + WINDOW_HEIGHT) / 4;
-	offset = ((float)(WINDOW_WIDTH + WINDOW_HEIGHT) / 4) / 2;
-
-	Snake_SetGrid();
-	moveTimer = 0.0f;
 
 }
 
@@ -87,9 +88,15 @@ void Snake_DrawGrid()
 void Snake_Update(void)
 {
 	Snake_UpdateInput();
+	Snake_Timer();
 	Snake_UpdateMovement();
 	Snake_Draw();
 
+}
+
+void Snake_Timer(void)
+{
+	move_timer -= CP_System_GetDt();
 }
 
 void Snake_Exit(void)
@@ -127,16 +134,31 @@ void Snake_UpdateInput(void)
 
 void Snake_UpdateMovement(void)
 {
-	//if (moveTimer <= 0)
-	//{
-	//	the_snake.position = CP_Vector_Add(the_snake.position, the_snake.direction * CELL_WIDTH);
-	//}
+	if (move_timer <= 0)
+	{
+		CP_Vector movement = CP_Vector_Set(0, 0);
+		int direction = the_snake.direction;
+
+		if (direction % 2 == 0)
+		{
+			CP_Vector right = CP_Vector_Set(CELL_WIDTH, 0);
+			movement = CP_Vector_Scale(right, (float)direction / 2);
+		}
+		else
+		{
+			CP_Vector up = CP_Vector_Set(0, CELL_WIDTH);
+			movement = CP_Vector_Scale(up, (float)direction);
+		}
+		move_timer = grid_seconds;
+
+		the_snake.position = CP_Vector_Add(the_snake.position, movement);
+	}
 }
 
 void Snake_Draw(void)
 {
 	CP_Settings_Background(CP_Color_Create(255, 255, 255, 255));
 	//CP_Image_Draw(the_snake.sprite.image, the_snake.position.x, the_snake.position.y, the_snake.sprite.width, the_snake.sprite.height, 255);
-	CP_Image_Draw(the_snake.sprite.image, grid[0].x, grid[0].y, the_snake.sprite.width, the_snake.sprite.height, 255);
+	CP_Image_Draw(the_snake.sprite.image, the_snake.position.x, the_snake.position.y, the_snake.sprite.width, the_snake.sprite.height, 255);
 	Snake_DrawGrid();
 }

@@ -8,3 +8,4 @@ void Snake_UpdateMovement(void);
 void Snake_Draw(void);
 void Snake_DrawGrid(void);
 void Snake_SetGrid(void);
+void Snake_Timer(void);
