@@ -60,13 +60,13 @@ void Snake_Init(void)
 	Food_Init(&food, img_food, grid);
 
 	the_snake.sprite.image = img_snake;
-	the_snake.grid_position = 3;
-	the_snake.position = grid[3];
+	the_snake.grid_position = 5;
+	the_snake.position = grid[the_snake.grid_position];
 	the_snake.direction = RIGHT;
 
 	for (int i = 0; i < GRID_SIZE - 1; i++)
 	{
-		the_snake.segments[i].active = 0;
+		the_snake.segments[i].active = false;
 		the_snake.segments[i].position = CP_Vector_Set(0, 0);
 		the_snake.segments[i].grid_position = 0;
 	}
@@ -202,15 +202,15 @@ void Snake_UpdateMovement(void)
 		else
 			pos += direction * GRID_WIDTH;
 
-		for (int i = GRID_SIZE - 1; i >= 0; i--)
+		for (int i = GRID_SIZE - 2; i >= 0; i--)
 		{
 			struct Segment* segment = &the_snake.segments[i];
 			if (segment->active)
 			{
-				if (i > 1)
+				if (i > 0)
 					segment->grid_position = the_snake.segments[i - 1].grid_position;
 				else
-					segment->grid_position = pos;
+					segment->grid_position = the_snake.grid_position;
 
 				segment->position = grid[segment->grid_position];
 
