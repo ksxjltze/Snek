@@ -20,11 +20,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\Snake\food.c" />
     <ClCompile Include="src\Snake\snake.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="food.h" />
+    <ClInclude Include="sprite.h" />
+    <ClInclude Include="src\Snake\globals.h" />
     <ClInclude Include="src\Snake\snake.h" />
+    <ClInclude Include="src\Snake\utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

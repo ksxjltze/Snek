@@ -10,12 +10,24 @@
       <Filter>Snake</Filter>
     </ClCompile>
     <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\Snake\food.c">
+      <Filter>Snake</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\snake.h">
       <Filter>Snake</Filter>
     </ClInclude>
     <ClInclude Include="food.h">
+      <Filter>Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="sprite.h">
+      <Filter>Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Snake\globals.h">
+      <Filter>Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Snake\utils.h">
       <Filter>Snake</Filter>
     </ClInclude>
   </ItemGroup>

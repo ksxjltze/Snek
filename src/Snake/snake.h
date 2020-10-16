@@ -1,4 +1,5 @@
 #pragma once
+
 //Declare in Snake.h
 void Snake_Init(void);
 void Snake_Update(void);

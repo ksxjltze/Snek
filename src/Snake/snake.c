@@ -1,10 +1,12 @@
 #include "snake.h"
-#include "CProcessing.h"
+#include "sprite.h"
+#include "cprocessing.h"
 #include <stdbool.h>
-//Define in Snake.c
-static const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
+#include "food.h"
+#include "globals.h"
 
-#define GRID_SIZE 100
+//Define in Snake.c
+extern const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
 static int GRID_WIDTH = 10;
 static float CELL_WIDTH;
 
@@ -14,8 +16,9 @@ float move_timer;
 float offset;
 float target;
 static CP_Vector WINDOW_CENTRE;
-
 CP_Vector grid[GRID_SIZE];
+
+struct Food food;
 
 enum direction
 {
@@ -23,13 +26,6 @@ enum direction
 	UP, 
 	DOWN = 1, 
 	RIGHT
-};
-
-struct Sprite
-{
-	CP_Image image;
-	float width;
-	float height;
 };
 
 struct Segment
