@@ -9,9 +9,13 @@
     <ClCompile Include="src\Snake\snake.c">
       <Filter>Snake</Filter>
     </ClCompile>
+    <ClCompile Include="src\main.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\snake.h">
+      <Filter>Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="food.h">
       <Filter>Snake</Filter>
     </ClInclude>
   </ItemGroup>

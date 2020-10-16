@@ -34,8 +34,8 @@ struct Sprite
 struct Snake
 {
 	struct Sprite sprite;
-	CP_Vector grid_position;
 	CP_Vector position;
+	int grid_position;
 	int direction;
 }the_snake;
 
@@ -53,8 +53,8 @@ void Snake_Init(void)
 	the_snake.position = grid[0];
 	the_snake.direction = RIGHT;
 
-	the_snake.sprite.width = (float)CP_Image_GetWidth(img_snake);
-	the_snake.sprite.height = (float)CP_Image_GetHeight(img_snake);
+	the_snake.sprite.width = (float)CP_Image_GetWidth(img_snake) * 2;
+	the_snake.sprite.height = (float)CP_Image_GetHeight(img_snake) * 2;
 
 
 }
@@ -136,22 +136,17 @@ void Snake_UpdateMovement(void)
 {
 	if (move_timer <= 0)
 	{
-		CP_Vector movement = CP_Vector_Set(0, 0);
+		move_timer = grid_seconds;
 		int direction = the_snake.direction;
+		int pos = the_snake.grid_position;
 
 		if (direction % 2 == 0)
-		{
-			CP_Vector right = CP_Vector_Set(CELL_WIDTH, 0);
-			movement = CP_Vector_Scale(right, (float)direction / 2);
-		}
+			pos += direction / 2;
 		else
-		{
-			CP_Vector up = CP_Vector_Set(0, CELL_WIDTH);
-			movement = CP_Vector_Scale(up, (float)direction);
-		}
-		move_timer = grid_seconds;
+			pos += direction * GRID_WIDTH;
 
-		the_snake.position = CP_Vector_Add(the_snake.position, movement);
+		the_snake.grid_position = pos;
+		the_snake.position = grid[pos];
 	}
 }
 

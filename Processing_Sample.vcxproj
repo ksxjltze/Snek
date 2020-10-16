@@ -23,6 +23,7 @@
     <ClCompile Include="src\Snake\snake.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="food.h" />
     <ClInclude Include="src\Snake\snake.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
