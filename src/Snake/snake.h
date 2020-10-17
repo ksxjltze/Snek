@@ -18,7 +18,11 @@ void Snake_DrawBoundary(void);
 //Grid and Boundary
 void Snake_SetGrid(void);
 void Snake_SetBoundary(void);
+void Snake_CheckBoundary(void);
 
 //Grow
 void Snake_Eat(void);
 void Snake_Grow(void);
+
+//GG
+void Snake_GameOver(void);

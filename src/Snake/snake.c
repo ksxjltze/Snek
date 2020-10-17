@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include "food.h"
 #include "globals.h"
+#include "gameover.h"
 
 //Define in Snake.c
 #define DEBUG 1;
@@ -163,6 +164,34 @@ void Snake_SetBoundary()
 	}
 }
 
+void Snake_CheckBoundary()
+{
+	CP_Vector snake_pos = the_snake.position;
+	int right_index = BOUNDARY_SIZE - GRID_WIDTH;
+	for (int i = 0; i < GRID_WIDTH; i++) //top and bottom
+	{
+		CP_Vector pos_top = boundary[i];
+		CP_Vector pos_bottom = boundary[right_index + i];
+
+		bool is_top = snake_pos.x == pos_top.x && snake_pos.y == pos_top.y;
+		bool is_bottom = snake_pos.x == pos_bottom.x && snake_pos.y == pos_bottom.y;
+
+		if (the_snake.direction % 2 != 0)
+		{
+			if (is_top && the_snake.direction < 0)
+				Snake_GameOver();
+			else if (is_bottom && the_snake.direction > 0)
+				Snake_GameOver();
+		}
+		
+	}
+
+	for (int i = 0; i < BOUNDARY_SIZE; i++)//left and right
+	{
+
+	}
+}
+
 void Snake_DrawBoundary()
 {
 	for (int i = 0; i < BOUNDARY_SIZE; i++)
@@ -229,6 +258,8 @@ void Snake_UpdateMovement(void)
 		int direction = the_snake.direction;
 		int pos = the_snake.grid_position;
 
+		Snake_CheckBoundary();
+
 		if (direction % 2 == 0)
 			pos += direction / 2;
 		else
@@ -273,3 +304,10 @@ void Snake_Draw(void)
 	Snake_DrawGrid();
 	Snake_DrawBoundary();
 }
+
+void Snake_GameOver()
+{
+	CP_Engine_SetNextGameState(GameOver_Init, GameOver_Update, GameOver_Exit);
+	CP_Engine_Run();
+}
+
