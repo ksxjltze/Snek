@@ -6,9 +6,11 @@
 #include "globals.h"
 
 //Define in Snake.c
+#define DEBUG 1;
 extern const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
-static int GRID_WIDTH = 10;
+static const int GRID_WIDTH = 10;
 static float CELL_WIDTH;
+enum CONSTANTS { BOUNDARY_SIZE = GRID_SIZE / 10 * 4 - 4 };
 
 static float grid_seconds = 0.5f; //seconds per grid
 float move_timer;
@@ -17,6 +19,7 @@ float offset;
 float target;
 static CP_Vector WINDOW_CENTRE;
 CP_Vector grid[GRID_SIZE];
+CP_Vector boundary[BOUNDARY_SIZE];
 
 struct Food food;
 
@@ -55,6 +58,7 @@ void Snake_Init(void)
 	target = (float)(WINDOW_WIDTH + WINDOW_HEIGHT) / 4;
 	offset = ((float)(WINDOW_WIDTH + WINDOW_HEIGHT) / 4) / 2;
 	Snake_SetGrid();
+	Snake_SetBoundary();
 	move_timer = grid_seconds;
 
 	Food_Init(&food, img_food, grid);
@@ -138,7 +142,35 @@ void Snake_SetGrid()
 	}
 }
 
+void Snake_SetBoundary()
+{
+	int boundary_index = BOUNDARY_SIZE - GRID_WIDTH; //last row
+	int grid_index = GRID_SIZE - GRID_WIDTH;
+	for (int i = 0; i < GRID_WIDTH; i++) //first and last row
+	{
+		boundary[i] = grid[i];
+		boundary[boundary_index + i] = grid[grid_index + i];
+	}
 
+	for (int i = 0; i < GRID_WIDTH - 2; i++) //middle rows
+	{
+		int first_index = (i + 1) * GRID_WIDTH;
+		int last_index = (i + 2) * GRID_WIDTH - 1;
+
+		boundary[GRID_WIDTH + i] = grid[first_index];
+		boundary[2 * GRID_WIDTH - 2 + i] = grid[last_index];
+
+	}
+}
+
+void Snake_DrawBoundary()
+{
+	for (int i = 0; i < BOUNDARY_SIZE; i++)
+	{
+		CP_Vector position = boundary[i];
+		CP_Graphics_DrawCircle(position.x, position.y, 8);
+	}
+}
 
 void Snake_DrawGrid()
 {
@@ -237,5 +269,7 @@ void Snake_Draw(void)
 				the_snake.sprite.width, the_snake.sprite.height, 255);
 		}
 	}
+
 	Snake_DrawGrid();
+	Snake_DrawBoundary();
 }
