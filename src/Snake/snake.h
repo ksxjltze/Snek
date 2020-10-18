@@ -13,13 +13,6 @@ void Snake_Timer(void);
 
 //Draw
 void Snake_Draw(void);
-void Snake_DrawGrid(void);
-void Snake_DrawBoundary(void);
-
-//Grid and Boundary
-void Snake_SetGrid(void);
-void Snake_SetBoundary(void);
-bool Snake_CheckBoundary(void);
 
 //Grow
 void Snake_Eat(void);

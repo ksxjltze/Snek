@@ -16,6 +16,9 @@
     <ClCompile Include="src\Snake\gameover.c">
       <Filter>Snake</Filter>
     </ClCompile>
+    <ClCompile Include="src\Snake\grid.c">
+      <Filter>Snake</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\snake.h">
@@ -34,6 +37,9 @@
       <Filter>Snake</Filter>
     </ClInclude>
     <ClInclude Include="src\Snake\gameover.h">
+      <Filter>Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Snake\grid.h">
       <Filter>Snake</Filter>
     </ClInclude>
   </ItemGroup>
