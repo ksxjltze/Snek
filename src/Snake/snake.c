@@ -1,7 +1,6 @@
 #include "snake.h"
 #include "sprite.h"
 #include "cprocessing.h"
-#include "food.h"
 #include "globals.h"
 #include "gameover.h"
 #include "grid.h"
@@ -44,12 +43,9 @@ struct Snake //Snake (Player)
 	
 }the_snake;
 
-struct Food food; //Instance of food struct.
-
 void Snake_Init(void)
 {
 	CP_Image img_snake = CP_Image_Load("./Assets/snek.png");
-	CP_Image img_food = CP_Image_Load("./Assets/food.png");
 	WINDOW_CENTRE = CP_Vector_Set((float)WINDOW_WIDTH / 2, (float)WINDOW_HEIGHT / 2);
 	CP_Settings_Stroke(CP_Color_Create(255, 255, 255, 255)); //White lines
 	BACKGROUND_COLOR = CP_Color_Create(0, 0, 0, 255); //Black
@@ -57,8 +53,6 @@ void Snake_Init(void)
 	Snake_Grid_Init();
 	Snake_SetGrid(grid);
 	move_timer = grid_seconds;
-
-	Food_Init(&food, img_food, grid);
 
 	the_snake.sprite.image = img_snake;
 	the_snake.grid_position = 15;
@@ -75,6 +69,9 @@ void Snake_Init(void)
 	the_snake.sprite.width = (float)CP_Image_GetWidth(img_snake) * 2;
 	the_snake.sprite.height = (float)CP_Image_GetHeight(img_snake) * 2;
 
+	the_snake.sprite.width = (float)CP_Image_GetWidth(img_snake);
+	the_snake.sprite.height = (float)CP_Image_GetHeight(img_snake);
+	init_score();
 }
 
 void Snake_Update(void)
@@ -82,25 +79,13 @@ void Snake_Update(void)
 	Snake_UpdateInput();
 	Snake_Timer();
 	Snake_UpdateMovement();
-	Food_Update(&food);
-	Snake_Eat();
 	Snake_Draw();
-
+	update_score();
 }
 
 void Snake_Exit(void)
 {
 
-}
-
-
-void Snake_Eat()
-{
-	if (the_snake.grid_position == food.grid_pos)
-	{
-		Snake_Grow();
-		Food_Respawn(&food, grid);
-	}
 }
 
 void Snake_Grow()

@@ -1,46 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Snake">
-      <UniqueIdentifier>{76171bfb-6c2d-4989-a7d6-b28efaec5988}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\Snake\snake.c">
-      <Filter>Snake</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.c" />
-    <ClCompile Include="src\Snake\food.c">
-      <Filter>Snake</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Snake\gameover.c">
-      <Filter>Snake</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Snake\grid.c">
-      <Filter>Snake</Filter>
-    </ClCompile>
+    <ClCompile Include="src\Snake\gameover.c" />
+    <ClCompile Include="src\Snake\grid.c" />
+    <ClCompile Include="src\Snake\MainMenu.c" />
+    <ClCompile Include="src\Snake\snake.c" />
+    <ClCompile Include="src\Snake\score.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Snake\snake.h">
-      <Filter>Snake</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Snake\globals.h">
-      <Filter>Snake</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Snake\utils.h">
-      <Filter>Snake</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Snake\food.h">
-      <Filter>Snake</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Snake\sprite.h">
-      <Filter>Snake</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Snake\gameover.h">
-      <Filter>Snake</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Snake\grid.h">
-      <Filter>Snake</Filter>
-    </ClInclude>
+    <ClInclude Include="src\Snake\gameover.h" />
+    <ClInclude Include="src\Snake\globals.h" />
+    <ClInclude Include="src\Snake\grid.h" />
+    <ClInclude Include="src\Snake\snake.h" />
+    <ClInclude Include="src\Snake\sprite.h" />
+    <ClInclude Include="src\Snake\utils.h" />
+    <ClInclude Include="src\Snake\MainMenu.h" />
+    <ClInclude Include="src\Snake\score.h" />
   </ItemGroup>
 </Project>

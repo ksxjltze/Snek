@@ -1,7 +1,9 @@
 #pragma once
 #include <stdbool.h> //bool (true, false)
-
+#include "MainMenu.h"
+#include "score.h"
 //Declare in Snake.h
+
 void Snake_Init(void);
 void Snake_Update(void);
 void Snake_Exit(void);
@@ -15,7 +17,6 @@ void Snake_Timer(void);
 void Snake_Draw(void);
 
 //Grow
-void Snake_Eat(void);
 void Snake_Grow(void);
 
 //GG

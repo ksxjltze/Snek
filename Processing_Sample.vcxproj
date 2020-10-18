@@ -20,19 +20,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.c" />
-    <ClCompile Include="src\Snake\food.c" />
     <ClCompile Include="src\Snake\gameover.c" />
     <ClCompile Include="src\Snake\grid.c" />
+    <ClCompile Include="src\Snake\MainMenu.c" />
     <ClCompile Include="src\Snake\snake.c" />
+    <ClCompile Include="src\Snake\score.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Snake\food.h" />
     <ClInclude Include="src\Snake\gameover.h" />
     <ClInclude Include="src\Snake\globals.h" />
     <ClInclude Include="src\Snake\grid.h" />
     <ClInclude Include="src\Snake\snake.h" />
     <ClInclude Include="src\Snake\sprite.h" />
     <ClInclude Include="src\Snake\utils.h" />
+    <ClInclude Include="src\Snake\MainMenu.h" />
+    <ClInclude Include="src\Snake\score.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
