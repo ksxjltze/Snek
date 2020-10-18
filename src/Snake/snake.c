@@ -56,7 +56,6 @@ void Snake_Init(void)
 
 	Snake_Grid_Init();
 	Snake_SetGrid(grid);
-	Snake_SetBoundary(grid, boundary);
 	move_timer = grid_seconds;
 
 	Food_Init(&food, img_food, grid);
@@ -167,9 +166,6 @@ void Snake_UpdateMovement(void)
 {
 	if (move_timer <= 0)
 	{
-		if (Snake_CheckBoundary(the_snake.position, the_snake.direction, boundary))
-			return;
-
 		move_timer = grid_seconds;
 		int direction = the_snake.direction;
 		int pos = the_snake.grid_position;
@@ -216,7 +212,6 @@ void Snake_Draw(void)
 	}
 
 	Snake_DrawGrid();
-	Snake_DrawBoundary(boundary);
 }
 
 void Snake_GameOver()
