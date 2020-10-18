@@ -9,6 +9,7 @@
 #define DEBUG 1;
 extern const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
 static float CELL_WIDTH;
+static CP_Color BACKGROUND_COLOR;
 enum CONSTANTS { BOUNDARY_SIZE = GRID_SIZE / GRID_WIDTH * 4 - 4 }; //Constants
 
 static float grid_seconds = 0.5f; //seconds per grid (movement)
@@ -50,9 +51,11 @@ struct Food food; //Instance of food struct.
 
 void Snake_Init(void)
 {
-	CP_Image img_snake = CP_Image_Load("./Assets/snake.png");
+	CP_Image img_snake = CP_Image_Load("./Assets/snek.png");
 	CP_Image img_food = CP_Image_Load("./Assets/food.png");
 	WINDOW_CENTRE = CP_Vector_Set((float)WINDOW_WIDTH / 2, (float)WINDOW_HEIGHT / 2);
+	CP_Settings_Stroke(CP_Color_Create(255, 255, 255, 255)); //White lines
+	BACKGROUND_COLOR = CP_Color_Create(0, 0, 0, 255); //Black
 
 	offset = 10; //10 pixels from top left corner
 	target = (float)WINDOW_HEIGHT - 2 * offset; //Fit to Window (based on height)
@@ -319,7 +322,7 @@ void Snake_UpdateMovement(void)
 
 void Snake_Draw(void)
 {
-	CP_Settings_Background(CP_Color_Create(255, 255, 255, 255));
+	CP_Settings_Background(BACKGROUND_COLOR);
 	//CP_Image_Draw(the_snake.sprite.image, the_snake.position.x, the_snake.position.y, the_snake.sprite.width, the_snake.sprite.height, 255);
 	CP_Image_Draw(the_snake.sprite.image, the_snake.position.x, the_snake.position.y, the_snake.sprite.width, the_snake.sprite.height, 255);
 	for (int i = 0; i < GRID_SIZE - 1; i++)
