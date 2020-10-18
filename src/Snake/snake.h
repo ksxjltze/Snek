@@ -9,5 +9,5 @@ void Snake_UpdateMovement(void);
 void Snake_Draw(void);
 CP_Vector Snake_CalculateMovement(int direction);
 void Snake_Init_Snake(CP_Image snake_sprite);
-void Snake_UpdateSegments(void);
+void Snake_UpdateSegments(CP_Vector movement);
 

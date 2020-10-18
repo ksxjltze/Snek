@@ -69,6 +69,18 @@ void Snake_Init_Snake(CP_Image snake_sprite)
 	the_snake.sprite.height = (float)CP_Image_GetHeight(snake_sprite);
 
 	current->position = CP_Vector_Set(the_snake.position.x - the_snake.sprite.width, the_snake.position.y);
+	the_snake.tail = current;
+	the_snake.tail->next = NULL;
+
+	for (int i = 0; i < 10; i++)
+	{
+		current = malloc(sizeof * current);
+		if (current == 0)
+			return;
+		current->position = CP_Vector_Set(the_snake.tail->position.x - the_snake.sprite.width, the_snake.tail->position.y);
+		current->next = the_snake.tail;
+		the_snake.tail = current;
+	}
 
 }
 
@@ -127,23 +139,24 @@ CP_Vector Snake_CalculateMovement(int direction)
 	if (direction % 2 == 0)
 		movement_vector = CP_Vector_Scale(
 			CP_Vector_Normalize(
-				CP_Vector_Set((float)direction, 0)), the_snake.speed * CP_System_GetDt()); //Horizontal
+				CP_Vector_Set((float)direction, 0)), the_snake.sprite.width); //Horizontal
 	else
 		movement_vector = CP_Vector_Scale(
 			CP_Vector_Normalize(
-				CP_Vector_Set(0, (float)direction)), the_snake.speed * CP_System_GetDt()); //Vertical
+				CP_Vector_Set(0, (float)direction)), the_snake.sprite.height); //Vertical
 
 	return movement_vector;
 }
 
 void Snake_UpdateMovement(void)
 {
-	the_snake.position = CP_Vector_Add(the_snake.position, Snake_CalculateMovement(the_snake.direction));
-	//Snake_UpdateSegments();
+	CP_Vector movement = Snake_CalculateMovement(the_snake.direction);
+	the_snake.position = CP_Vector_Add(the_snake.position, movement);
+	Snake_UpdateSegments(movement);
 
 }
 
-void Snake_UpdateSegments(void)
+void Snake_UpdateSegments(CP_Vector movement)
 {
 	struct Segment* current = the_snake.tail;
 	while (current->next != NULL)
@@ -152,6 +165,7 @@ void Snake_UpdateSegments(void)
 		current->position = next->position;
 		current = next;
 	}
+	current->position = CP_Vector_Subtract(the_snake.position, movement);
 }
 
 void Snake_Draw(void)
@@ -172,10 +186,8 @@ void Snake_Draw(void)
 	CP_Settings_Background(CP_Color_Create(0, 0, 0, 255));
 	CP_Image_Draw(the_snake.sprite.image, the_snake.position.x, the_snake.position.y, the_snake.sprite.width, the_snake.sprite.height, 255);
 	struct Segment* current = the_snake.tail;
-	if (current == NULL)
-		return;
 
-	while (current->next != NULL)
+	while (current != NULL)
 	{
 		CP_Image_Draw(the_snake.sprite.image, current->position.x, current->position.y, the_snake.sprite.width, the_snake.sprite.height, 255);
 		current = current->next;
