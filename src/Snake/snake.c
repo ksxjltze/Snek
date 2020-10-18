@@ -11,16 +11,14 @@ extern const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
 static float CELL_WIDTH;
 enum CONSTANTS { BOUNDARY_SIZE = GRID_SIZE / 10 * 4 - 4 }; //constants
 
-static float grid_seconds = 0.5f; //seconds per grid
+static float grid_seconds = 0.5f; //seconds per grid (movement)
 float move_timer;
 
-float offset;
-float target;
+float offset; //Offset from top left corner of window.
+float target; //Size to draw grid.
 static CP_Vector WINDOW_CENTRE;
-CP_Vector grid[GRID_SIZE];
+CP_Vector grid[GRID_SIZE]; //Grid Positions
 CP_Vector boundary[BOUNDARY_SIZE]; //Grid boundary
-
-struct Food food;
 
 enum direction
 {
@@ -37,10 +35,10 @@ struct Segment
 	bool active;
 };
 
-struct Snake
+struct Snake //Snake (Player)
 {
 	struct Sprite sprite;
-	struct Segment segments[GRID_SIZE - 1];
+	struct Segment segments[GRID_SIZE - 1]; //Snake Body
 
 	CP_Vector position;
 	int grid_position;
@@ -48,14 +46,16 @@ struct Snake
 	
 }the_snake;
 
+struct Food food; //Instance of food struct.
+
 void Snake_Init(void)
 {
 	CP_Image img_snake = CP_Image_Load("./Assets/snake.png");
 	CP_Image img_food = CP_Image_Load("./Assets/food.png");
 	WINDOW_CENTRE = CP_Vector_Set((float)WINDOW_WIDTH / 2, (float)WINDOW_HEIGHT / 2);
 
-	target = (float)(WINDOW_WIDTH + WINDOW_HEIGHT) / 4;
-	offset = ((float)(WINDOW_WIDTH + WINDOW_HEIGHT) / 4) / 2;
+	offset = 10; //10 pixels from top left corner
+	target = (float)WINDOW_HEIGHT - 2 * offset; //Fit to Window (based on height)
 	Snake_SetGrid();
 	Snake_SetBoundary();
 	move_timer = grid_seconds;
