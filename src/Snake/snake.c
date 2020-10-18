@@ -9,7 +9,6 @@
 //Define in Snake.c
 #define DEBUG 1;
 extern const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
-static const int GRID_WIDTH = 10;
 static float CELL_WIDTH;
 enum CONSTANTS { BOUNDARY_SIZE = GRID_SIZE / 10 * 4 - 4 };
 
@@ -65,7 +64,7 @@ void Snake_Init(void)
 	Food_Init(&food, img_food, grid);
 
 	the_snake.sprite.image = img_snake;
-	the_snake.grid_position = 5;
+	the_snake.grid_position = 15;
 	the_snake.position = grid[the_snake.grid_position];
 	the_snake.direction = RIGHT;
 
@@ -168,28 +167,52 @@ void Snake_CheckBoundary()
 {
 	CP_Vector snake_pos = the_snake.position;
 	int right_index = BOUNDARY_SIZE - GRID_WIDTH;
-	for (int i = 0; i < GRID_WIDTH; i++) //top and bottom
+	bool is_top = false, is_bottom = false, is_left = false, is_right = false;
+
+	if (the_snake.direction % 2 != 0)
 	{
-		CP_Vector pos_top = boundary[i];
-		CP_Vector pos_bottom = boundary[right_index + i];
-
-		bool is_top = snake_pos.x == pos_top.x && snake_pos.y == pos_top.y;
-		bool is_bottom = snake_pos.x == pos_bottom.x && snake_pos.y == pos_bottom.y;
-
-		if (the_snake.direction % 2 != 0)
+		for (int i = 0; i < GRID_WIDTH; i++) //top and bottom
 		{
-			if (is_top && the_snake.direction < 0)
-				Snake_GameOver();
-			else if (is_bottom && the_snake.direction > 0)
-				Snake_GameOver();
-		}
+				CP_Vector pos_top = boundary[i];
+				CP_Vector pos_bottom = boundary[right_index + i];
+
+				is_top = snake_pos.x == pos_top.x && snake_pos.y == pos_top.y;
+				is_bottom = snake_pos.x == pos_bottom.x && snake_pos.y == pos_bottom.y;
+
+				if (is_top || is_bottom)
+					break;
 		
-	}
+		}
 
-	for (int i = 0; i < BOUNDARY_SIZE; i++)//left and right
+		if (is_top && the_snake.direction < 0)
+			Snake_GameOver();
+		else if (is_bottom && the_snake.direction > 0)
+			Snake_GameOver();
+
+	} 
+
+	if ((the_snake.direction % 2) == 0)
 	{
+		int column_offset = GRID_WIDTH - 2;
+		for (int i = GRID_WIDTH; i < BOUNDARY_SIZE - (GRID_WIDTH - column_offset); i++)
+		{
+			CP_Vector pos_left = boundary[i];
+			CP_Vector pos_right = boundary[i + column_offset];
 
+			is_left = snake_pos.x == pos_left.x && snake_pos.y == pos_left.y;
+			is_right = snake_pos.x == pos_right.x && snake_pos.y == pos_right.y;
+
+			if (is_left || is_right)
+				break;
+
+		}
+
+		if (is_left && the_snake.direction < 0)
+			Snake_GameOver();
+		else if (is_right && the_snake.direction > 0)
+			Snake_GameOver();
 	}
+
 }
 
 void Snake_DrawBoundary()
@@ -254,11 +277,11 @@ void Snake_UpdateMovement(void)
 {
 	if (move_timer <= 0)
 	{
+		Snake_CheckBoundary();
+
 		move_timer = grid_seconds;
 		int direction = the_snake.direction;
 		int pos = the_snake.grid_position;
-
-		Snake_CheckBoundary();
 
 		if (direction % 2 == 0)
 			pos += direction / 2;
