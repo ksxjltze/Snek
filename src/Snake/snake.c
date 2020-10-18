@@ -139,17 +139,6 @@ void Snake_UpdateMovement(void)
 
 void Snake_Draw(void)
 {
-	//for (int i = 0; i < GRID_SIZE; i++)
-	//{
-	//	/*CP_Graphics_DrawLine(0, i * CELL_HEIGHT, (float)WINDOW_WIDTH, i * CELL_HEIGHT);
-	//	CP_Graphics_DrawLine(i * CELL_WIDTH, 0, i * CELL_WIDTH, (float)WINDOW_HEIGHT);*/
-	//	for (int j = 0; j < GRID_SIZE; j++)
-	//	{
-	//		CP_Graphics_DrawCircle(i * CELL_WIDTH + CELL_WIDTH / 2, j * CELL_HEIGHT + CELL_HEIGHT / 2, 3);
-
-	//	}
-	//}
-
 	CP_Settings_Background(CP_Color_Create(0, 0, 0, 255));
 	CP_Image_Draw(the_snake.sprite.image, the_snake.head->position.x, the_snake.head->position.y, the_snake.sprite.width, the_snake.sprite.height, 255);
 }
