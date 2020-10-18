@@ -10,7 +10,9 @@ static const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
 static int GRID_SIZE = 50;
 float CELL_WIDTH;
 float CELL_HEIGHT;
-static float speed = 5; //Grids per second
+static float speed = 80.0f; //pixels per second
+float movement_timer;
+float seconds_per_movement;
 static CP_Vector WINDOW_CENTRE;
 
 enum direction
@@ -51,6 +53,8 @@ void Snake_Init(void)
 	CELL_HEIGHT = (float)WINDOW_HEIGHT / GRID_SIZE;
 
 	Snake_Init_Snake(img_snake);
+	seconds_per_movement = 1.0f / 60 * (the_snake.sprite.width * 60 / speed);
+	movement_timer = seconds_per_movement;
 }
 
 void Snake_Init_Snake(CP_Image snake_sprite)
@@ -150,10 +154,14 @@ CP_Vector Snake_CalculateMovement(int direction)
 
 void Snake_UpdateMovement(void)
 {
-	CP_Vector movement = Snake_CalculateMovement(the_snake.direction);
-	the_snake.position = CP_Vector_Add(the_snake.position, movement);
-	Snake_UpdateSegments(movement);
-
+	if (movement_timer <= 0)
+	{
+		movement_timer = seconds_per_movement;
+		CP_Vector movement = Snake_CalculateMovement(the_snake.direction);
+		the_snake.position = CP_Vector_Add(the_snake.position, movement);
+		Snake_UpdateSegments(movement);
+	}
+	movement_timer -= CP_System_GetDt();
 }
 
 void Snake_UpdateSegments(CP_Vector movement)
