@@ -1,7 +1,6 @@
 #include "snake.h"
 #include "sprite.h"
 #include "cprocessing.h"
-#include <stdbool.h>
 #include "food.h"
 #include "globals.h"
 #include "gameover.h"
@@ -10,7 +9,7 @@
 #define DEBUG 1;
 extern const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
 static float CELL_WIDTH;
-enum CONSTANTS { BOUNDARY_SIZE = GRID_SIZE / 10 * 4 - 4 };
+enum CONSTANTS { BOUNDARY_SIZE = GRID_SIZE / 10 * 4 - 4 }; //constants
 
 static float grid_seconds = 0.5f; //seconds per grid
 float move_timer;
@@ -19,7 +18,7 @@ float offset;
 float target;
 static CP_Vector WINDOW_CENTRE;
 CP_Vector grid[GRID_SIZE];
-CP_Vector boundary[BOUNDARY_SIZE];
+CP_Vector boundary[BOUNDARY_SIZE]; //Grid boundary
 
 struct Food food;
 
@@ -163,11 +162,12 @@ void Snake_SetBoundary()
 	}
 }
 
-void Snake_CheckBoundary()
+bool Snake_CheckBoundary()
 {
 	CP_Vector snake_pos = the_snake.position;
 	int right_index = BOUNDARY_SIZE - GRID_WIDTH;
 	bool is_top = false, is_bottom = false, is_left = false, is_right = false;
+	bool gameover = false;
 
 	if (the_snake.direction % 2 != 0)
 	{
@@ -185,9 +185,9 @@ void Snake_CheckBoundary()
 		}
 
 		if (is_top && the_snake.direction < 0)
-			Snake_GameOver();
+			gameover = true;
 		else if (is_bottom && the_snake.direction > 0)
-			Snake_GameOver();
+			gameover = true;
 
 	} 
 
@@ -208,10 +208,18 @@ void Snake_CheckBoundary()
 		}
 
 		if (is_left && the_snake.direction < 0)
-			Snake_GameOver();
+			gameover = true;
 		else if (is_right && the_snake.direction > 0)
-			Snake_GameOver();
+			gameover = true;
 	}
+
+	if (gameover)
+	{
+		Snake_GameOver();
+		return true;
+	}
+	
+	return false;
 
 }
 
@@ -277,7 +285,8 @@ void Snake_UpdateMovement(void)
 {
 	if (move_timer <= 0)
 	{
-		Snake_CheckBoundary();
+		if (Snake_CheckBoundary())
+			return;
 
 		move_timer = grid_seconds;
 		int direction = the_snake.direction;

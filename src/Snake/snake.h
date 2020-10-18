@@ -1,4 +1,5 @@
 #pragma once
+#include <stdbool.h> //bool (true, false)
 
 //Declare in Snake.h
 void Snake_Init(void);
@@ -18,7 +19,7 @@ void Snake_DrawBoundary(void);
 //Grid and Boundary
 void Snake_SetGrid(void);
 void Snake_SetBoundary(void);
-void Snake_CheckBoundary(void);
+bool Snake_CheckBoundary(void);
 
 //Grow
 void Snake_Eat(void);
