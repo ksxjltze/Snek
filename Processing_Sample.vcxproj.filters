@@ -13,12 +13,16 @@
     <ClCompile Include="src\Snake\MainMenu.c">
       <Filter>Snake</Filter>
     </ClCompile>
+    <ClCompile Include="src\Snake\score.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\snake.h">
       <Filter>Snake</Filter>
     </ClInclude>
     <ClInclude Include="src\Snake\MainMenu.h">
+      <Filter>Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Snake\score.h">
       <Filter>Snake</Filter>
     </ClInclude>
   </ItemGroup>

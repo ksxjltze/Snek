@@ -22,10 +22,12 @@
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\Snake\MainMenu.c" />
     <ClCompile Include="src\Snake\snake.c" />
+    <ClCompile Include="src\Snake\score.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\MainMenu.h" />
     <ClInclude Include="src\Snake\snake.h" />
+    <ClInclude Include="src\Snake\score.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

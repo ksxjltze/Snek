@@ -40,7 +40,7 @@ void Snake_Init(void)
 
 	the_snake.sprite.width = (float)CP_Image_GetWidth(img_snake);
 	the_snake.sprite.height = (float)CP_Image_GetHeight(img_snake);
-
+	init_score();
 }
 
 void Snake_Update(void)
@@ -48,7 +48,7 @@ void Snake_Update(void)
 	Snake_UpdateInput();
 	Snake_UpdateMovement();
 	Snake_Draw();
-
+	update_score();
 }
 
 void Snake_Exit(void)

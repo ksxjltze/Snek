@@ -1,6 +1,8 @@
 #pragma once
 #include "MainMenu.h"
+#include "score.h"
 //Declare in Snake.h
+
 void Snake_Init(void);
 void Snake_Update(void);
 void Snake_Exit(void);
