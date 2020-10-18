@@ -2,7 +2,6 @@
 #include "sprite.h"
 #include "cprocessing.h"
 #include "globals.h"
-#include "gameover.h"
 #include "grid.h"
 
 //Define in Snake.c
@@ -72,6 +71,7 @@ void Snake_Init(void)
 	the_snake.sprite.width = (float)CP_Image_GetWidth(img_snake);
 	the_snake.sprite.height = (float)CP_Image_GetHeight(img_snake);
 	init_score();
+	init_GameOver();
 }
 
 void Snake_Update(void)
@@ -81,6 +81,10 @@ void Snake_Update(void)
 	Snake_UpdateMovement();
 	Snake_Draw();
 	update_score();
+	if (CP_Input_KeyTriggered(KEY_Q))
+	{
+		CP_Engine_SetNextGameState(init_GameOver, update_GameOver, exit_GameOver);
+	}
 }
 
 void Snake_Exit(void)
@@ -144,7 +148,6 @@ void Snake_UpdateInput(void)
 		if (the_snake.direction != LEFT)
 			the_snake.direction = RIGHT;
 	}
-
 }
 
 void Snake_UpdateMovement(void)
@@ -197,11 +200,5 @@ void Snake_Draw(void)
 	}
 
 	Snake_DrawGrid();
-}
-
-void Snake_GameOver()
-{
-	CP_Engine_SetNextGameState(GameOver_Init, GameOver_Update, GameOver_Exit);
-	CP_Engine_Run();
 }
 

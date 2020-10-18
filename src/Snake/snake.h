@@ -2,6 +2,7 @@
 #include <stdbool.h> //bool (true, false)
 #include "MainMenu.h"
 #include "score.h"
+#include "gameover.h"
 //Declare in Snake.h
 
 void Snake_Init(void);
@@ -18,6 +19,3 @@ void Snake_Draw(void);
 
 //Grow
 void Snake_Grow(void);
-
-//GG
-void Snake_GameOver(void);

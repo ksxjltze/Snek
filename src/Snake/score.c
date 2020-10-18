@@ -4,21 +4,20 @@ void init_timerscore(void)
 {
 	Time_score.text = "Time:";
 	
-	Time_score.x = 50.0f;
+	Time_score.x = 850.0f;
 	
 }
 void init_foodscore(void)
 {
 	Food_score.text = "Food:";
 
-	Food_score.x = 200.0f;
+	Food_score.x = 1000.0f;
 	
 }
 void init_score(void)
 {
 	score.y = 50.0f;
 
-	CP_Settings_TextSize(20.0f);
 	score.text = CP_Color_Create(255, 255, 255, 255);
 
 	CP_Settings_Fill(score.text);
@@ -29,6 +28,7 @@ void init_score(void)
 
 void update_score(void)
 {
+	CP_Settings_TextSize(20.0f);
 	Time_score.count = CP_System_GetSeconds();
 	char str_buffer[16];
 	sprintf_s(str_buffer, 16, "%.2fs", Time_score.count);

@@ -1,14 +1,15 @@
 #pragma once
 #include "cprocessing.h"
 
-struct Button
+struct Menu_Button
 {
 	float width;
 	float height;
 	CP_Color hover;
 	CP_Color idle;
 	CP_Color text;
-}button;
+}Menu_button;
+
 struct Button1
 {	
 	const char* Play;
