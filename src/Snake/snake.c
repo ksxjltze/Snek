@@ -53,6 +53,11 @@ void Snake_Init(void)
 	CELL_WIDTH = (float)WINDOW_WIDTH / GRID_SIZE;
 	CELL_HEIGHT = (float)WINDOW_HEIGHT / GRID_SIZE;
 
+	Snake_Init_Snake(img_snake);
+}
+
+void Snake_Init_Snake(CP_Image snake_sprite)
+{
 	struct Segment* head = malloc(sizeof * head);
 	if (head == 0)
 		return;
@@ -65,13 +70,12 @@ void Snake_Init(void)
 	head->position = WINDOW_CENTRE;
 	head->next = current;
 	the_snake.head = head;
-	old_direction = RIGHT;
 
-	the_snake.sprite.image = img_snake;
+	the_snake.sprite.image = snake_sprite;
 	the_snake.speed = (speed * (CELL_WIDTH + CELL_HEIGHT) / 2);
 
-	the_snake.sprite.width = (float)CP_Image_GetWidth(img_snake);
-	the_snake.sprite.height = (float)CP_Image_GetHeight(img_snake);
+	the_snake.sprite.width = (float)CP_Image_GetWidth(snake_sprite);
+	the_snake.sprite.height = (float)CP_Image_GetHeight(snake_sprite);
 
 	for (int i = 1; i <= 10; i++)
 	{
@@ -86,16 +90,12 @@ void Snake_Init(void)
 		current->next = next;
 		current = next;
 	}
-
-
-
 }
 
 void Snake_Update(void)
 {
 	Snake_UpdateInput();
 	Snake_UpdateMovement();
-	Snake_UpdateDirection();
 	Snake_Draw();
 
 }
@@ -160,38 +160,11 @@ CP_Vector Snake_CalculateMovement(int direction)
 	return movement_vector;
 }
 
-void Snake_UpdateDirection(void)
-{
-	struct Segment* head = the_snake.head;
-	struct Segment* current = the_snake.head->next;
-
-	while (current->next != NULL)
-	{
-		if (head->turning)
-		{
-			current->direction = head->direction;
-		}
-
-		head = current;
-		current = current->next;
-
-	}
-}
-
 void Snake_UpdateMovement(void)
 {
 	the_snake.head->position = CP_Vector_Add(the_snake.head->position, Snake_CalculateMovement(the_snake.head->direction));
-	struct Segment* current = the_snake.head->next;
-
-	while (current->next != NULL)
-	{
-		current->position = CP_Vector_Add(current->position, Snake_CalculateMovement(current->direction));
-		current = current->next;
-
-	}
 
 }
-
 
 void Snake_Draw(void)
 {
