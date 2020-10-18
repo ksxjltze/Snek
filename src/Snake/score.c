@@ -1,26 +1,43 @@
 #include "score.h"
-static const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
-void init_timer(void)
+
+void init_timerscore(void)
 {
-	CP_Settings_TextSize(100.0f);
-
-	timer.x = 400.0f;
-	timer.y = 400.0f;
-	timer.text = CP_Color_Create(255, 255, 255, 255);
+	Time_score.text = "Time:";
+	
+	Time_score.x = 50.0f;
+	
 }
+void init_foodscore(void)
+{
+	Food_score.text = "Food:";
 
+	Food_score.x = 200.0f;
+	
+}
 void init_score(void)
 {
-	init_timer();
+	score.y = 50.0f;
+
+	CP_Settings_TextSize(20.0f);
+	score.text = CP_Color_Create(255, 255, 255, 255);
+
+	CP_Settings_Fill(score.text);
+
+	init_timerscore();
+	init_foodscore();
 }
 
 void update_score(void)
 {
-	timer.count = CP_System_GetSeconds();
+	Time_score.count = CP_System_GetSeconds();
 	char str_buffer[16];
-	sprintf_s(str_buffer, 16, "%.2f", 200.0f);
+	sprintf_s(str_buffer, 16, "%.2fs", Time_score.count);
 
-	CP_Font_DrawText("Hello World", 400.0f, 400.0f);
+	CP_Font_DrawText(Time_score.text, Time_score.x, score.y);
+
+	CP_Font_DrawText(str_buffer, Time_score.x + 50.0f, score.y);
+
+	CP_Font_DrawText(Food_score.text, Food_score.x, score.y);
 }
 
 void exit_score(void)

@@ -1,8 +1,6 @@
 #include "MainMenu.h"
 #include "snake.h"
-#include <stdio.h>
 static const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
-
 
 void Menu_init(void)
 {
