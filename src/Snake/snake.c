@@ -9,7 +9,7 @@
 #define DEBUG 1;
 extern const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
 static float CELL_WIDTH;
-enum CONSTANTS { BOUNDARY_SIZE = GRID_SIZE / 10 * 4 - 4 }; //constants
+enum CONSTANTS { BOUNDARY_SIZE = GRID_SIZE / GRID_WIDTH * 4 - 4 }; //Constants
 
 static float grid_seconds = 0.5f; //seconds per grid (movement)
 float move_timer;
@@ -194,7 +194,7 @@ bool Snake_CheckBoundary()
 	if ((the_snake.direction % 2) == 0)
 	{
 		int column_offset = GRID_WIDTH - 2;
-		for (int i = GRID_WIDTH; i < BOUNDARY_SIZE - (GRID_WIDTH - column_offset); i++)
+		for (int i = GRID_WIDTH; i < BOUNDARY_SIZE - GRID_WIDTH - column_offset; i++)
 		{
 			CP_Vector pos_left = boundary[i];
 			CP_Vector pos_right = boundary[i + column_offset];
