@@ -1,33 +1,35 @@
 #pragma once
-#include "cprocessing.h"
-#include "snake.h"
-#include "MainMenu.h"
+#include "Cprocessing.h"
 
-struct GameOver_Button
+struct Death
 {
-	float x;
+	CP_Image screen;
+}gameover;
+
+struct Button
+{
 	float width;
 	float height;
-	CP_Color hover;
-	CP_Color idle;
-	CP_Color text;
+	CP_Color color;
 
-}GameOver_button;
+}button;
 
-struct Retry_button
+struct Retry
 {
 	const char* text;
+	float x;
 	float y;
 
 }retry_button;
 
-struct Quit_button
+struct Quit_Button
 {
 	const char* text;
+	float x;
 	float y;
-}quit_button;
+}quiit_button;
 
-void GameOver_button_init(void);
-void init_GameOver(void);
-void update_GameOver(void);
-void exit_GameOver(void);
+void gameover_button(void);
+void gameover_init(void);
+void gameover_update(void);
+void gameover_exit(void);
