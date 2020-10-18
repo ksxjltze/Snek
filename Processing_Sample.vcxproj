@@ -20,9 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\Snake\MainMenu.c" />
     <ClCompile Include="src\Snake\snake.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Snake\MainMenu.h" />
     <ClInclude Include="src\Snake\snake.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

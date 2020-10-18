@@ -16,6 +16,7 @@
 /*For console and printf*/
 #include <stdio.h>
 #include "Snake/snake.h"
+#include "Snake/MainMenu.h"
 
 static const float WINDOW_SCALE = 0.8f;
 static const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
@@ -40,7 +41,7 @@ int main(void)
 	freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
 
 
-	CP_Engine_SetNextGameState(Snake_Init, Snake_Update, Snake_Exit);
+	CP_Engine_SetNextGameState(Menu_init, Menu_update, Menu_exit);
 	CP_Engine_Run();
 	return 0;
 }
