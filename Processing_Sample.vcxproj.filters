@@ -9,7 +9,6 @@
     <ClCompile Include="src\Snake\score.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Snake\gameover.h" />
     <ClInclude Include="src\Snake\globals.h" />
     <ClInclude Include="src\Snake\grid.h" />
     <ClInclude Include="src\Snake\snake.h" />
@@ -17,5 +16,6 @@
     <ClInclude Include="src\Snake\utils.h" />
     <ClInclude Include="src\Snake\MainMenu.h" />
     <ClInclude Include="src\Snake\score.h" />
+    <ClInclude Include="src\Snake\gameover.h" />
   </ItemGroup>
 </Project>
