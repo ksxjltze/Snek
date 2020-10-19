@@ -90,6 +90,7 @@ void Snake_Exit(void)
 
 }
 
+//Makes the snake grow longer.
 void Snake_Grow()
 {
 	int direction = the_snake.direction;
@@ -98,16 +99,17 @@ void Snake_Grow()
 	else					//Vertical
 		direction *= GRID_WIDTH;
 
+	//Finds and sets the next segment's position, sets it to active then returns.
 	for (int i = 0; i < GRID_SIZE - 1; i++)
 	{
 		struct Segment* segment = &the_snake.segments[i];
-		if (!segment->active)
+		if (!segment->active) //Find first inactive segment. i.e. Segment after the "Last Segment".
 		{
 			segment->active = true;
 			if (i > 0)
-				segment->grid_position = the_snake.segments[i - 1].grid_position - direction;
+				segment->grid_position = the_snake.segments[i - 1].grid_position - direction;	//Segments after the first.
 			else
-				segment->grid_position = the_snake.grid_position - direction;
+				segment->grid_position = the_snake.grid_position - direction;					//First segment after the head.
 
 			segment->position = grid[segment->grid_position];
 			return;
@@ -150,7 +152,7 @@ void Snake_UpdateInput(void)
 
 void Snake_UpdateMovement(void)
 {
-	if (move_timer <= 0)
+	if (move_timer <= 0) //Snake moves once every x seconds.
 	{
 		move_timer = grid_seconds;
 		int direction = the_snake.direction;
@@ -183,9 +185,15 @@ void Snake_UpdateMovement(void)
 
 void Snake_Draw(void)
 {
+	//Clear Buffer
 	CP_Settings_Background(BACKGROUND_COLOR);
-	//CP_Image_Draw(the_snake.sprite.image, the_snake.position.x, the_snake.position.y, the_snake.sprite.width, the_snake.sprite.height, 255);
-	CP_Image_Draw(the_snake.sprite.image, the_snake.position.x, the_snake.position.y, the_snake.sprite.width, the_snake.sprite.height, 255);
+
+	//Draw Snake's head.
+	CP_Image_Draw(the_snake.sprite.image, 
+		the_snake.position.x, the_snake.position.y, 
+		the_snake.sprite.width, the_snake.sprite.height, 255);
+	
+	//Draw Segments.
 	for (int i = 0; i < GRID_SIZE - 1; i++)
 	{
 		struct Segment segment = the_snake.segments[i];

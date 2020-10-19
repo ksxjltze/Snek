@@ -13,6 +13,7 @@ int Random_Grid_Pos()
 	return CP_Random_RangeInt(0, GRID_SIZE);
 }
 
+//Helper function for setting sprite size.
 void Set_Sprite_Size(struct Sprite* sprite)
 {
 	CP_Image image = sprite->image;

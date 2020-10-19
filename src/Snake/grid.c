@@ -17,6 +17,7 @@ void Snake_Grid_Init()
 	target = (float)WINDOW_HEIGHT - 2 * offset; //Fit to Window (based on height)
 }
 
+//Populates CP_Vector array with positions.
 void Snake_SetGrid(CP_Vector grid[])		//Assumes that grid is a square grid.
 {
 	CELL_WIDTH = target / GRID_WIDTH;		//Width of one grid cell.
@@ -28,6 +29,7 @@ void Snake_SetGrid(CP_Vector grid[])		//Assumes that grid is a square grid.
 	}
 }
 
+//Draws the grid.
 void Snake_DrawGrid()
 {
 	float start = (float)offset;
