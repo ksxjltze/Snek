@@ -29,3 +29,28 @@ struct Button Create_ImageButton(CP_Vector position, float width, float height, 
 
 	return button;
 }
+
+void Draw_Button(struct Button button)
+{
+	CP_Vector position = button.position;
+	CP_Graphics_DrawRect(position.x, position.y, button.width, button.height);
+
+	switch (button.type)
+	{
+	case BUTTON:
+		break;
+	case TEXT_BUTTON:
+		CP_Font_DrawText(button.text, 
+			position.x + button.width / 4, 
+			position.y + button.height / 1.3f);
+		break;
+	case IMAGE_BUTTON:
+		CP_Image_Draw(button.image, 
+			position.x + button.width / 2, 
+			position.y + button.height / 2, 
+			button.width, button.height, 255);
+		break;
+	default:
+		break;
+	}
+}
