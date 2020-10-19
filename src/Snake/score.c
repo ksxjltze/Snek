@@ -1,21 +1,22 @@
 #include "score.h"
 
-void init_timerscore(void)
+void init_timerscore(void) // Variables for time elasped score
 {
 	Time_score.text = "Time:";
 	
 	Time_score.x = 850.0f;
 	
 }
-void init_foodscore(void)
+void init_foodscore(void) // Variables for food eaten score
 {
 	Food_score.text = "Food:";
 
 	Food_score.x = 1000.0f;
 	
 }
-void init_score(void)
+void init_score(void) // global variables for the two typedef struct
 {
+	Time_score.offset = CP_System_GetSeconds(); // To offset time difference between start of engine and start of game
 	score.y = 50.0f;
 
 	score.text = CP_Color_Create(255, 255, 255, 255);
@@ -31,7 +32,7 @@ void update_score(void)
 	CP_Settings_TextSize(20.0f);
 	Time_score.count = CP_System_GetSeconds();
 	char str_buffer[16];
-	sprintf_s(str_buffer, 16, "%.2fs", Time_score.count);
+	sprintf_s(str_buffer, 16, "%.2fs", (double)Time_score.count - (double)Time_score.offset); // casted to double to prevent overflow
 
 	CP_Font_DrawText(Time_score.text, Time_score.x, score.y);
 

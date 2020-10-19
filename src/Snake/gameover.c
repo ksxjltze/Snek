@@ -38,7 +38,7 @@ void update_GameOver(void)
 		CP_Settings_Fill(GameOver_button.hover);
 		if (CP_Input_MouseClicked())
 		{
-			CP_Engine_SetNextGameState(Menu_init, Menu_update, Menu_exit);
+			CP_Engine_SetNextGameState(Snake_Init, Snake_Update, Snake_Exit);
 		}
 	}
 	else

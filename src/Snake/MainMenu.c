@@ -41,6 +41,7 @@ void Button_update(void)
 	float mouseX = CP_Input_GetMouseX();
 	float mousey = CP_Input_GetMouseY();
 
+
 	CP_Settings_Background(CP_Color_Create(160, 160, 160, 255));
 
 	if (start_button.x <= mouseX && mouseX <= start_button.x + Menu_button.width

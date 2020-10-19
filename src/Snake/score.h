@@ -11,6 +11,7 @@ struct Timer
 {
 	const char* text;
 	float count;
+	float offset;
 	float x;
 }Time_score;
 
