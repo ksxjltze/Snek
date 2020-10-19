@@ -16,31 +16,31 @@ static CP_Vector WINDOW_CENTRE;
 CP_Vector grid[GRID_SIZE]; //Grid Positions
 CP_Vector boundary[BOUNDARY_SIZE]; //Grid boundary
 
-enum direction
+enum Directions			//Integer values used to determine snake direction. Modulo (%) is used to determine axis.
 {
-	LEFT = -2, 
-	UP, 
-	DOWN = 1, 
-	RIGHT
+	LEFT = -2,			//-2
+	UP,					//-1
+	DOWN = 1,			//+1
+	RIGHT				//+2
 };
 
-struct Segment
+struct Segment			//Segment of Snake body.
 {
 	CP_Vector position;
 	int grid_position;
-	bool active;
+	bool active;		//Used in array to determine if segment should be updated.
 };
 
-struct Snake //Snake (Player)
+struct Snake								//Snake (Player)
 {
 	struct Sprite sprite;
 	struct Segment segments[GRID_SIZE - 1]; //Snake Body
 
-	CP_Vector position;
-	int grid_position;
-	int direction;
+	CP_Vector position;						//Screen position (pixels)
+	int grid_position;						//Grid position (0 < position < GRID_SIZE)
+	int direction;							//Snake direction (defined in enum Directions)
 	
-}the_snake;
+}the_snake;									//Single instance of Snake struct
 
 void Snake_Init(void)
 {
@@ -49,8 +49,8 @@ void Snake_Init(void)
 	CP_Settings_Stroke(CP_Color_Create(255, 255, 255, 255)); //White lines
 	BACKGROUND_COLOR = CP_Color_Create(0, 0, 0, 255); //Black
 
-	Snake_Grid_Init();
-	Snake_SetGrid(grid);
+	Snake_Grid_Init();									//Initialize Grid specific variables
+	Snake_SetGrid(grid);								//Populates the grid array with CP_Vector positions.
 	move_timer = grid_seconds;
 
 	the_snake.sprite.image = img_snake;
@@ -93,9 +93,9 @@ void Snake_Exit(void)
 void Snake_Grow()
 {
 	int direction = the_snake.direction;
-	if (direction % 2 == 0)
-		direction /= 2;
-	else
+	if (direction % 2 == 0) //Horizontal
+		direction /= 2;			//"Normalize" to become 1.
+	else					//Vertical
 		direction *= GRID_WIDTH;
 
 	for (int i = 0; i < GRID_SIZE - 1; i++)

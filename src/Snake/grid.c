@@ -6,19 +6,20 @@
 
 static float CELL_WIDTH;
 float offset; //Offset from top left corner of window.
-float target; //Size to draw grid.
+float target; //Length of grid in pixels.
 
 extern const int WINDOW_WIDTH, WINDOW_HEIGHT;
 
+//Initalizes variables for the scope of grid.c
 void Snake_Grid_Init()
 {
-	offset = 10; //10 pixels from top left corner
+	offset = 10;								//10 pixels from top left corner
 	target = (float)WINDOW_HEIGHT - 2 * offset; //Fit to Window (based on height)
 }
 
-void Snake_SetGrid(CP_Vector grid[])
+void Snake_SetGrid(CP_Vector grid[])		//Assumes that grid is a square grid.
 {
-	CELL_WIDTH = target / GRID_WIDTH;
+	CELL_WIDTH = target / GRID_WIDTH;		//Width of one grid cell.
 	for (int i = 0; i < GRID_SIZE; i++)
 	{
 		grid[i] = CP_Vector_Set(
