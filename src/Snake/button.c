@@ -30,6 +30,23 @@ struct Button Create_ImageButton(CP_Vector position, float width, float height, 
 	return button;
 }
 
+void Button_Set_Colors(struct Button* button, CP_Color idle, CP_Color hover, CP_Color clicked)
+{
+	struct Button_Colors colors;
+	colors = button->color;
+
+	colors.idle = idle;
+	colors.hover = hover;
+	colors.clicked = clicked;
+
+	button->color = colors;
+}
+
+void Update_Button(struct Button* button)
+{
+	Draw_Button(*button);
+}
+
 void Draw_Button(struct Button button)
 {
 	CP_Vector position = button.position;
