@@ -1,4 +1,7 @@
 #include "button.h"
+#include "snake.h"   //Game loop functions
+#include <stdbool.h> //bool
+#include "utils.h"   //isMouseOver_Rect()
 
 struct Button Create_Button(CP_Vector position, float width, float height)
 {
@@ -42,14 +45,27 @@ void Button_Set_Colors(struct Button* button, CP_Color idle, CP_Color hover, CP_
 	button->color = colors;
 }
 
-void Update_Button(struct Button* button)
+void Update_Button(struct Button button, float mouseX, float mouseY)
 {
-	Draw_Button(*button);
+	button.fill = button.color.idle;
+	if (isMouseOver_Rect(button.position, button.width, button.height, mouseX, mouseY))
+	{
+		button.fill = button.color.idle;
+		if (CP_Input_MouseDown(MOUSE_BUTTON_1))
+		{
+			button.fill = button.color.clicked;
+		}
+		else if(CP_Input_MouseReleased(MOUSE_BUTTON_1))
+			CP_Engine_SetNextGameState(Snake_Init, Snake_Update, Snake_Exit);
+
+	}
+	Draw_Button(button);
 }
 
 void Draw_Button(struct Button button)
 {
 	CP_Vector position = button.position;
+	CP_Settings_Fill(button.fill);
 	CP_Graphics_DrawRect(position.x, position.y, button.width, button.height);
 
 	switch (button.type)
