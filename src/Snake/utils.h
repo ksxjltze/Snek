@@ -22,7 +22,7 @@ void Set_Sprite_Size(struct Sprite* sprite)
 	sprite->height = (float)CP_Image_GetHeight(image);
 }
 
-//Helper function for determining is mouse is over object (Rect).
+//Helper function for determining if mouse is over object (Rect).
 //Object position must start at top left corner.
 bool isMouseOver_Rect(CP_Vector position, float width, float height, float mouseX, float mouseY)
 {
