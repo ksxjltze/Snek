@@ -81,7 +81,7 @@ void Snake_Update(void)
 	update_score();
 	if (CP_Input_KeyTriggered(KEY_Q))
 	{
-		CP_Engine_SetNextGameState(init_GameOver, update_GameOver, exit_GameOver);
+		
 	}
 }
 
@@ -158,9 +158,9 @@ void Snake_UpdateMovement(void)
 		int direction = the_snake.direction;
 		int pos = the_snake.grid_position;
 
-		if (direction % 2 == 0)
+		if (direction % 2 == 0) //Horizontal
 			pos += direction / 2;
-		else
+		else //Vertical
 			pos += direction * GRID_WIDTH;
 
 		for (int i = GRID_SIZE - 2; i >= 0; i--)
@@ -174,13 +174,24 @@ void Snake_UpdateMovement(void)
 					segment->grid_position = the_snake.grid_position;
 
 				segment->position = grid[segment->grid_position];
-
+			}
+			
+			
+			if (pos == grid[GRID_WIDTH - 1].x) //at the last cell
+			{
+				Snake_Death();
 			}
 		}
+
 
 		the_snake.grid_position = pos;
 		the_snake.position = grid[pos];
 	}
+}
+
+void Snake_Death(void)
+{
+	CP_Engine_SetNextGameState(init_GameOver, update_GameOver, exit_GameOver);
 }
 
 void Snake_Draw(void)

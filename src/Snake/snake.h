@@ -19,3 +19,6 @@ void Snake_Draw(void);
 
 //Grow
 void Snake_Grow(void);
+
+//Death
+void Snake_Death(void);
