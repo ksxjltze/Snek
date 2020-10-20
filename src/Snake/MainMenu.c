@@ -49,15 +49,6 @@ void Button_init(void)
 
 	Button_Set_Colors(&Button_Play, Menu_button.idle, Menu_button.hover, Menu_button.clicked, Menu_button.text);
 	Button_Set_Colors(&Button_Exit, Menu_button.idle, Menu_button.hover, Menu_button.clicked, Menu_button.text);
-
-
-	//start_button.Play = "Play";
-	//start_button.x = (float)(WINDOW_WIDTH / 2.0f) - (Menu_button.width / 2);
-	//start_button.y = (float)(WINDOW_HEIGHT / 4.0f) - (Menu_button.height / 2);
-
-	//exit_button.Exit = "Exit";
-	//exit_button.x = (float)(WINDOW_WIDTH / 2.0f) - (Menu_button.width / 2);
-	//exit_button.y = (float)(WINDOW_HEIGHT / 2.0f) + (Menu_button.height / 2);
 }
 
 void Button_update(void)
@@ -70,41 +61,4 @@ void Button_update(void)
 
 	Update_Button(Button_Play, mouseX, mouseY);
 	Update_Button(Button_Exit, mouseX, mouseY);
-
-	//if (start_button.x <= mouseX && mouseX <= start_button.x + Menu_button.width
-	//	&& start_button.y <= mousey && mousey <= start_button.y + Menu_button.height)
-	//{
-	//	CP_Settings_Fill(Menu_button.hover);
-	//	if (CP_Input_MouseClicked())
-	//	{	
-	//		CP_Engine_SetNextGameState(Snake_Init, Snake_Update, Snake_Exit);
-	//	}
-	//}
-	//else
-	//{
-	//	CP_Settings_Fill(Menu_button.idle);
-	//}
-
-	//CP_Graphics_DrawRect(start_button.x, start_button.y, Menu_button.width, Menu_button.height);
-	//CP_Settings_Fill(Menu_button.text);
-	//CP_Font_DrawText(start_button.Play, start_button.x + Menu_button.width / 4,
-	//	start_button.y + Menu_button.height / 1.3f);
-
-	// if (exit_button.x <= mouseX && mouseX <= exit_button.x + Menu_button.width
-	//	&& exit_button.y <= mousey && mousey <= exit_button.y + Menu_button.height)
-	//{
-	//	CP_Settings_Fill(Menu_button.hover);
-	//	if (CP_Input_MouseClicked())
-	//	{
-	//		CP_Engine_Terminate();
-	//	}
-	//}
-	//else
-	//{
-	//	CP_Settings_Fill(Menu_button.idle);
-	//}
-	//CP_Graphics_DrawRect(exit_button.x, exit_button.y, Menu_button.width, Menu_button.height);
-	//CP_Settings_Fill(Menu_button.text);
-	//CP_Font_DrawText(exit_button.Exit, exit_button.x + Menu_button.width / 4,
-	//	exit_button.y + Menu_button.height / 1.3f);
 }
