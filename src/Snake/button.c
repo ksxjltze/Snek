@@ -58,7 +58,6 @@ void Update_Button(struct Button button, float mouseX, float mouseY)
 
 		else if(CP_Input_MouseReleased(MOUSE_BUTTON_1))
 			CP_Engine_SetNextGameState(Snake_Init, Snake_Update, Snake_Exit);
-
 	}
 	Draw_Button(button);
 }

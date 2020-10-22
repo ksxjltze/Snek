@@ -71,6 +71,7 @@ void Snake_Init(void)
 
 	init_score();
 	init_GameOver();
+	init_music();
 }
 
 void Snake_Update(void)
@@ -80,10 +81,7 @@ void Snake_Update(void)
 	Snake_UpdateMovement();
 	Snake_Draw();
 	update_score();
-	if (CP_Input_KeyTriggered(KEY_Q))
-	{
-		CP_Engine_SetNextGameState(init_GameOver, update_GameOver, exit_GameOver);
-	}
+
 }
 
 void Snake_Exit(void)

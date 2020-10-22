@@ -22,6 +22,7 @@
     <ClCompile Include="src\Snake\button.c">
       <Filter>Snake</Filter>
     </ClCompile>
+    <ClCompile Include="src\Snake\music.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\gameover.h">
@@ -51,6 +52,7 @@
     <ClInclude Include="src\Snake\button.h">
       <Filter>Snake</Filter>
     </ClInclude>
+    <ClInclude Include="src\Snake\music.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Snake">

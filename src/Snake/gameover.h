@@ -2,6 +2,16 @@
 #include "cprocessing.h"
 #include "snake.h"
 #include "MainMenu.h"
+#include "score.h"
+
+
+struct GameOver_score
+{
+	const char* text;
+	int score;
+	float x, y;
+}gameover_score;
+
 
 struct GameOver_Button
 {
@@ -12,7 +22,7 @@ struct GameOver_Button
 	CP_Color idle;
 	CP_Color text;
 
-}GameOver_button;
+}gameover_button;
 
 struct Retry_button
 {
@@ -27,6 +37,7 @@ struct Quit_button
 	float y;
 }quit_button;
 
+void GameOver_score(int total_score);
 void GameOver_button_init(void);
 void init_GameOver(void);
 void update_GameOver(void);

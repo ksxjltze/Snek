@@ -12,19 +12,6 @@ struct Menu_Button
 	CP_Color text;
 }Menu_button;
 
-struct Button1
-{	
-	const char* Play;
-	float x;
-	float y;
-}start_button;
-
-struct Button2
-{
-	const char* Exit;
-	float x;
-	float y;
-}exit_button;
 
 void Button_init(void);
 void Button_update(void);

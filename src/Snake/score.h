@@ -1,11 +1,14 @@
 #pragma once
 #include "cprocessing.h"
 #include <stdio.h>
+#include "gameover.h"
+
 
 struct Score
 {
 	CP_Color text;
 	float y;
+	float total;
 }score;
 struct Timer
 {
