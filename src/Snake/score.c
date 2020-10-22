@@ -48,6 +48,7 @@ void update_score(void)
 	if (CP_Input_KeyTriggered(KEY_Q))
 	{
 		GameOver_score((int)score.total); // call gameover_score to print total score at gameover screen
+		exit_music();
 		CP_Engine_SetNextGameState(init_GameOver, update_GameOver, exit_GameOver); // placeholder for death
 	}
 }
