@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\Snake\button.c" />
+    <ClCompile Include="src\Snake\filemanager.c" />
+    <ClCompile Include="src\Snake\filemanager.h" />
     <ClCompile Include="src\Snake\gameover.c" />
     <ClCompile Include="src\Snake\grid.c" />
     <ClCompile Include="src\Snake\MainMenu.c" />

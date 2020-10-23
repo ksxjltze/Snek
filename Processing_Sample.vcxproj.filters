@@ -1,60 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\Snake\gameover.c">
-      <Filter>Snake</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Snake\grid.c">
-      <Filter>Snake</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main.c">
-      <Filter>Snake</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Snake\MainMenu.c">
-      <Filter>Snake</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Snake\score.c">
-      <Filter>Snake</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Snake\snake.c">
-      <Filter>Snake</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Snake\button.c">
-      <Filter>Snake</Filter>
-    </ClCompile>
+    <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\Snake\button.c" />
+    <ClCompile Include="src\Snake\gameover.c" />
+    <ClCompile Include="src\Snake\grid.c" />
+    <ClCompile Include="src\Snake\MainMenu.c" />
+    <ClCompile Include="src\Snake\snake.c" />
+    <ClCompile Include="src\Snake\score.c" />
+    <ClCompile Include="src\Snake\filemanager.h" />
+    <ClCompile Include="src\Snake\filemanager.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Snake\gameover.h">
-      <Filter>Snake</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Snake\globals.h">
-      <Filter>Snake</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Snake\grid.h">
-      <Filter>Snake</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Snake\MainMenu.h">
-      <Filter>Snake</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Snake\score.h">
-      <Filter>Snake</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Snake\snake.h">
-      <Filter>Snake</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Snake\sprite.h">
-      <Filter>Snake</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Snake\utils.h">
-      <Filter>Snake</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Snake\button.h">
-      <Filter>Snake</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Snake">
-      <UniqueIdentifier>{ea8f2df4-0c92-494d-9e4c-152febb3c10c}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="src\Snake\button.h" />
+    <ClInclude Include="src\Snake\gameover.h" />
+    <ClInclude Include="src\Snake\globals.h" />
+    <ClInclude Include="src\Snake\grid.h" />
+    <ClInclude Include="src\Snake\snake.h" />
+    <ClInclude Include="src\Snake\sprite.h" />
+    <ClInclude Include="src\Snake\utils.h" />
+    <ClInclude Include="src\Snake\MainMenu.h" />
+    <ClInclude Include="src\Snake\score.h" />
   </ItemGroup>
 </Project>

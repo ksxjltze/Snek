@@ -3,6 +3,7 @@
 #include "cprocessing.h"
 #include "globals.h"
 #include "grid.h"
+#include "filemanager.h"
 
 //Define in Snake.c
 #define DEBUG 1;
@@ -71,6 +72,8 @@ void Snake_Init(void)
 
 	init_score();
 	init_GameOver();
+	WriteFile();
+	ReadFile();
 }
 
 void Snake_Update(void)
