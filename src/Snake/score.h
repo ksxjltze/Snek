@@ -8,7 +8,8 @@ struct Score
 {
 	CP_Color text;
 	float y;
-	float total;
+	int total;
+	int highscore;
 }score;
 struct Timer
 {
@@ -21,7 +22,7 @@ struct Timer
 struct Food_count
 {
 	const char* text;
-	float count;
+	int count;
 	float x;
 }Food_score;
 

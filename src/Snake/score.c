@@ -43,12 +43,46 @@ void update_score(void)
 
 	CP_Font_DrawText(Food_score.text, Food_score.x, score.y);
 
-	score.total = Food_score.count + Time_score.count; // combined food and time score
+	score.total = Food_score.count + (int)Time_score.count; // combined food and time score
 
 	if (CP_Input_KeyTriggered(KEY_Q))
 	{
-		GameOver_score((int)score.total); // call gameover_score to print total score at gameover screen
+		GameOver_score(score.total); // call gameover_score to print total score at gameover screen
 		exit_music();
+
+		int error;
+		int ab = 0;
+
+		FILE* highscore;
+
+		fopen_s(&highscore, "./Snek/src/Snake/Score.txt", "w"); // create score.txt 
+	
+		fprintf(highscore, "0");
+
+		error = fopen_s(&highscore, "./Snek/src/Snake/Score.txt", "r");
+		if (error != 0)
+		{
+			return;
+		}
+		else
+		{
+			if (highscore != NULL)
+			{
+				while (!feof(highscore))
+				{
+					fscanf_s(highscore, "%d", &ab);
+				}
+				if (score.total > ab)
+				{
+					fopen_s(&highscore, "./Snek/src/Snake/Score.txt", "a");
+					fprintf(highscore, "%d,", score.total);
+				}
+			}
+				
+		fclose(highscore); // 150, 1, 5, 0. 
+
+
+		}
 		CP_Engine_SetNextGameState(init_GameOver, update_GameOver, exit_GameOver); // placeholder for death
 	}
 }
