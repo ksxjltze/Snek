@@ -3,7 +3,6 @@
 #include "cprocessing.h"
 #include "globals.h"
 #include "grid.h"
-#include "filemanager.h"
 
 //Define in Snake.c
 #define DEBUG 1;
