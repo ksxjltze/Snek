@@ -24,7 +24,7 @@ void ReadFile(void)
 {
 	FILE* fptr;
 	errno_t error;
-	char test[20];
+	int hs;
 
 	error = fopen_s(&fptr, "test.txt", "r");
 
@@ -34,5 +34,5 @@ void ReadFile(void)
 	if (fptr == NULL)
 		return;
 
-	fscanf_s(fptr, "%s", test, (int)_countof(test));
+	fscanf_s(fptr, "%d", &hs);
 }
