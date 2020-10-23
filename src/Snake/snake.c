@@ -71,7 +71,9 @@ void Snake_Init(void)
 
 	init_score();
 	init_GameOver();
-	//init_music();
+	WriteFile();
+	ReadFile();
+	init_music();
 }
 
 void Snake_Update(void)
