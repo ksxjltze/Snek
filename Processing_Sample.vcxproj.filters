@@ -22,9 +22,13 @@
     <ClCompile Include="src\Snake\button.c">
       <Filter>Snake</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="src\Snake\food.c">
       <Filter>Snake</Filter>
     </ClCompile>
+=======
+    <ClCompile Include="src\Snake\music.c" />
+>>>>>>> 20d98f57cc9bd8ed88682f75b3768ef17debc90e
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\gameover.h">
@@ -54,9 +58,13 @@
     <ClInclude Include="src\Snake\button.h">
       <Filter>Snake</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="src\Snake\food.h">
       <Filter>Snake</Filter>
     </ClInclude>
+=======
+    <ClInclude Include="src\Snake\music.h" />
+>>>>>>> 20d98f57cc9bd8ed88682f75b3768ef17debc90e
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Snake">

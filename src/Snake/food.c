@@ -3,6 +3,7 @@
 #include "cprocessing.h"
 #include "grid.h"
 
+static const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
 
 struct Food
 {

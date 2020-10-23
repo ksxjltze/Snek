@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\Snake\button.c" />
-    <ClCompile Include="src\Snake\food.c" />
     <ClCompile Include="src\Snake\gameover.c" />
     <ClCompile Include="src\Snake\grid.c" />
     <ClCompile Include="src\Snake\MainMenu.c" />
@@ -30,7 +29,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\button.h" />
-    <ClInclude Include="src\Snake\food.h" />
     <ClInclude Include="src\Snake\gameover.h" />
     <ClInclude Include="src\Snake\globals.h" />
     <ClInclude Include="src\Snake\grid.h" />
