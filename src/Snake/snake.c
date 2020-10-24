@@ -86,6 +86,7 @@ void Snake_Update(void)
 	Snake_UpdateMovement();
 	Snake_Draw();
 	Update_Score();
+	food_Draw();
 
 }
 
