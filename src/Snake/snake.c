@@ -69,11 +69,11 @@ void Snake_Init(void)
 	the_snake.sprite.width = GRID_WIDTH;
 	the_snake.sprite.height = GRID_WIDTH;
 
-	init_score();
-	init_GameOver();
-	WriteFile();
-	ReadFile();
-	init_music();
+	Init_Score();
+	Init_GameOver();
+	//WriteFile();
+	//ReadFile();
+	Init_Music();
 }
 
 void Snake_Update(void)
@@ -82,8 +82,7 @@ void Snake_Update(void)
 	Snake_Timer();
 	Snake_UpdateMovement();
 	Snake_Draw();
-	update_score();
-
+	Update_Score();
 }
 
 void Snake_Exit(void)

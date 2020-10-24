@@ -2,7 +2,7 @@
 #include "snake.h"
 static const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
 
-void GameOver_score(int total_score)// function to print score
+void GameOver_Score(int total_score)// function to print score
 {
 	CP_Settings_TextSize(50.0f);
 	char score_buffer[16];
@@ -11,7 +11,7 @@ void GameOver_score(int total_score)// function to print score
 	CP_Font_DrawText(score_buffer, WINDOW_WIDTH / 1.4f, WINDOW_HEIGHT / 2.0f);
 }
 
-void GameOver_button_init(void) 
+void GameOver_Button_Init(void) 
 {
 	gameover_button.width = 300.0f;
 	gameover_button.height = 100.0f;
@@ -29,14 +29,14 @@ void GameOver_button_init(void)
 }
 
 
-void init_GameOver(void) // initializing variables for gameover screen
+void Init_GameOver(void) // initializing variables for gameover screen
 {
-	GameOver_button_init();
+	GameOver_Button_Init();
 
 	gameover_score.text = "Your score:";
 }
 
-void update_GameOver(void) // updates the rendering based on 
+void Update_GameOver(void) // updates the rendering based on 
 {
 	float mouseX = CP_Input_GetMouseX();
 	float mouseY = CP_Input_GetMouseY();
@@ -82,13 +82,13 @@ void update_GameOver(void) // updates the rendering based on
 	CP_Font_DrawText(quit_button.text, gameover_button.x + gameover_button.width * 0.25f,
 		quit_button.y + gameover_button.height * 0.7f);
 
-	GameOver_score((int)Time_score.count);
+	GameOver_Score((int)Time_score.count);
 	CP_Settings_TextSize(100.0f);
 
 
 }
 
-void exit_GameOver(void)
+void Exit_GameOver(void)
 {
 	
 }

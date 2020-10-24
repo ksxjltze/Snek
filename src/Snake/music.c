@@ -1,11 +1,11 @@
 #include "music.h"
 
-void init_music(void)
+void Init_Music(void)
 {
 	CP_Sound_PlayMusic(CP_Sound_LoadMusic("./Assets/snek.wav"));
 }
 
-void exit_music(void)
+void Exit_Music(void)
 {
 	CP_Sound_StopAll();
 }

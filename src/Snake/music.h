@@ -1,6 +1,6 @@
 #pragma once
 #include "cprocessing.h"
 
-void init_music(void);
-void exit_music(void);
+void Init_Music(void);
+void Exit_Music(void);
 //void init_effects(void);

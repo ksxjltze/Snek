@@ -2,21 +2,21 @@
 
 static const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
 
-void init_timerscore(void) // Variables for time elasped score
+void Init_Timerscore(void) // Variables for time elasped score
 {
 	Time_score.text = "Time:";
 	
 	Time_score.x = (float)(WINDOW_WIDTH / 1.41);
 	
 }
-void init_foodscore(void) // Variables for food eaten score
+void Init_Foodscore(void) // Variables for food eaten score
 {
 	Food_score.text = "Food:";
 
 	Food_score.x = (float)(WINDOW_WIDTH / 1.2);
 	
 }
-void init_score(void) // global variables for the two typedef struct
+void Init_Score(void) // global variables for the two typedef struct
 {
 	Time_score.offset = CP_System_GetSeconds(); // To offset time difference between start of engine and start of game
 	
@@ -26,11 +26,11 @@ void init_score(void) // global variables for the two typedef struct
 
 	CP_Settings_Fill(score.text);
 
-	init_timerscore();
-	init_foodscore();
+	Init_Timerscore();
+	Init_Foodscore();
 }
 
-void update_score(void)
+void Update_Score(void)
 {
 	CP_Settings_TextSize(20.0f);
 	Time_score.count = CP_System_GetSeconds();
@@ -47,13 +47,13 @@ void update_score(void)
 
 	if (CP_Input_KeyTriggered(KEY_Q))
 	{
-		GameOver_score(score.total); // call gameover_score to print total score at gameover screen
-		exit_music();
-		CP_Engine_SetNextGameState(init_GameOver, update_GameOver, exit_GameOver); // placeholder for death
+		GameOver_Score(score.total); // call gameover_score to print total score at gameover screen
+		Exit_Music();
+		CP_Engine_SetNextGameState(Init_GameOver, Update_GameOver, Exit_GameOver); // placeholder for death
 	}
 }
 
-void exit_score(void)
+void Exit_Score(void)
 {
 
 }
