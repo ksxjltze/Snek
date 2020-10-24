@@ -4,6 +4,9 @@
 #include "globals.h"
 #include "grid.h"
 
+
+CP_Vector grid[GRID_SIZE]; //Grid Positions
+
 struct Food
 {
 	struct Sprite sprite;
@@ -33,12 +36,15 @@ void init_food(void)
 	the_food.sprite.height = GRID_WIDTH;
 	CP_Settings_Stroke(CP_Color_Create(255, 255, 255, 255)); //White lines
 
-	//food_Grid_Init();									//Initialize Grid specific variables
+	//food_Grid_Init();					
+	//Initialize Grid specific variables
+
 
 	the_food.sprite.image = img_food;
 	the_food.grid_position = 25;
 
-
+	the_food.grid_position = 9;						//TODO: Set a proper starting position.
+	the_food.position = grid[the_food.grid_position]; //Screen Position
 //	the_food.sprite.width = GRID_WIDTH;
 //	the_food.sprite.height = GRID_WIDTH;
 
