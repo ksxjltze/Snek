@@ -3,9 +3,10 @@
 #include "cprocessing.h"
 #include "globals.h"
 #include "grid.h"
+#include "snake.h"
 
 
-CP_Vector grid[GRID_SIZE]; //Grid Positions
+//CP_Vector grid[GRID_SIZE]; //Grid Positions
 
 struct Food
 {
@@ -25,10 +26,8 @@ void food_Draw(void)
 		the_food.sprite.width, the_food.sprite.height, 255);
 };
 
-void init_food(void)
+void init_food(CP_Vector grid[])
 {
-
-
 
 	CP_Image img_food = CP_Image_Load("./Assets/food.png");
 	the_food.sprite.image = img_food;
@@ -45,8 +44,12 @@ void init_food(void)
 
 	the_food.grid_position = 9;						//TODO: Set a proper starting position.
 	the_food.position = grid[the_food.grid_position]; //Screen Position
-//	the_food.sprite.width = GRID_WIDTH;
-//	the_food.sprite.height = GRID_WIDTH;
-
+	the_food.sprite.width = GRID_WIDTH;
+	the_food.sprite.height = GRID_WIDTH;
 
 };
+
+void food_update(void)
+{
+	food_Draw();
+}

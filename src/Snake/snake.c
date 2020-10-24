@@ -70,7 +70,7 @@ void Snake_Init(void)
 	the_snake.sprite.width = GRID_WIDTH;
 	the_snake.sprite.height = GRID_WIDTH;
 
-	init_food();
+	init_food(grid);
 	Init_Score();
 	Init_GameOver();
 	//WriteFile();
