@@ -1,7 +1,5 @@
 #include "file_manager.h"
 
-extern int hs;
-
 void WriteFile(int player_score)
 {
 	FILE* fptr;
@@ -25,7 +23,8 @@ void ReadFile(void)
 {
 	FILE* fptr;
 	errno_t error;
-	int score;
+	int score = 0;
+	hs = 0;
 
 	error = fopen_s(&fptr, "highscore.txt", "r");
 

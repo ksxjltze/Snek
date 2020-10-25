@@ -69,4 +69,5 @@ void Highscore_Manager(int player_score)
 	{
 		WriteFile(player_score);
 	}
+
 }
