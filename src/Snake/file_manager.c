@@ -25,7 +25,7 @@ void ReadFile(void)
 {
 	FILE* fptr;
 	errno_t error;
-	int score;
+	int score = 0;
 
 	error = fopen_s(&fptr, "highscore.txt", "r");
 
@@ -37,5 +37,6 @@ void ReadFile(void)
 
 	fscanf_s(fptr, "%d", &score);
 	hs = score;
+
 	fclose(fptr);
 }
