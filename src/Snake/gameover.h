@@ -3,6 +3,14 @@
 #include "snake.h"
 #include "MainMenu.h"
 #include "score.h"
+#include "music.h"
+#include "file_manager.h"
+
+struct Highscore
+{
+	float x, y;
+	const char* text;
+}highscore;
 
 
 struct GameOver_score

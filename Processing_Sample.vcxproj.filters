@@ -10,8 +10,9 @@
     <ClCompile Include="src\Snake\music.c" />
     <ClCompile Include="src\Snake\food.c" />
     <ClCompile Include="src\Snake\score.c" />
-    <ClCompile Include="src\Snake\filemanager.h" />
-    <ClCompile Include="src\Snake\filemanager.c" />
+    <ClCompile Include="src\Snake\file_manager.c" />
+    <ClCompile Include="src\Snake\file_manager.h" />
+    <ClCompile Include="src\Snake\utils.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\button.h" />

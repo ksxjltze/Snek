@@ -4,7 +4,13 @@
 #include "score.h"
 #include "gameover.h"
 #include "music.h"
-#include "filemanager.h"
+#include "file_manager.h"
+#include "sprite.h"
+#include "cprocessing.h"
+#include "globals.h"
+#include "grid.h"
+#include "food.h"
+
 //Declare in Snake.h
 
 void Snake_Init(void);

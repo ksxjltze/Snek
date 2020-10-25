@@ -22,14 +22,15 @@
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\Snake\button.c" />
     <ClCompile Include="src\Snake\food.c" />
-    <ClCompile Include="src\Snake\filemanager.c" />
-    <ClCompile Include="src\Snake\filemanager.h" />
+    <ClCompile Include="src\Snake\file_manager.c" />
+    <ClCompile Include="src\Snake\file_manager.h" />
     <ClCompile Include="src\Snake\gameover.c" />
     <ClCompile Include="src\Snake\grid.c" />
     <ClCompile Include="src\Snake\MainMenu.c" />
     <ClCompile Include="src\Snake\music.c" />
     <ClCompile Include="src\Snake\snake.c" />
     <ClCompile Include="src\Snake\score.c" />
+    <ClCompile Include="src\Snake\utils.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\button.h" />
