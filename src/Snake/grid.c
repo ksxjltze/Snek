@@ -59,3 +59,12 @@ void Snake_DrawGrid_Truncated()
 		CP_Graphics_DrawLine(row, start, row, end);
 	}
 }
+
+void Colour_Boundary()
+{
+	float start = (float)offset;
+	CP_Graphics_DrawRect(start, offset, GRID_WIDTH * CELL_WIDTH, CELL_WIDTH); //Top boundary
+	CP_Graphics_DrawRect(start, GRID_WIDTH * (CELL_WIDTH - 1.5f), GRID_WIDTH * CELL_WIDTH, CELL_WIDTH); //Bottom Boundary
+	CP_Graphics_DrawRect(start * 1.1f, offset, CELL_WIDTH, GRID_WIDTH * CELL_WIDTH); //Left Boundary
+	CP_Graphics_DrawRect(start* 75, start, CELL_WIDTH, CELL_WIDTH * 20); //Right Boundary
+}

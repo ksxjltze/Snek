@@ -189,7 +189,8 @@ void Snake_UpdateMovement(void)
 			}
 		}
 
-		if (the_snake.position.y == grid[GRID_SIZE - 1].y || the_snake.position.x == grid[GRID_SIZE - 1].x) //at the last cell
+		if (the_snake.position.y == grid[GRID_SIZE - 1].y || the_snake.position.x == grid[GRID_SIZE - 1].x
+			|| the_snake.position.y == grid[0].y || the_snake.position.x == grid[0].x) //at the last cell
 		{
 			Snake_Death();
 		}
@@ -221,6 +222,8 @@ void Snake_Draw(void)
 				the_snake.sprite.width, the_snake.sprite.height, 255);
 		}
 	}
+
+	Colour_Boundary();
 
 	//Snake_DrawGrid();
 	Snake_DrawGrid_Truncated();
