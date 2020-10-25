@@ -225,7 +225,7 @@ void Snake_Draw(void)
 
 	Colour_Boundary();
 
-	//Snake_DrawGrid();
-	Snake_DrawGrid_Truncated();
+	Snake_DrawGrid();
+	//Snake_DrawGrid_Truncated();
 }
 

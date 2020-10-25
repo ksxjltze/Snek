@@ -62,9 +62,14 @@ void Snake_DrawGrid_Truncated()
 
 void Colour_Boundary()
 {
-	float start = (float)offset;
-	CP_Graphics_DrawRect(start, offset, GRID_WIDTH * CELL_WIDTH, CELL_WIDTH); //Top boundary
-	CP_Graphics_DrawRect(start, GRID_WIDTH * (CELL_WIDTH - 1.5f), GRID_WIDTH * CELL_WIDTH, CELL_WIDTH); //Bottom Boundary
-	CP_Graphics_DrawRect(start * 1.1f, offset, CELL_WIDTH, GRID_WIDTH * CELL_WIDTH); //Left Boundary
-	CP_Graphics_DrawRect(start* 75, start, CELL_WIDTH, CELL_WIDTH * 20); //Right Boundary
+	//TODO color
+	//color var
+	//set draw color
+
+	float end = (CELL_WIDTH * GRID_WIDTH - offset) - CELL_WIDTH / 2;
+
+	CP_Graphics_DrawRect(offset, offset - 2, GRID_WIDTH * CELL_WIDTH, CELL_WIDTH);  //Top boundary
+	CP_Graphics_DrawRect(offset, end + 2, GRID_WIDTH * CELL_WIDTH, CELL_WIDTH);     //Bottom boundary
+	CP_Graphics_DrawRect(offset, offset, CELL_WIDTH, GRID_WIDTH * CELL_WIDTH);					//Left boundary
+	CP_Graphics_DrawRect(end + 2, offset, CELL_WIDTH, GRID_WIDTH * CELL_WIDTH);						//Right boundary
 }
