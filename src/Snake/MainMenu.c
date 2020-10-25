@@ -1,7 +1,7 @@
 #include "MainMenu.h"
 #include "snake.h"
 
-static const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
+extern const int WINDOW_WIDTH, WINDOW_HEIGHT;
 struct Button Button_Play;
 struct Button Button_Exit;
 

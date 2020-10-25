@@ -30,6 +30,7 @@
     <ClCompile Include="src\Snake\music.c" />
     <ClCompile Include="src\Snake\snake.c" />
     <ClCompile Include="src\Snake\score.c" />
+    <ClCompile Include="src\Snake\utils.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\button.h" />

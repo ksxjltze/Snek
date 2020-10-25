@@ -12,6 +12,7 @@
     <ClCompile Include="src\Snake\score.c" />
     <ClCompile Include="src\Snake\file_manager.c" />
     <ClCompile Include="src\Snake\file_manager.h" />
+    <ClCompile Include="src\Snake\utils.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\button.h" />

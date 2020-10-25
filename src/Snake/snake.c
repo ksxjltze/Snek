@@ -1,9 +1,5 @@
 #include "snake.h"
-#include "sprite.h"
-#include "cprocessing.h"
-#include "globals.h"
-#include "grid.h"
-#include "food.h"
+#include "utils.h"
 
 //Define in Snake.c
 #define DEBUG 1;
@@ -55,7 +51,7 @@ void Snake_Init(void)
 	move_timer = grid_seconds;
 
 	the_snake.sprite.image = img_snake;
-	the_snake.grid_position = 15;						//TODO: Set a proper starting position.
+	the_snake.grid_position = Random_Snake_Grid_Pos();		//Sets a random position
 	the_snake.position = grid[the_snake.grid_position]; //Screen Position
 	the_snake.direction = RIGHT;						//Snake faces right by default.
 
