@@ -1,11 +1,15 @@
 #pragma once
 #include "cprocessing.h"
 #include <stdio.h>
+#include "gameover.h"
+
 
 struct Score
 {
 	CP_Color text;
 	float y;
+	int total;
+	int highscore;
 }score;
 struct Timer
 {
@@ -18,12 +22,12 @@ struct Timer
 struct Food_count
 {
 	const char* text;
-	float count;
+	int count;
 	float x;
 }Food_score;
 
-void init_timerscore(void);
-void init_foodscore(void);
-void init_score(void);
-void update_score(void);
-void exit_score(void);
+void Init_Timerscore(void);
+void Init_Foodscore(void);
+void Init_Score(void);
+void Update_Score(void);
+void Exit_Score(void);

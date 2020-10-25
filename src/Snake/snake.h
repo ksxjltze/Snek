@@ -3,6 +3,8 @@
 #include "MainMenu.h"
 #include "score.h"
 #include "gameover.h"
+#include "music.h"
+#include "filemanager.h"
 //Declare in Snake.h
 
 void Snake_Init(void);
