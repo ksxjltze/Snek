@@ -71,7 +71,7 @@ void Snake_Init(void)
 	Init_GameOver();
 	//WriteFile();
 	//ReadFile();
-	Init_Music();
+	//Init_Music();
 
 }
 
@@ -89,6 +89,11 @@ void Snake_Update(void)
 void Snake_Exit(void)
 {
 
+}
+
+void Snake_Death(void)
+{
+	CP_Engine_SetNextGameState(Init_GameOver, Update_GameOver, Exit_GameOver);
 }
 
 //Makes the snake grow longer.
@@ -182,6 +187,11 @@ void Snake_UpdateMovement(void)
 				segment->position = grid[segment->grid_position];	//Update screen position. (Pixels)
 
 			}
+		}
+
+		if (the_snake.position.y == grid[GRID_SIZE - 1].y || the_snake.position.x == grid[GRID_SIZE - 1].x) //at the last cell
+		{
+			Snake_Death();
 		}
 
 		the_snake.grid_position = pos;			//Update head's grid position.
