@@ -212,6 +212,7 @@ void Snake_Draw(void)
 		}
 	}
 
-	Snake_DrawGrid();
+	//Snake_DrawGrid();
+	Snake_DrawGrid_Truncated();
 }
 
