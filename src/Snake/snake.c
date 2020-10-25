@@ -26,8 +26,8 @@ enum Directions			//Integer values used to determine snake direction. Modulo (%)
 
 struct Segment			//Segment of Snake body.
 {
-	CP_Vector position;
-	int grid_position;
+	CP_Vector position; //Screen position.
+	int grid_position;  //Grid position. (Index of array)
 	bool active;		//Used in array to determine if segment should be updated.
 };
 
@@ -40,27 +40,28 @@ struct Snake								//Snake (Player)
 	int grid_position;						//Grid position (0 < position < GRID_SIZE)
 	int direction;							//Snake direction (defined in enum Directions)
 	
-}the_snake;									//Single instance of Snake struct
+}the_snake;									//Single instance of Snake struct.
 
 void Snake_Init(void)
 {
 	CP_Image img_snake = CP_Image_Load("./Assets/snek.png");
 	WINDOW_CENTRE = CP_Vector_Set((float)WINDOW_WIDTH / 2, (float)WINDOW_HEIGHT / 2);
 	CP_Settings_Stroke(CP_Color_Create(255, 255, 255, 255)); //White lines
-	BACKGROUND_COLOR = CP_Color_Create(0, 0, 0, 255); //Black
+	BACKGROUND_COLOR = CP_Color_Create(0, 0, 0, 255);		 //Black background
 
 	Snake_Grid_Init();									//Initialize Grid specific variables
 	Snake_SetGrid(grid);								//Populates the grid array with CP_Vector positions.
 	move_timer = grid_seconds;
 
 	the_snake.sprite.image = img_snake;
-	the_snake.grid_position = 15;
-	the_snake.position = grid[the_snake.grid_position];
-	the_snake.direction = RIGHT;
+	the_snake.grid_position = 15;						//TODO: Set a proper starting position.
+	the_snake.position = grid[the_snake.grid_position]; //Screen Position
+	the_snake.direction = RIGHT;						//Snake faces right by default.
 
-	for (int i = 0; i < GRID_SIZE - 1; i++)
+	//Initialize snake's segments
+	for (int i = 0; i < GRID_SIZE - 1; i++)		//Minus 1 to account for snake's head.
 	{
-		the_snake.segments[i].active = false;
+		the_snake.segments[i].active = false;	//Not active, will not be drawn.
 		the_snake.segments[i].position = CP_Vector_Set(0, 0);
 		the_snake.segments[i].grid_position = 0;
 	}
@@ -81,7 +82,7 @@ void Snake_Update(void)
 	update_score();
 	if (CP_Input_KeyTriggered(KEY_Q))
 	{
-		
+		CP_Engine_SetNextGameState(init_GameOver, update_GameOver, exit_GameOver);
 	}
 }
 
@@ -117,12 +118,13 @@ void Snake_Grow()
 	}
 }
 
+//Update Movement Timer
 void Snake_Timer(void)
 {
 	move_timer -= CP_System_GetDt();
 }
 
-
+//Check Input and Update Snake's direction.
 void Snake_UpdateInput(void)
 {
 	if (CP_Input_KeyTriggered(KEY_W) || CP_Input_KeyTriggered(KEY_UP))
@@ -150,50 +152,44 @@ void Snake_UpdateInput(void)
 	}
 }
 
+//Update snake's position.
 void Snake_UpdateMovement(void)
 {
-	if (move_timer <= 0) //Snake moves once every x seconds.
+	if (move_timer <= 0)						//Snake moves once every x seconds.
 	{
-		move_timer = grid_seconds;
-		int direction = the_snake.direction;
-		int pos = the_snake.grid_position;
+		move_timer = grid_seconds;				//Reset timer
+		int direction = the_snake.direction;	//Movement Direction
+		int pos = the_snake.grid_position;		//Grid Position
 
-		if (direction % 2 == 0) //Horizontal
+		if (direction % 2 == 0)					//Horizontal
 			pos += direction / 2;
-		else //Vertical
+		else									//Vertical
 			pos += direction * GRID_WIDTH;
 
+		//Iterates from snake's tail to head, updates each segment's position.
 		for (int i = GRID_SIZE - 2; i >= 0; i--)
 		{
 			struct Segment* segment = &the_snake.segments[i];
-			if (segment->active)
+			if (segment->active)				//Finds active segments from the back of the array.
 			{
-				if (i > 0)
-					segment->grid_position = the_snake.segments[i - 1].grid_position;
-				else
-					segment->grid_position = the_snake.grid_position;
+				if (i > 0)						//Not first segment (before head)
+					segment->grid_position =	//Sets current segment's position to be the position of the segment before it.
+					the_snake.segments[i - 1].grid_position;
+				else							//Segment before head
+					segment->grid_position =	//Set first segment's position to be the position of the head.
+					the_snake.grid_position;
 
-				segment->position = grid[segment->grid_position];
-			}
-			
-			
-			if (pos == grid[GRID_WIDTH - 1].x) //at the last cell
-			{
-				Snake_Death();
+				segment->position = grid[segment->grid_position];	//Update screen position. (Pixels)
+
 			}
 		}
 
-
-		the_snake.grid_position = pos;
-		the_snake.position = grid[pos];
+		the_snake.grid_position = pos;			//Update head's grid position.
+		the_snake.position = grid[pos];			//Screen Position
 	}
 }
 
-void Snake_Death(void)
-{
-	CP_Engine_SetNextGameState(init_GameOver, update_GameOver, exit_GameOver);
-}
-
+//Draw sprites
 void Snake_Draw(void)
 {
 	//Clear Buffer
@@ -205,7 +201,7 @@ void Snake_Draw(void)
 		the_snake.sprite.width, the_snake.sprite.height, 255);
 	
 	//Draw Segments.
-	for (int i = 0; i < GRID_SIZE - 1; i++)
+	for (int i = 0; i < GRID_SIZE - 1; i++)				//Minus one to account for head.
 	{
 		struct Segment segment = the_snake.segments[i];
 		if (segment.active)
