@@ -2,7 +2,7 @@
 #include "cprocessing.h"
 #include <stdio.h>
 #include "gameover.h"
-#include "filemanager.h"
+#include "file_manager.h"
 
 
 struct Score
