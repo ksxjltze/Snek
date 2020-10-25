@@ -1,6 +1,6 @@
 #include "file_manager.h"
 
-
+extern int hs;
 
 void WriteFile(int player_score)
 {

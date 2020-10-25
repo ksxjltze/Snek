@@ -27,6 +27,8 @@ void Init_Score(void) // global variables for the two typedef struct
 
 	CP_Settings_Fill(score.text);
 
+
+
 	Init_Timerscore();
 	Init_Foodscore();
 }
