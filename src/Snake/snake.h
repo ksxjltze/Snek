@@ -4,7 +4,7 @@
 #include "score.h"
 #include "gameover.h"
 #include "music.h"
-#include "filemanager.h"
+#include "file_manager.h"
 //Declare in Snake.h
 
 void Snake_Init(void);
