@@ -1,11 +1,13 @@
 #include "filemanager.h"
 
-void WriteFile(void)
+extern int hs = 0;
+
+void WriteFile(int player_score)
 {
 	FILE* fptr;
 	errno_t error;
 
-	error = fopen_s(&fptr, "test.txt", "w");
+	error = fopen_s(&fptr, "highscore.txt", "w");
 
 	if (error != 0)
 		return;
@@ -13,8 +15,7 @@ void WriteFile(void)
 	if (fptr == NULL)
 		return;
 
-	//fprintf(fptr, "%s", "dadadawdawdadaa");
-	fputc('\0', fptr);
+	fprintf(fptr, "%d", player_score);
 
 	fclose(fptr);
 
@@ -24,9 +25,8 @@ void ReadFile(void)
 {
 	FILE* fptr;
 	errno_t error;
-	int hs;
 
-	error = fopen_s(&fptr, "test.txt", "r");
+	error = fopen_s(&fptr, "highscore.txt", "r");
 
 	if (error != 0)
 		return;
@@ -35,4 +35,5 @@ void ReadFile(void)
 		return;
 
 	fscanf_s(fptr, "%d", &hs);
+	fclose(fptr);
 }

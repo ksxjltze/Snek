@@ -4,5 +4,5 @@
 #include <string.h>
 #include <stdlib.h>
 
-void WriteFile(void);
+void WriteFile(int player_score);
 void ReadFile(void);

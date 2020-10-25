@@ -1,6 +1,7 @@
 #include "score.h"
 
-static const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
+extern int hs; 
+extern const int WINDOW_WIDTH, WINDOW_HEIGHT;
 
 void Init_Timerscore(void) // Variables for time elasped score
 {
@@ -43,12 +44,13 @@ void Update_Score(void)
 
 	CP_Font_DrawText(Food_score.text, Food_score.x, score.y);
 
-	score.total = Food_score.count + (int)Time_score.count; // combined food and time score
+	score.total = Food_score.count  + (int)Time_score.count - (int)Time_score.offset; // combined food and time score
 
 	if (CP_Input_KeyTriggered(KEY_Q))
 	{
+
+		Highscore_Manager(score.total);// check against registered highscore
 		GameOver_Score(score.total); // call gameover_score to print total score at gameover screen
-		Exit_Music();
 		CP_Engine_SetNextGameState(Init_GameOver, Update_GameOver, Exit_GameOver); // placeholder for death
 	}
 }
@@ -56,4 +58,13 @@ void Update_Score(void)
 void Exit_Score(void)
 {
 
+}
+
+void Highscore_Manager(int player_score)
+{
+	ReadFile();
+	if (player_score > hs)
+	{
+		WriteFile(player_score);
+	}
 }
