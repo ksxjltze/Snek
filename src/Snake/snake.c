@@ -3,6 +3,7 @@
 #include "cprocessing.h"
 #include "globals.h"
 #include "grid.h"
+#include "food.h"
 
 //Define in Snake.c
 #define DEBUG 1;
@@ -69,11 +70,13 @@ void Snake_Init(void)
 	the_snake.sprite.width = GRID_WIDTH;
 	the_snake.sprite.height = GRID_WIDTH;
 
+	init_food(grid);
 	Init_Score();
 	Init_GameOver();
 	//WriteFile();
 	//ReadFile();
 	Init_Music();
+
 }
 
 void Snake_Update(void)
@@ -83,6 +86,8 @@ void Snake_Update(void)
 	Snake_UpdateMovement();
 	Snake_Draw();
 	Update_Score();
+	food_Draw();
+
 }
 
 void Snake_Exit(void)

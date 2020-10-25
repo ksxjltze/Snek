@@ -1,9 +1,12 @@
 #include "food.h"
 #include "sprite.h"
 #include "cprocessing.h"
+#include "globals.h"
 #include "grid.h"
+#include "snake.h"
 
-static const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
+
+//CP_Vector grid[GRID_SIZE]; //Grid Positions
 
 struct Food
 {
@@ -17,26 +20,36 @@ struct Food
 void food_Draw(void)
 {
 
-	//Draw Snake's head.
+	//Draw food.
 	CP_Image_Draw(the_food.sprite.image,
 		the_food.position.x, the_food.position.y,
 		the_food.sprite.width, the_food.sprite.height, 255);
 };
 
-void init_food(void)
+void init_food(CP_Vector grid[])
 {
 
-	CP_Image img_snake = CP_Image_Load("./Assets/food.png");
+	CP_Image img_food = CP_Image_Load("./Assets/food.png");
+	the_food.sprite.image = img_food;
+	the_food.sprite.width = GRID_WIDTH;
+	the_food.sprite.height = GRID_WIDTH;
 	CP_Settings_Stroke(CP_Color_Create(255, 255, 255, 255)); //White lines
 
-	//food_Grid_Init();									//Initialize Grid specific variables
+	//food_Grid_Init();					
+	//Initialize Grid specific variables
 
-	the_food.sprite.image = img_snake;
+
+	the_food.sprite.image = img_food;
 	the_food.grid_position = 25;
 
-
-//	the_food.sprite.width = GRID_WIDTH;
-//	the_food.sprite.height = GRID_WIDTH;
-
+	the_food.grid_position = 9;						//TODO: Set a proper starting position.
+	the_food.position = grid[the_food.grid_position]; //Screen Position
+	the_food.sprite.width = GRID_WIDTH;
+	the_food.sprite.height = GRID_WIDTH;
 
 };
+
+void food_update(void)
+{
+	food_Draw();
+}
