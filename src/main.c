@@ -19,7 +19,8 @@
 #include "Snake/MainMenu.h"
 
 static const float WINDOW_SCALE = 0.8f;
-static const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
+extern const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
+extern int hs = 0;
 
 // main() the starting point for the program
 // CP_Engine_SetNextGameState() tells CProcessing which functions to use for init, update and exit

@@ -7,7 +7,7 @@
 
 //Define in Snake.c
 #define DEBUG 1;
-extern const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
+extern const int WINDOW_WIDTH, WINDOW_HEIGHT;
 static CP_Color BACKGROUND_COLOR;
 
 static float grid_seconds = 0.5f; //seconds per grid (movement)
