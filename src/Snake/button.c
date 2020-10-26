@@ -33,6 +33,7 @@ struct Button Create_Button(CP_Vector position, float width, float height)
 
 	//Set Default colors
 	Button_Set_Colors(&button, color_idle, color_hover, color_clicked, color_text);
+	button.function = NULL;
 
 	return button;
 }
@@ -76,6 +77,11 @@ void Button_Set_Colors(struct Button* button, CP_Color idle, CP_Color hover, CP_
 	button->color = colors;
 }
 
+void Button_Set_Callback(struct Button* button, void (*ptr)())
+{
+	button->function = ptr;
+}
+
 void Update_Button(struct Button button, float mouseX, float mouseY)
 {
 	CP_Settings_Fill(button.color.idle);
@@ -86,10 +92,18 @@ void Update_Button(struct Button button, float mouseX, float mouseY)
 		if (CP_Input_MouseDown(MOUSE_BUTTON_1))
 			CP_Settings_Fill(button.color.clicked);
 
-		else if(CP_Input_MouseReleased(MOUSE_BUTTON_1))
-			CP_Engine_SetNextGameState(Snake_Init, Snake_Update, Snake_Exit);
+		else if (CP_Input_MouseReleased(MOUSE_BUTTON_1))
+		{
+			if (button.function != NULL)
+				Button_Execute_Callback(button.function);
+		}
 	}
 	Draw_Button(button);
+}
+
+void Button_Execute_Callback(void (*ptr)())
+{
+	(*ptr)();
 }
 
 void Draw_Button_Text(struct Button button)

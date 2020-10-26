@@ -33,9 +33,15 @@ void Init_Menu_Button(void)
 	Menu_button.text = CP_Color_Create(0, 0, 0, 255);
 }
 
+void MainMenu_Load_Game()
+{
+	CP_Engine_SetNextGameState(Snake_Init, Snake_Update, Snake_Exit);
+}
+
 void Button_init(void)
 {
 	Init_Menu_Button();
+	void(*func_ptr)() = &MainMenu_Load_Game;
 
 	CP_Vector pos = CP_Vector_Zero();
 	pos.x = (float)(WINDOW_WIDTH / 2.0f) - (Menu_button.width / 2);
@@ -53,6 +59,10 @@ void Button_init(void)
 
 	Button_Set_Text_Size(&Button_Play, 100);
 	Button_Set_Text_Size(&Button_Exit, 100);
+
+	Button_Set_Callback(&Button_Play, func_ptr);
+	Button_Set_Callback(&Button_Exit, func_ptr);
+
 }
 
 void Button_update(void)
