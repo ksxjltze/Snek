@@ -7,8 +7,7 @@
 #include "stdbool.h"
 
 
-//CP_Vector grid[GRID_SIZE]; //Grid Positions
-
+//CP_Vector grid[GRID_SIZE]; //Grid Positions, Full grid.
 struct Food
 {
 	struct Sprite sprite;
@@ -45,7 +44,7 @@ void init_food(CP_Vector grid[])
 
 	the_food.sprite.image = img_food;
 
-	the_food.grid_position = 26;
+	the_food.grid_position = CP_Random_RangeInt(0, 324);
 	the_food.position = grid[the_food.grid_position]; //Screen Position
 	the_food.sprite.width = GRID_WIDTH;
 	the_food.sprite.height = GRID_WIDTH;
@@ -54,22 +53,24 @@ void init_food(CP_Vector grid[])
 
 };
 
-void food_update(void)
+void food_update(CP_Vector grid[])
 {
 	food_Draw();
-	collision(the_snake.position);
+	collision(the_snake.position, grid);
 }
 
-void collision(CP_Vector position)
+void collision(CP_Vector position, CP_Vector grid[])
 {
 
-	Snake_Grid_Init();
+	//Snake_Grid_Init();
 	if (position.x == the_food.position.x && position.y == the_food.position.y)
 	{
 		score.total = score.total + 1;
 
-		the_food.eaten = 0;
-	
-		
+	//	the_food.eaten = 0;
+
+		the_food.grid_position = CP_Random_RangeInt(0, 324);     // food position generated inside the barrier
+		the_food.position = grid[the_food.grid_position]; //Screen Position
 	}
+	
 }

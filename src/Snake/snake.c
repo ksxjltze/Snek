@@ -62,7 +62,7 @@ void Snake_Update(void)
 	Snake_UpdateInput();
 	Snake_Timer();
 	Snake_UpdateMovement();
-	food_update();
+	food_update(grid_field);
 	Snake_Draw();
 	Update_Score();
 
