@@ -49,7 +49,7 @@ void Snake_Init(void)
 	the_snake.sprite.width = GRID_WIDTH;
 	the_snake.sprite.height = GRID_WIDTH;
 
-	init_food(grid);
+	init_food(grid_field);
 	Init_Score();
 	Init_GameOver();
 	//Init_Music();
