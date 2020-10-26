@@ -78,6 +78,7 @@ void Snake_DrawGrid_Truncated()
 	}
 }
 
+//Draws circles on grid positions (Debug)
 void Snake_DrawGridPositions(CP_Vector grid[], int size)
 {
 	for (int i = 0; i < size; i++)
