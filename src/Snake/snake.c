@@ -228,11 +228,17 @@ void Snake_Move(CP_Vector* old_pos, CP_Vector new_pos)
 	old_pos->y = CP_Math_LerpFloat(old_pos->y, new_pos.y, CP_System_GetDt() / move_timer);
 }
 
+void Snake_UnPause()
+{
+	paused = false;
+}
+
 //Draw sprites
 void Snake_Draw(void)
 {
 	//Clear Buffer
 	CP_Settings_Background(BACKGROUND_COLOR);
+	Snake_DrawGrid_Truncated();
 
 	//Draw Snake's head.
 	CP_Image_Draw(the_snake.sprite.image, 
@@ -252,7 +258,6 @@ void Snake_Draw(void)
 	}
 
 	Colour_Boundary();
-	//Snake_DrawGrid_Truncated();
 
 	//Snake_DrawGrid();
 	//Snake_DrawGridPositions(grid_field, GRID_SIZE - BOUNDARY_SIZE);

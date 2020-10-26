@@ -29,6 +29,12 @@ void Snake_PauseMenu_Init()
 	CP_Color text = CP_Color_Create(255, 255, 255, 255);
 
 	Button_Set_Colors(&menu.btn_Continue, idle, hover, clicked, text);
+	Button_Set_Callback(&menu.btn_Continue, &Snake_Pause_Continue);
+}
+
+void Snake_Pause_Continue()
+{
+	Snake_UnPause();
 }
 
 bool Snake_Pause(bool isPaused)
