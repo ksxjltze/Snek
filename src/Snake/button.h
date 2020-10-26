@@ -18,6 +18,7 @@ struct Button
 
 	CP_Image image;
 	const char* text;
+	float textSize;
 
 	CP_Vector position;
 	float width;
@@ -32,3 +33,5 @@ void Update_Button(struct Button button, float mouseX, float mouseY);
 void Draw_Button(struct Button button);
 void Draw_Button_Text(struct Button button);
 void Draw_Button_Image(struct Button button);
+void Button_Set_Text_Size(struct Button* button, float size);
+void Button_Init();

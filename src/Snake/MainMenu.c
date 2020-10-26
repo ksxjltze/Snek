@@ -8,7 +8,6 @@ struct Button Button_Exit;
 void Menu_init(void)
 {
 	CP_System_SetWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-	CP_Settings_TextSize(100.0f);
 	Button_init();
 }
 void Menu_update(void)
@@ -51,6 +50,9 @@ void Button_init(void)
 
 	Button_Set_Colors(&Button_Play, Menu_button.idle, Menu_button.hover, Menu_button.clicked, Menu_button.text);
 	Button_Set_Colors(&Button_Exit, Menu_button.idle, Menu_button.hover, Menu_button.clicked, Menu_button.text);
+
+	Button_Set_Text_Size(&Button_Play, 100);
+	Button_Set_Text_Size(&Button_Exit, 100);
 }
 
 void Button_update(void)

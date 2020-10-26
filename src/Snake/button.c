@@ -3,6 +3,25 @@
 #include <stdbool.h> //bool
 #include "utils.h"   //isMouseOver_Rect()
 
+//Button Defaults
+CP_Color color_idle;
+CP_Color color_hover;
+CP_Color color_clicked;
+CP_Color color_text;
+
+float text_size;
+
+void Button_Init()
+{
+	color_hover = CP_Color_Create(255, 0, 0, 255);
+	color_idle = CP_Color_Create(0, 255, 0, 255);
+	color_clicked = CP_Color_Create(0, 0, 255, 255);
+	color_text = CP_Color_Create(0, 0, 0, 255);
+
+	text_size = 100;
+
+}
+
 struct Button Create_Button(CP_Vector position, float width, float height)
 {
 	struct Button button;
@@ -12,6 +31,9 @@ struct Button Create_Button(CP_Vector position, float width, float height)
 	button.width = width;
 	button.height = height;
 
+	//Set Default colors
+	Button_Set_Colors(&button, color_idle, color_hover, color_clicked, color_text);
+
 	return button;
 }
 
@@ -19,6 +41,7 @@ struct Button Create_TextButton(CP_Vector position, float width, float height, c
 {
 	struct Button button = Create_Button(position, width, height);
 	button.type = TEXT_BUTTON;
+	button.textSize = text_size; //Default text size
 	button.text = text;
 
 	return button;
@@ -32,6 +55,13 @@ struct Button Create_ImageButton(CP_Vector position, float width, float height, 
 
 	return button;
 }
+
+void Button_Set_Text_Size(struct Button* button, float size)
+{
+	button->textSize = size;
+
+}
+
 
 void Button_Set_Colors(struct Button* button, CP_Color idle, CP_Color hover, CP_Color clicked, CP_Color text)
 {
@@ -65,6 +95,7 @@ void Update_Button(struct Button button, float mouseX, float mouseY)
 void Draw_Button_Text(struct Button button)
 {
 	CP_Settings_Fill(button.color.text);
+	CP_Settings_TextSize(button.textSize);
 	CP_Font_DrawText(button.text, button.position.x + button.width / 4,
 		button.position.y + button.height / 1.3f);
 }

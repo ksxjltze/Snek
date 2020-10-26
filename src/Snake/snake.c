@@ -9,6 +9,8 @@ static float grid_seconds = 0.5f; //seconds per grid (movement)
 float move_timer;
 
 static CP_Vector WINDOW_CENTRE;
+bool paused;
+
 CP_Vector grid[GRID_SIZE]; //Grid Positions, Full grid.
 CP_Vector grid_field[GRID_SIZE - BOUNDARY_SIZE]; //Truncated grid (without boundary)
 //CP_Vector boundary[BOUNDARY_SIZE]; //Grid boundary
@@ -50,21 +52,33 @@ void Snake_Init(void)
 	the_snake.sprite.height = GRID_WIDTH;
 
 	init_food(grid_field);
+	Button_Init();
 	Init_Score();
 	Init_GameOver();
+	Snake_PauseMenu_Init();
 	//Init_Music();
+	paused = false;
 
 }
 
 void Snake_Update(void)
 {
-	Snake_UpdateInput();
-	Snake_Timer();
-	Snake_UpdateMovement();
-	food_update(grid_field);
-	Snake_Draw();
-	Update_Score();
-
+	if (paused)
+	{
+		Snake_PauseMenu_Update();
+	}
+	else
+	{
+		Snake_UpdateInput();
+		Snake_Timer();
+		Snake_UpdateMovement();
+		food_update(grid_field);
+		Snake_Draw();
+		Update_Score();
+	}
+	
+	if (CP_Input_KeyTriggered(KEY_SPACE))
+		paused = Snake_Pause(paused);
 
 }
 
