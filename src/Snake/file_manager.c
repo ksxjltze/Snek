@@ -28,7 +28,11 @@ void ReadFile(int* high_score) // function to read score from file
 	error = fopen_s(&fptr, "highscore.txt", "r");
 
 	if (error != 0)
+	{
+		WriteFile(0);
+		*high_score = 0;
 		return;
+	}
 
 	if (fptr == NULL)
 		return;

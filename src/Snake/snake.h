@@ -40,6 +40,9 @@ void Snake_UpdateInput(void);
 void Snake_UpdateMovement(void);
 void Snake_Timer(void);
 
+//Init Segments
+void Snake_Init_Segments();
+
 //Draw
 void Snake_Draw(void);
 
