@@ -177,6 +177,9 @@ void Snake_UpdateMovement(void)
 			}
 		}
 
+
+		the_snake.grid_position = pos;			//Update head's grid position.
+		the_snake.position = grid[pos];			//Screen Position
 		//Collision with boundary (Dania)
 		if (the_snake.position.y == grid[GRID_SIZE - 1].y || the_snake.position.x == grid[GRID_SIZE - 1].x
 			|| the_snake.position.y == grid[0].y || the_snake.position.x == grid[0].x) //at the last cell
@@ -184,8 +187,6 @@ void Snake_UpdateMovement(void)
 			Snake_Death();
 		}
 
-		the_snake.grid_position = pos;			//Update head's grid position.
-		the_snake.position = grid[pos];			//Screen Position
 	}
 }
 
