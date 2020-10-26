@@ -67,9 +67,11 @@ void Colour_Boundary()
 	//set draw color
 
 	float end = (CELL_WIDTH * GRID_WIDTH - offset) - CELL_WIDTH / 2;
-
+	CP_Settings_Fill(CP_Color_Create(153, 0, 0, 255));
 	CP_Graphics_DrawRect(offset, offset - 2, GRID_WIDTH * CELL_WIDTH, CELL_WIDTH);  //Top boundary
 	CP_Graphics_DrawRect(offset, end + 2, GRID_WIDTH * CELL_WIDTH, CELL_WIDTH);     //Bottom boundary
 	CP_Graphics_DrawRect(offset, offset, CELL_WIDTH, GRID_WIDTH * CELL_WIDTH);					//Left boundary
 	CP_Graphics_DrawRect(end + 2, offset, CELL_WIDTH, GRID_WIDTH * CELL_WIDTH);						//Right boundary
+
+	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255)); // change color back to white;
 }

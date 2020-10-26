@@ -11,17 +11,17 @@ void GameOver_Score(int total_score, int high_score)// function to print score
 	CP_Settings_TextSize(50.0f);
 	hs = high_score;
 	
-	sprintf_s(playerscore_buffer, 16, "%d", total_score - (int)Time_score.offset); 
-	sprintf_s(highscore_buffer, 16, "%d", hs);
+	sprintf_s(playerscore_buffer, 16, "%d", total_score - (int)Time_score.offset); // coverts score into char buffer
+	sprintf_s(highscore_buffer, 16, "%d", hs); //convert recorded highscore into char buffer
 
-	CP_Font_DrawText(gameover_score.text, (float)WINDOW_WIDTH / 2.5f, WINDOW_HEIGHT / 2.5f);
-	CP_Font_DrawText(highscore.text, (float)WINDOW_WIDTH / 2.5f, WINDOW_HEIGHT / 2.0f);
+	CP_Font_DrawText(gameover_score.text, (float)WINDOW_WIDTH / 2.5f, WINDOW_HEIGHT / 2.5f); // drawing of text
+	CP_Font_DrawText(highscore.text, (float)WINDOW_WIDTH / 2.5f, WINDOW_HEIGHT / 2.0f);// drawing of highscore
 
-	CP_Font_DrawText(playerscore_buffer, WINDOW_WIDTH / 1.6f, WINDOW_HEIGHT / 2.5f);
+	CP_Font_DrawText(playerscore_buffer, WINDOW_WIDTH / 1.6f, WINDOW_HEIGHT / 2.5f); 
 
-	if ((total_score - (int)Time_score.offset) >= hs)
+	if ((total_score - (int)Time_score.offset) >= hs) // if total > recorded highscore, print total as highscore
 	{
-		CP_Font_DrawText(playerscore_buffer, WINDOW_WIDTH / 1.6f, WINDOW_HEIGHT / 2.0f); // if total > recorded highscore
+		CP_Font_DrawText(playerscore_buffer, WINDOW_WIDTH / 1.6f, WINDOW_HEIGHT / 2.0f); 
 	}
 	else
 	{
