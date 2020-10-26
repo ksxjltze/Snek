@@ -201,16 +201,20 @@ void Snake_UpdateMovement(void)
 		//the_snake.position = grid[pos];			//Screen Position
 
 		//Collision with boundary (Dania)
-		for (int i = GRID_SIZE - 2; i >= 0; i--)
+		if (the_snake.position.y == grid[GRID_SIZE - 1].y || the_snake.position.x == grid[GRID_SIZE - 1].x ||
+			the_snake.position.y == grid[0].y || the_snake.position.x == grid[0].x)
 		{
-			if (the_snake.position.y == grid[GRID_SIZE - 1].y || the_snake.position.x == grid[GRID_SIZE - 1].x
-				|| the_snake.position.y == grid[0].y || the_snake.position.x == grid[0].x ||
-				the_snake.position.x == the_snake.segments[i].position.x || 
-				the_snake.position.y == the_snake.segments[i].position.y)  //at the last cell
-			{
-				Snake_Death();
-			}
+			Snake_Death();
 		}
+
+		//for (int i = GRID_SIZE - 2; i >= 0; i--)
+		//{
+		//	if (the_snake.position.x == the_snake.segments[i].position.x || 
+		//		the_snake.position.y == the_snake.segments[i].position.y)  //at the last cell
+		//	{
+		//		Snake_Death();
+		//	}
+		//}
 
 	}
 	else
