@@ -77,7 +77,7 @@ void Snake_Update(void)
 		Update_Score();
 	}
 	
-	if (CP_Input_KeyTriggered(KEY_SPACE))
+	if (CP_Input_KeyTriggered(KEY_ESCAPE))
 		paused = Snake_Pause(paused);
 
 }
