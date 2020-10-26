@@ -42,9 +42,9 @@ void Snake_Init(void)
 	Snake_Init_Segments();
 
 	//Test
-	Snake_Grow();
-	Snake_Grow();
-	Snake_Grow();
+	//Snake_Grow();
+	//Snake_Grow();
+	//Snake_Grow();
 
 	the_snake.sprite.width = GRID_WIDTH;
 	the_snake.sprite.height = GRID_WIDTH;
