@@ -53,7 +53,7 @@ void Snake_Init(void)
 
 	init_food(grid_field);
 	Button_Init();
-	Init_Score();
+	Init_Scores_Var();
 	Init_GameOver();
 	Snake_PauseMenu_Init();
 	//Init_Music();
@@ -203,6 +203,7 @@ void Snake_UpdateMovement(void)
 		if (the_snake.position.y == grid[GRID_SIZE - 1].y || the_snake.position.x == grid[GRID_SIZE - 1].x
 			|| the_snake.position.y == grid[0].y || the_snake.position.x == grid[0].x) //at the last cell
 		{
+			Score_Manager();
 			Snake_Death();
 		}
 
