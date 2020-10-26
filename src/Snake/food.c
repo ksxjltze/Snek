@@ -25,7 +25,7 @@ void food_Draw(void)
 			the_food.position.x, the_food.position.y,
 			the_food.sprite.width, the_food.sprite.height, 255);        //Draw food.
 	}
-};
+}
 
 void init_food(CP_Vector grid[])
 {

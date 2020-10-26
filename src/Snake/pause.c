@@ -35,6 +35,12 @@ void Snake_PauseMenu_Init()
 	Button_Set_Colors(&menu.btn_Restart, idle, hover, clicked, text);
 
 	Button_Set_Callback(&menu.btn_Continue, &Snake_Pause_Continue);
+	Button_Set_Callback(&menu.btn_Restart, &Snake_Pause_Restart);
+}
+
+void Snake_Pause_Restart()
+{
+	Snake_Reset();
 }
 
 void Snake_Pause_Continue()

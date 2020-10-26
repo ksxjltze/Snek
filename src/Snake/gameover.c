@@ -6,6 +6,7 @@ int hs = 0;
 
 void GameOver_Score(int total_score, int high_score)// function to print score
 {
+	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_BASELINE);
 	char playerscore_buffer[16]; //buffer for current game score
 	char highscore_buffer[16]; // buffer for highscore
 	CP_Settings_TextSize(50.0f);

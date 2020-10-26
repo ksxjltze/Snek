@@ -8,3 +8,4 @@ bool Snake_Pause(bool isPaused);
 void Snake_PauseMenu_Init();
 void Snake_PauseMenu_Update();
 void Snake_Pause_Continue();
+void Snake_Pause_Restart();

@@ -42,6 +42,7 @@ void Snake_Exit(void);
 void Snake_UpdateInput(void);
 void Snake_UpdateMovement(void);
 void Snake_Timer(void);
+void Snake_Move(CP_Vector* old_pos, CP_Vector new_pos);
 
 //Init Segments
 void Snake_Init_Segments();
@@ -55,5 +56,6 @@ void Snake_Grow(void);
 //Death
 void Snake_Death(void);
 
-void Snake_Move(CP_Vector* old_pos, CP_Vector new_pos);
+//Pause and Reset
 void Snake_UnPause();
+void Snake_Reset(void);
