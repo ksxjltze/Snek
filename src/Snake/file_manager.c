@@ -25,7 +25,7 @@ int ReadFile(void) // function to read score from file
 	errno_t error;
 	int score = 0;
 
-	error = fopen_s(&fptr, "highscore.txt", "r+");
+	error = fopen_s(&fptr, "highscore.txt", "r");
 
 	if (error != 0)
 		return 0;
