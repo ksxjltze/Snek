@@ -11,7 +11,7 @@ float move_timer;
 
 static CP_Vector WINDOW_CENTRE;
 CP_Vector grid[GRID_SIZE]; //Grid Positions, Full grid.
-CP_Vector grid_field[GRID_SIZE - (4 * GRID_WIDTH - 4)]; //Truncated grid (without boundary)
+CP_Vector grid_field[GRID_SIZE - BOUNDARY_SIZE]; //Truncated grid (without boundary)
 //CP_Vector boundary[BOUNDARY_SIZE]; //Grid boundary
 
 enum Directions			//Integer values used to determine snake direction. Modulo (%) is used to determine axis.
@@ -210,6 +210,6 @@ void Snake_Draw(void)
 	Snake_DrawGrid_Truncated();
 
 	//Snake_DrawGrid();
-	//Snake_DrawGridPositions(grid_field, GRID_SIZE - (4 * GRID_WIDTH - 4));
+	//Snake_DrawGridPositions(grid_field, GRID_SIZE - BOUNDARY_SIZE);
 }
 
