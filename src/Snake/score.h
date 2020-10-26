@@ -32,4 +32,4 @@ void Init_Foodscore(void);
 void Init_Score(void);
 void Update_Score(void);
 void Exit_Score(void);
-void Highscore_Manager(int player_score);
+void Highscore_Manager(int player_score, int* highscore_ptr);

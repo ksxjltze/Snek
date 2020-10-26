@@ -1,15 +1,15 @@
 #include "gameover.h"
 #include "snake.h"
 
-extern int hs; // high score variable, retrieved from ReadFile() function
- 
 extern const int WINDOW_WIDTH, WINDOW_HEIGHT;
+int hs = 0;
 
-void GameOver_Score(int total_score)// function to print score
+void GameOver_Score(int total_score, int high_score)// function to print score
 {
 	char playerscore_buffer[16]; //buffer for current game score
 	char highscore_buffer[16]; // buffer for highscore
 	CP_Settings_TextSize(50.0f);
+	hs = high_score;
 	
 	sprintf_s(playerscore_buffer, 16, "%d", total_score - (int)Time_score.offset); 
 	sprintf_s(highscore_buffer, 16, "%d", hs);
@@ -96,7 +96,7 @@ void Update_GameOver(void) // updates the rendering based on
 	CP_Font_DrawText(quit_button.text, gameover_button.x + gameover_button.width * 0.25f,
 		quit_button.y + gameover_button.height * 0.7f); // draw "quit" over the button
 
-	GameOver_Score((int)Time_score.count); // call gameover_score which prints the final player score
+	GameOver_Score((int)Time_score.count, hs); // call gameover_score which prints the final player score
 	CP_Settings_TextSize(100.0f); // reset text size back to 100.0f
 }
 

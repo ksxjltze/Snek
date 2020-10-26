@@ -1,7 +1,7 @@
 #include "score.h"
 
-extern int hs; 
 extern const int WINDOW_WIDTH, WINDOW_HEIGHT;
+int high_score;
 
 void Init_Timerscore(void) // Variables for time elasped score
 {
@@ -51,8 +51,8 @@ void Update_Score(void)
 	if (CP_Input_KeyTriggered(KEY_Q))
 	{
 
-		Highscore_Manager(score.total);// check against registered highscore
-		GameOver_Score(score.total); // call gameover_score to print total score at gameover screen
+		Highscore_Manager(score.total, &high_score);// check against registered highscore
+		GameOver_Score(score.total, high_score); // call gameover_score to print total score at gameover screen
 		CP_Engine_SetNextGameState(Init_GameOver, Update_GameOver, Exit_GameOver); // placeholder for death
 	}
 }
@@ -62,10 +62,11 @@ void Exit_Score(void)
 
 }
 
-void Highscore_Manager(int player_score)
+void Highscore_Manager(int player_score, int* highscore_ptr)
 {
-	ReadFile();
-	if (player_score > hs)
+	high_score = ReadFile();
+	*highscore_ptr = high_score;
+	if (player_score > high_score)
 	{
 		WriteFile(player_score);
 	}

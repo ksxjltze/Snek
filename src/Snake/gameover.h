@@ -45,7 +45,7 @@ struct Quit_button
 	float y;
 }quit_button;
 
-void GameOver_Score(int total_score);
+void GameOver_Score(int total_score, int high_score);
 void GameOver_Button_Init(void);
 void Init_GameOver(void);
 void Update_GameOver(void);
