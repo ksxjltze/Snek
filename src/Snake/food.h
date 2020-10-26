@@ -2,6 +2,7 @@
 #include "cprocessing.h"
 #include <stdio.h>
 #include "snake.h"
+#include "score.h"
 
 //Draw
 void food_Draw(void);

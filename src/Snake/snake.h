@@ -11,11 +11,12 @@
 #include "grid.h"
 #include "food.h"
 
-struct Segment			//Segment of Snake body.
+struct Segment					//Segment of Snake body.
 {
-	CP_Vector position; //Screen position.
-	int grid_position;  //Grid position. (Index of array)
-	bool active;		//Used in array to determine if segment should be updated.
+	CP_Vector position;			//Screen position.
+	CP_Vector destination;		//Next position
+	int grid_position;			//Grid position. (Index of array)
+	bool active;				//Used in array to determine if segment should be updated.
 };
 
 struct Snake								//Snake (Player)
@@ -24,6 +25,7 @@ struct Snake								//Snake (Player)
 	struct Segment segments[GRID_SIZE - 1]; //Snake Body
 
 	CP_Vector position;						//Screen position (pixels)
+	CP_Vector destination;					//Next position
 	int grid_position;						//Grid position (0 < position < GRID_SIZE)
 	int direction;							//Snake direction (defined in enum Directions)
 
@@ -51,3 +53,5 @@ void Snake_Grow(void);
 
 //Death
 void Snake_Death(void);
+
+void Snake_Move(CP_Vector* old_pos, CP_Vector new_pos);
