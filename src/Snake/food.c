@@ -64,7 +64,7 @@ void collision(CP_Vector position, CP_Vector grid[])
 
 	//Snake_Grid_Init();
 	if (position.x == the_food.position.x && position.y == the_food.position.y)
-	{
+	{ 
 		score.total = score.total + 1;
 
 	//	the_food.eaten = 0;
