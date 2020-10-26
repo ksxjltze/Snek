@@ -29,6 +29,24 @@ void Snake_SetGrid(CP_Vector grid[])		//Assumes that grid is a square grid.
 	}
 }
 
+//Truncates grid (Remove boundary)
+void Snake_TruncateGrid(CP_Vector grid[], CP_Vector grid_truncated[])
+{
+	int x = 0;														//Truncated grid index.
+	for (int i = GRID_WIDTH; i < GRID_SIZE - GRID_WIDTH; i++)		
+	{
+		if ((i - GRID_WIDTH + 1) % GRID_WIDTH == 0)
+			continue;
+
+		if (i % GRID_WIDTH != 0)
+		{
+			grid_truncated[x] = grid[i];
+			x++;
+		}
+	
+	}
+}
+
 //Draws the grid.
 void Snake_DrawGrid()
 {
@@ -57,6 +75,15 @@ void Snake_DrawGrid_Truncated()
 
 		CP_Graphics_DrawLine(start, row, end, row);
 		CP_Graphics_DrawLine(row, start, row, end);
+	}
+}
+
+void Snake_DrawGridPositions(CP_Vector grid[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		CP_Vector pos = grid[i];
+		CP_Graphics_DrawCircle(pos.x, pos.y, 5);
 	}
 }
 
