@@ -1,7 +1,7 @@
 #include "score.h"
 
 extern const int WINDOW_WIDTH, WINDOW_HEIGHT;
-int high_score;
+int high_score = 0;
 
 void Init_Timerscore(void) // Variables for time elasped score
 {
@@ -64,11 +64,11 @@ void Exit_Score(void)
 
 void Highscore_Manager(int player_score, int* highscore_ptr)
 {
-	high_score = ReadFile();
+	ReadFile(&high_score);
 	*highscore_ptr = high_score;
+
 	if (player_score > high_score)
 	{
 		WriteFile(player_score);
 	}
-
 }

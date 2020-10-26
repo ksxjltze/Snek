@@ -10,8 +10,9 @@ static float grid_seconds = 0.5f; //seconds per grid (movement)
 float move_timer;
 
 static CP_Vector WINDOW_CENTRE;
-CP_Vector grid[GRID_SIZE]; //Grid Positions
-CP_Vector boundary[BOUNDARY_SIZE]; //Grid boundary
+CP_Vector grid[GRID_SIZE]; //Grid Positions, Full grid.
+CP_Vector grid_field[GRID_SIZE - (4 * GRID_WIDTH - 4)]; //Truncated grid (without boundary)
+//CP_Vector boundary[BOUNDARY_SIZE]; //Grid boundary
 
 enum Directions			//Integer values used to determine snake direction. Modulo (%) is used to determine axis.
 {
@@ -30,6 +31,7 @@ void Snake_Init(void)
 
 	Snake_Grid_Init();									//Initialize Grid specific variables
 	Snake_SetGrid(grid);								//Populates the grid array with CP_Vector positions.
+	Snake_TruncateGrid(grid, grid_field);
 	move_timer = grid_seconds;
 
 	the_snake.sprite.image = img_snake;
@@ -51,8 +53,6 @@ void Snake_Init(void)
 	init_food(grid);
 	Init_Score();
 	Init_GameOver();
-	//WriteFile();
-	//ReadFile();
 	//Init_Music();
 
 }
@@ -100,7 +100,7 @@ void Snake_Grow()
 			else
 				segment->grid_position = the_snake.grid_position - direction;					//First segment after the head.
 
-			segment->position = grid[segment->grid_position];
+			segment->position = grid_field[segment->grid_position];
 			return;
 		}
 	}
@@ -172,6 +172,7 @@ void Snake_UpdateMovement(void)
 			}
 		}
 
+		//Collision with boundary (Dania)
 		if (the_snake.position.y == grid[GRID_SIZE - 1].y || the_snake.position.x == grid[GRID_SIZE - 1].x
 			|| the_snake.position.y == grid[0].y || the_snake.position.x == grid[0].x) //at the last cell
 		{
@@ -207,8 +208,9 @@ void Snake_Draw(void)
 	}
 
 	Colour_Boundary();
+	Snake_DrawGrid_Truncated();
 
-	Snake_DrawGrid();
-	//Snake_DrawGrid_Truncated();
+	//Snake_DrawGrid();
+	//Snake_DrawGridPositions(grid_field, GRID_SIZE - (4 * GRID_WIDTH - 4));
 }
 

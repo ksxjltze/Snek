@@ -29,6 +29,24 @@ void Snake_SetGrid(CP_Vector grid[])		//Assumes that grid is a square grid.
 	}
 }
 
+//Truncates grid (Remove boundary)
+void Snake_TruncateGrid(CP_Vector grid[], CP_Vector grid_truncated[])
+{
+	int x = 0;														//Truncated grid index.
+	for (int i = GRID_WIDTH; i < GRID_SIZE - GRID_WIDTH; i++)		
+	{
+		if ((i - GRID_WIDTH + 1) % GRID_WIDTH == 0)
+			continue;
+
+		if (i % GRID_WIDTH != 0)
+		{
+			grid_truncated[x] = grid[i];
+			x++;
+		}
+	
+	}
+}
+
 //Draws the grid.
 void Snake_DrawGrid()
 {
@@ -60,6 +78,15 @@ void Snake_DrawGrid_Truncated()
 	}
 }
 
+void Snake_DrawGridPositions(CP_Vector grid[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		CP_Vector pos = grid[i];
+		CP_Graphics_DrawCircle(pos.x, pos.y, 5);
+	}
+}
+
 void Colour_Boundary()
 {
 	//TODO color
@@ -67,9 +94,11 @@ void Colour_Boundary()
 	//set draw color
 
 	float end = (CELL_WIDTH * GRID_WIDTH - offset) - CELL_WIDTH / 2;
-
+	CP_Settings_Fill(CP_Color_Create(153, 0, 0, 255));
 	CP_Graphics_DrawRect(offset, offset - 2, GRID_WIDTH * CELL_WIDTH, CELL_WIDTH);  //Top boundary
 	CP_Graphics_DrawRect(offset, end + 2, GRID_WIDTH * CELL_WIDTH, CELL_WIDTH);     //Bottom boundary
 	CP_Graphics_DrawRect(offset, offset, CELL_WIDTH, GRID_WIDTH * CELL_WIDTH);					//Left boundary
 	CP_Graphics_DrawRect(end + 2, offset, CELL_WIDTH, GRID_WIDTH * CELL_WIDTH);						//Right boundary
+
+	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255)); // change color back to white;
 }

@@ -13,6 +13,8 @@ void Menu_init(void)
 }
 void Menu_update(void)
 {	
+	CP_Image_Draw(CP_Image_Load("./Assets/Menu.png"), WINDOW_WIDTH / 2.0f, 
+		WINDOW_HEIGHT / 2.0f, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT, 255);
 	Button_update();
 }
 

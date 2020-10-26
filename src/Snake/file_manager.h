@@ -4,4 +4,4 @@
 #include <stdlib.h>
 
 void WriteFile(int player_score);
-int ReadFile(void);
+void ReadFile(int* high_score);
