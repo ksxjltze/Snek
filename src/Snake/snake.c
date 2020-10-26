@@ -40,12 +40,7 @@ void Snake_Init(void)
 	the_snake.direction = RIGHT;						//Snake faces right by default.
 
 	//Initialize snake's segments
-	for (int i = 0; i < GRID_SIZE - 1; i++)		//Minus 1 to account for snake's head.
-	{
-		the_snake.segments[i].active = false;	//Not active, will not be drawn.
-		the_snake.segments[i].position = CP_Vector_Set(0, 0);
-		the_snake.segments[i].grid_position = 0;
-	}
+	Snake_Init_Segments();
 
 	the_snake.sprite.width = GRID_WIDTH;
 	the_snake.sprite.height = GRID_WIDTH;
@@ -76,6 +71,16 @@ void Snake_Exit(void)
 void Snake_Death(void)
 {
 	CP_Engine_SetNextGameState(Init_GameOver, Update_GameOver, Exit_GameOver);
+}
+
+void Snake_Init_Segments()
+{
+	for (int i = 0; i < GRID_SIZE - 1; i++)		//Minus 1 to account for snake's head.
+	{
+		the_snake.segments[i].active = false;	//Not active, will not be drawn.
+		the_snake.segments[i].position = CP_Vector_Set(0, 0);
+		the_snake.segments[i].grid_position = 0;
+	}
 }
 
 //Makes the snake grow longer.
