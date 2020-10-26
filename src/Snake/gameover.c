@@ -16,9 +16,18 @@ void GameOver_Score(int total_score, int high_score)// function to print score
 
 	CP_Font_DrawText(gameover_score.text, (float)WINDOW_WIDTH / 2.5f, WINDOW_HEIGHT / 2.5f);
 	CP_Font_DrawText(highscore.text, (float)WINDOW_WIDTH / 2.5f, WINDOW_HEIGHT / 2.0f);
-	
+
 	CP_Font_DrawText(playerscore_buffer, WINDOW_WIDTH / 1.6f, WINDOW_HEIGHT / 2.5f);
-	CP_Font_DrawText(highscore_buffer, WINDOW_WIDTH / 1.6f, WINDOW_HEIGHT / 2.0f);
+
+	if ((total_score - (int)Time_score.offset) >= hs)
+	{
+		CP_Font_DrawText(playerscore_buffer, WINDOW_WIDTH / 1.6f, WINDOW_HEIGHT / 2.0f); // if total > recorded highscore
+	}
+	else
+	{
+		CP_Font_DrawText(highscore_buffer, WINDOW_WIDTH / 1.6f, WINDOW_HEIGHT / 2.0f);
+	}
+	
 }
 
 void GameOver_Button_Init(void) //initialize variables for the buttons on gameover screen
