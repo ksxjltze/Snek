@@ -31,7 +31,7 @@ void Snake_Init(void)
 	Snake_Grid_Init();									//Initialize Grid specific variables
 	Snake_SetGrid(grid);								//Populates the grid array with CP_Vector positions.
 	Snake_TruncateGrid(grid, grid_field);
-	move_timer = grid_seconds;
+	move_timer = 0.0f;
 
 	the_snake.sprite.image = img_snake;
 	the_snake.grid_position = Random_Snake_Grid_Pos();		//Sets a random position
@@ -40,6 +40,9 @@ void Snake_Init(void)
 
 	//Initialize snake's segments
 	Snake_Init_Segments();
+	Snake_Grow();
+	Snake_Grow();
+	Snake_Grow();
 
 	the_snake.sprite.width = GRID_WIDTH;
 	the_snake.sprite.height = GRID_WIDTH;
@@ -171,13 +174,14 @@ void Snake_UpdateMovement(void)
 					segment->grid_position =	//Set first segment's position to be the position of the head.
 					the_snake.grid_position;
 
-				segment->position = grid[segment->grid_position];	//Update screen position. (Pixels)
+				segment->destination = grid[segment->grid_position];	//Update screen position. (Pixels)
 
 			}
 		}
 
 		the_snake.grid_position = pos;			//Update head's grid position.
-		the_snake.position = grid[pos];			//Screen Position
+		the_snake.destination = grid[pos];
+		//the_snake.position = grid[pos];			//Screen Position
 
 		//Collision with boundary (Dania)
 		if (the_snake.position.y == grid[GRID_SIZE - 1].y || the_snake.position.x == grid[GRID_SIZE - 1].x
@@ -187,6 +191,25 @@ void Snake_UpdateMovement(void)
 		}
 
 	}
+	else
+	{
+		Snake_Move(&the_snake.position, the_snake.destination);
+		for (int i = 0; i < GRID_SIZE - 1; i++)
+		{
+			struct Segment* segment = &the_snake.segments[i];
+			if (segment->active) //Find first inactive segment. i.e. Segment after the "Last Segment".
+			{
+				Snake_Move(&segment->position, segment->destination);
+			}
+		}
+	}
+
+}
+
+void Snake_Move(CP_Vector* old_pos, CP_Vector new_pos)
+{
+	old_pos->x = CP_Math_LerpFloat(old_pos->x, new_pos.x, CP_System_GetDt() / move_timer);
+	old_pos->y = CP_Math_LerpFloat(old_pos->y, new_pos.y, CP_System_GetDt() / move_timer);
 }
 
 //Draw sprites
@@ -213,7 +236,7 @@ void Snake_Draw(void)
 	}
 
 	Colour_Boundary();
-	Snake_DrawGrid_Truncated();
+	//Snake_DrawGrid_Truncated();
 
 	//Snake_DrawGrid();
 	//Snake_DrawGridPositions(grid_field, GRID_SIZE - BOUNDARY_SIZE);
