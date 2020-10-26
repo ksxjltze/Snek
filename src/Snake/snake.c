@@ -40,6 +40,8 @@ void Snake_Init(void)
 
 	//Initialize snake's segments
 	Snake_Init_Segments();
+
+	//Test
 	Snake_Grow();
 	Snake_Grow();
 	Snake_Grow();
@@ -107,7 +109,7 @@ void Snake_Grow()
 			else
 				segment->grid_position = the_snake.grid_position - direction;					//First segment after the head.
 
-			segment->position = grid_field[segment->grid_position];
+			segment->position = grid[segment->grid_position];
 			return;
 		}
 	}
