@@ -13,6 +13,8 @@
     <ClCompile Include="src\Snake\file_manager.c" />
     <ClCompile Include="src\Snake\file_manager.h" />
     <ClCompile Include="src\Snake\utils.c" />
+    <ClCompile Include="src\Snake\pause.c" />
+    <ClCompile Include="sfx.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Snake\button.h" />
@@ -26,5 +28,7 @@
     <ClInclude Include="src\Snake\score.h" />
     <ClInclude Include="src\Snake\music.h" />
     <ClInclude Include="src\Snake\food.h" />
+    <ClInclude Include="src\Snake\pause.h" />
+    <ClInclude Include="sfx.h" />
   </ItemGroup>
 </Project>
