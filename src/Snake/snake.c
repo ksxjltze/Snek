@@ -55,9 +55,15 @@ void Snake_Init(void)
 	Button_Init();
 	Init_Score();
 	Init_GameOver();
+<<<<<<< Updated upstream
 	Snake_PauseMenu_Init();
 	//Init_Music();
 	paused = false;
+=======
+	//WriteFile();
+	//ReadFile();
+	//Init_Music();
+>>>>>>> Stashed changes
 
 }
 
@@ -92,6 +98,7 @@ void Snake_Death(void)
 	CP_Engine_SetNextGameState(Init_GameOver, Update_GameOver, Exit_GameOver);
 }
 
+<<<<<<< Updated upstream
 void Snake_Init_Segments()
 {
 	for (int i = 0; i < GRID_SIZE - 1; i++)		//Minus 1 to account for snake's head.
@@ -102,6 +109,8 @@ void Snake_Init_Segments()
 	}
 }
 
+=======
+>>>>>>> Stashed changes
 //Makes the snake grow longer.
 void Snake_Grow()
 {
@@ -194,6 +203,11 @@ void Snake_UpdateMovement(void)
 				segment->destination = grid[segment->grid_position];	//Update screen position. (Pixels)
 
 			}
+		}
+
+		if (the_snake.position.y == grid[GRID_SIZE - 1].y || the_snake.position.x == grid[GRID_SIZE - 1].x) //at the last cell
+		{
+			Snake_Death();
 		}
 
 		the_snake.grid_position = pos;			//Update head's grid position.

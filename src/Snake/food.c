@@ -5,6 +5,7 @@
 #include "grid.h"
 #include "snake.h"
 #include "stdbool.h"
+#include "sfx.h"
 
 
 //CP_Vector grid[GRID_SIZE]; //Grid Positions, Full grid.
