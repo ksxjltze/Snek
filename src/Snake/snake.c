@@ -84,7 +84,7 @@ void Snake_Update(void)
 
 void Snake_Exit(void)
 {
-
+	_fcloseall();
 }
 
 void Snake_Death(void)
