@@ -50,5 +50,4 @@ void GameOver_Var_Init(void);
 void GameOver_Update_Input(void);
 void Init_GameOver(void);
 void Update_GameOver(void);
-void Highscore_Manager(int player_score, int* highscore_ptr);
 void Exit_GameOver(void);
