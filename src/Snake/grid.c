@@ -63,6 +63,7 @@ void Snake_DrawGrid()
 
 }
 
+
 //Draws the grid without the boundary.
 void Snake_DrawGrid_Truncated()
 {
@@ -103,3 +104,5 @@ void Colour_Boundary()
 
 	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255)); // change color back to white;
 }
+
+

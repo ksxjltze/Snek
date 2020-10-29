@@ -70,6 +70,7 @@ void Snake_Update(void)
 	{
 		Snake_Timer();
 		Snake_UpdateInput();
+		Snake_Collide();
 		Snake_UpdateMovement();
 		food_update(grid_field);
 		Snake_Draw();
@@ -98,6 +99,19 @@ void Snake_Init_Segments()
 		the_snake.segments[i].active = false;	//Not active, will not be drawn.
 		the_snake.segments[i].position = CP_Vector_Set(0, 0);
 		the_snake.segments[i].grid_position = 0;
+	}
+}
+
+void Snake_Collide()
+{
+	CP_Vector pos = the_snake.position;
+	for (int i = 0; i < GRID_SIZE - 1; i++)
+	{
+		if (the_snake.segments[i].position.x == pos.x && the_snake.segments[i].position.y == pos.y)
+		{
+			Snake_Death();
+			return;
+		}
 	}
 }
 
