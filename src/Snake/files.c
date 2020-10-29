@@ -1,4 +1,4 @@
-#include "file_manager.h"
+#include "files.h"
 
 void Write_Score(int player_score) // function to write score into file
 {
