@@ -25,7 +25,8 @@ enum Directions			//Integer values used to determine snake direction. Modulo (%)
 
 void Snake_Init(void)
 {
-	CP_Image img_snake = CP_Image_Load("./Assets/snek.png");
+	CP_Image img_snake = CP_Image_Load("./Assets/head.png");
+	CP_Image img_body = CP_Image_Load("./Assets/body.png");
 	WINDOW_CENTRE = CP_Vector_Set((float)WINDOW_WIDTH / 2, (float)WINDOW_HEIGHT / 2);
 	CP_Settings_Stroke(CP_Color_Create(255, 255, 255, 255)); //White lines
 	BACKGROUND_COLOR = CP_Color_Create(0, 0, 0, 255);		 //Black background
@@ -36,17 +37,13 @@ void Snake_Init(void)
 	move_timer = 0.0f;
 
 	the_snake.sprite.image = img_snake;
+	the_snake.body_sprite.image = img_body;
 	the_snake.grid_position = Random_Snake_Grid_Pos();		//Sets a random position
 	the_snake.position = grid[the_snake.grid_position]; //Screen Position
 	the_snake.direction = RIGHT;						//Snake faces right by default.
 
 	//Initialize snake's segments
 	Snake_Init_Segments();
-
-	//Test
-	//Snake_Grow();
-	//Snake_Grow();
-	//Snake_Grow();
 
 	the_snake.sprite.width = GRID_WIDTH;
 	the_snake.sprite.height = GRID_WIDTH;
@@ -278,7 +275,7 @@ void Snake_Draw(void)
 		struct Segment segment = the_snake.segments[i];
 		if (segment.active)
 		{
-			CP_Image_Draw(the_snake.sprite.image, 
+			CP_Image_Draw(the_snake.body_sprite.image,
 				segment.position.x, segment.position.y,
 				the_snake.sprite.width, the_snake.sprite.height, 255);
 		}

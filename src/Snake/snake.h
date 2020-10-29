@@ -22,6 +22,7 @@ struct Segment					//Segment of Snake body.
 struct Snake								//Snake (Player)
 {
 	struct Sprite sprite;
+	struct Sprite body_sprite;
 	struct Segment segments[GRID_SIZE - 1]; //Snake Body
 
 	CP_Vector position;						//Screen position (pixels)
