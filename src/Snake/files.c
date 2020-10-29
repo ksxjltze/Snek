@@ -1,4 +1,4 @@
-#include "file_manager.h"
+#include "files.h"
 
 void Write_Score(int player_score) // function to write score into file
 {
@@ -8,10 +8,16 @@ void Write_Score(int player_score) // function to write score into file
 	error = fopen_s(&fptr, "highscore.txt", "w");
 
 	if (error != 0)
+	{
+		_fcloseall();
 		return;
+	}
 
 	if (fptr == NULL)
+	{
+		_fcloseall();
 		return;
+	}
 
 	fprintf(fptr, "%d", player_score);
 
@@ -30,11 +36,15 @@ int Read_Score(void) // function to read score from file
 	if (error != 0)
 	{
 		Write_Score(0);
-		return 0;
+		_fcloseall();
+		return score;
 	}
 
 	if (fptr == NULL)
-		return 0;
+	{
+		_fcloseall();
+		return score;
+	}
 
 	fscanf_s(fptr, "%d", &score);
 	fclose(fptr);
