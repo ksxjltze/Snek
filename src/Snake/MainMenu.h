@@ -13,10 +13,13 @@ struct Menu_Button
 }Menu_button;
 
 
+void Init_Menu_Button(void);
 void Button_init(void);
 void Button_update(void);
+
 void Menu_init(void);
 void Menu_update(void);
 void Menu_exit(void);
-void Init_Menu_Button(void);
 
+void MainMenu_Load_Game();
+void MainMenu_Exit_Game();

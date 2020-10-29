@@ -22,9 +22,8 @@
     <ClCompile Include="sfx.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\Snake\button.c" />
+    <ClCompile Include="src\Snake\files.c" />
     <ClCompile Include="src\Snake\food.c" />
-    <ClCompile Include="src\Snake\file_manager.c" />
-    <ClCompile Include="src\Snake\file_manager.h" />
     <ClCompile Include="src\Snake\gameover.c" />
     <ClCompile Include="src\Snake\grid.c" />
     <ClCompile Include="src\Snake\MainMenu.c" />
@@ -37,6 +36,7 @@
   <ItemGroup>
     <ClInclude Include="sfx.h" />
     <ClInclude Include="src\Snake\button.h" />
+    <ClInclude Include="src\Snake\files.h" />
     <ClInclude Include="src\Snake\food.h" />
     <ClInclude Include="src\Snake\gameover.h" />
     <ClInclude Include="src\Snake\globals.h" />

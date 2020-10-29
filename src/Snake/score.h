@@ -2,15 +2,12 @@
 #include "cprocessing.h"
 #include <stdio.h>
 #include "gameover.h"
-#include "file_manager.h"
-
 
 struct Score
 {
 	CP_Color text;
 	float y;
 	int total;
-	int highscore;
 }score;
 struct Timer
 {
@@ -27,9 +24,8 @@ struct Food_count
 	float x;
 }Food_score;
 
-void Init_Timerscore(void);
-void Init_Foodscore(void);
-void Init_Score(void);
+void Init_Scores_Var(void);
 void Update_Score(void);
 void Exit_Score(void);
-void Highscore_Manager(int player_score);
+void Draw_Score(void);
+void Score_Manager(void);

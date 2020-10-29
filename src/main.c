@@ -20,7 +20,6 @@
 
 static const float WINDOW_SCALE = 0.8f;
 extern const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
-extern int hs = 0;
 
 // main() the starting point for the program
 // CP_Engine_SetNextGameState() tells CProcessing which functions to use for init, update and exit
@@ -32,7 +31,6 @@ int main(void)
 
 	//Setting the window size and position
 	CP_System_SetWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-
 	CP_System_SetFrameRate(60.0f);
 
 	/*The following stuff is for console output.

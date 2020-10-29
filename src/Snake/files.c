@@ -1,6 +1,6 @@
-#include "file_manager.h"
+#include "files.h"
 
-void WriteFile(int player_score)
+void Write_Score(int player_score) // function to write score into file
 {
 	FILE* fptr;
 	errno_t error;
@@ -8,10 +8,16 @@ void WriteFile(int player_score)
 	error = fopen_s(&fptr, "highscore.txt", "w");
 
 	if (error != 0)
+	{
+		_fcloseall();
 		return;
+	}
 
 	if (fptr == NULL)
+	{
+		_fcloseall();
 		return;
+	}
 
 	fprintf(fptr, "%d", player_score);
 
@@ -19,23 +25,29 @@ void WriteFile(int player_score)
 
 }
 
-void ReadFile(void)
+int Read_Score(void) // function to read score from file
 {
+	int score = 0;
 	FILE* fptr;
 	errno_t error;
-	int score = 0;
-	hs = 0;
 
 	error = fopen_s(&fptr, "highscore.txt", "r");
 
 	if (error != 0)
-		return;
+	{
+		Write_Score(0);
+		_fcloseall();
+		return score;
+	}
 
 	if (fptr == NULL)
-		return;
+	{
+		_fcloseall();
+		return score;
+	}
 
 	fscanf_s(fptr, "%d", &score);
-	hs = score;
-
 	fclose(fptr);
+
+	return score;
 }
