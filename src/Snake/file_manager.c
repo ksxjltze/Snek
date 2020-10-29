@@ -1,6 +1,6 @@
 #include "file_manager.h"
 
-void WriteFile(int player_score) // function to write score into file
+void Write_Score(int player_score) // function to write score into file
 {
 	FILE* fptr;
 	errno_t error;
@@ -19,7 +19,7 @@ void WriteFile(int player_score) // function to write score into file
 
 }
 
-int ReadFile(void) // function to read score from file
+int Read_Score(void) // function to read score from file
 {
 	int score = 0;
 	FILE* fptr;
@@ -29,7 +29,7 @@ int ReadFile(void) // function to read score from file
 
 	if (error != 0)
 	{
-		WriteFile(0);
+		Write_Score(0);
 		return 0;
 	}
 

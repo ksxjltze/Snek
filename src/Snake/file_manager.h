@@ -3,5 +3,5 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-void WriteFile(int player_score);
-int ReadFile(void);
+void Write_Score(int player_score);
+int Read_Score(void);

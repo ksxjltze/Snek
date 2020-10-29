@@ -5,7 +5,8 @@ extern const int WINDOW_WIDTH, WINDOW_HEIGHT;
 
 void Draw_GameOver_Score(void)															// function to print score
 {
-	int hs = ReadFile();																// Call function ReadFile() which return recorded highscore
+	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_BASELINE);
+	int hs = Read_Score();																// Call function Read_Score() which return recorded highscore
 	char playerscore_buffer[16];														//buffer for current game score
 	char highscore_buffer[16];															// buffer for highscore
 	CP_Settings_TextSize(50.0f);
@@ -74,6 +75,7 @@ void GameOver_Update_Input(void)														 // check input for button inputs
 		CP_Settings_Fill(gameover_button.hover);
 		if (CP_Input_MouseClicked())													 // check for retry button input
 		{
+			Food_score.count = 0;
 			CP_Engine_SetNextGameState(Snake_Init, Snake_Update, Snake_Exit);			 //initialize game if retry clicked
 		}
 	}

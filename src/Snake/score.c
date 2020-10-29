@@ -45,15 +45,15 @@ void Update_Score(void)
 
 void Score_Manager(void)
 {
-	high_score = ReadFile();
+	high_score = Read_Score();
 
 	if (score.total > high_score)
 	{
-		WriteFile(score.total);
+		Write_Score(score.total);
 	}
 	else if (high_score == 0)
 	{
-		WriteFile(score.total);
+		Write_Score(score.total);
 	}
 }
 

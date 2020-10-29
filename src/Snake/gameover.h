@@ -5,6 +5,7 @@
 #include "score.h"
 #include "music.h"
 #include "file_manager.h"
+#include "food.h"
 
 struct Highscore
 {
