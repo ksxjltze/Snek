@@ -4,7 +4,7 @@
 #include "MainMenu.h"
 #include "score.h"
 #include "music.h"
-#include "file_manager.h"
+#include "files.h"
 #include "food.h"
 
 struct Highscore

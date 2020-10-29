@@ -4,7 +4,6 @@
 #include "score.h"
 #include "gameover.h"
 #include "music.h"
-#include "file_manager.h"
 #include "sprite.h"
 #include "cprocessing.h"
 #include "globals.h"
