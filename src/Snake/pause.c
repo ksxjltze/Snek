@@ -10,18 +10,21 @@ struct PauseMenu
 
 void Snake_PauseMenu_Init()
 {
-	float width, height;
-	float offsetX, offsetY;
-
-	width = 800;
-	height = 100;
-
-	offsetX = width / 2;
-	offsetY = height / 2;
-
 	backgroundColor = CP_Color_Create(0, 0, 0, 255);
-	CP_Vector pos_continue = CP_Vector_Set((float)WINDOW_WIDTH / 2 - offsetX, (float)WINDOW_HEIGHT / 2 - offsetY);
+	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
+
+	float width, height;
+	float offsetX;
+
+	width = WINDOW_WIDTH * 0.6f;
+	height = 100;
+	offsetX = width / 2;
+
+	CP_Vector pos_continue = CP_Vector_Set((float)WINDOW_WIDTH / 2 - offsetX, (float)WINDOW_HEIGHT * 0.25f);
+	CP_Vector pos_restart = CP_Vector_Set((float)WINDOW_WIDTH / 2 - offsetX, (float)WINDOW_HEIGHT * 0.5f);
+
 	menu.btn_Continue = Create_TextButton(pos_continue, width, height, "Continue");
+	menu.btn_Restart = Create_TextButton(pos_restart, width, height, "Restart");
 
 	CP_Color idle = CP_Color_Create(100, 100, 100, 255);
 	CP_Color hover = CP_Color_Create(100, 0, 100, 255);
@@ -29,7 +32,15 @@ void Snake_PauseMenu_Init()
 	CP_Color text = CP_Color_Create(255, 255, 255, 255);
 
 	Button_Set_Colors(&menu.btn_Continue, idle, hover, clicked, text);
+	Button_Set_Colors(&menu.btn_Restart, idle, hover, clicked, text);
+
 	Button_Set_Callback(&menu.btn_Continue, &Snake_Pause_Continue);
+	Button_Set_Callback(&menu.btn_Restart, &Snake_Pause_Restart);
+}
+
+void Snake_Pause_Restart()
+{
+	Snake_Reset();
 }
 
 void Snake_Pause_Continue()
@@ -50,5 +61,6 @@ void Snake_PauseMenu_Update()
 
 	CP_Settings_Background(backgroundColor);
 	Update_Button(menu.btn_Continue, mouseX, mouseY);
+	Update_Button(menu.btn_Restart, mouseX, mouseY);
 
 }

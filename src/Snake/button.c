@@ -110,8 +110,8 @@ void Draw_Button_Text(struct Button button)
 {
 	CP_Settings_Fill(button.color.text);
 	CP_Settings_TextSize(button.textSize);
-	CP_Font_DrawText(button.text, button.position.x + button.width / 4,
-		button.position.y + button.height / 1.3f);
+	CP_Font_DrawText(button.text, button.position.x + button.width / 2,
+		button.position.y + button.height / 2.5f);
 }
 
 void Draw_Button_Image(struct Button button)

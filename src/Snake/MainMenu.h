@@ -22,3 +22,4 @@ void Menu_update(void);
 void Menu_exit(void);
 
 void MainMenu_Load_Game();
+void MainMenu_Exit_Game();

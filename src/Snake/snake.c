@@ -166,7 +166,8 @@ void Snake_UpdateInput(void)
 //Update snake's position.
 void Snake_UpdateMovement(void)
 {
-	if (move_timer <= 0)						//Snake moves once every x seconds.
+	//Update snake's target cell/position (including body).
+	if (move_timer <= 0)						//Snake updates destination once every x seconds.
 	{
 		move_timer = grid_seconds;				//Reset timer
 		int direction = the_snake.direction;	//Movement Direction
@@ -200,16 +201,26 @@ void Snake_UpdateMovement(void)
 		//the_snake.position = grid[pos];			//Screen Position
 
 		//Collision with boundary (Dania)
-		if (the_snake.position.y == grid[GRID_SIZE - 1].y || the_snake.position.x == grid[GRID_SIZE - 1].x
-			|| the_snake.position.y == grid[0].y || the_snake.position.x == grid[0].x) //at the last cell
+		if (the_snake.position.y == grid[GRID_SIZE - 1].y || the_snake.position.x == grid[GRID_SIZE - 1].x ||
+			the_snake.position.y == grid[0].y || the_snake.position.x == grid[0].x)
 		{
 			Score_Manager();
 			Snake_Death();
 		}
 
+		//for (int i = GRID_SIZE - 2; i >= 0; i--)
+		//{
+		//	if (the_snake.position.x == the_snake.segments[i].position.x || 
+		//		the_snake.position.y == the_snake.segments[i].position.y)  //at the last cell
+		//	{
+		//		Snake_Death();
+		//	}
+		//}
+
 	}
 	else
 	{
+		//Move to next cell
 		Snake_Move(&the_snake.position, the_snake.destination);
 		for (int i = 0; i < GRID_SIZE - 1; i++)
 		{
@@ -223,6 +234,7 @@ void Snake_UpdateMovement(void)
 
 }
 
+//Lerps snake movement from cell to cell for smooth movement.
 void Snake_Move(CP_Vector* old_pos, CP_Vector new_pos)
 {
 	old_pos->x = CP_Math_LerpFloat(old_pos->x, new_pos.x, CP_System_GetDt() / move_timer);
@@ -232,6 +244,20 @@ void Snake_Move(CP_Vector* old_pos, CP_Vector new_pos)
 void Snake_UnPause()
 {
 	paused = false;
+}
+
+void Snake_Reset(void)
+{
+	//Reset snake position (random)
+	the_snake.grid_position = Random_Snake_Grid_Pos();		//Sets a random position
+	the_snake.position = grid[the_snake.grid_position];		//Screen Position
+	the_snake.direction = RIGHT;
+	move_timer = 0.0f;
+
+	Snake_Init_Segments();		//Reset Snake body.
+	Init_Scores_Var();				//Reset Score.
+
+	paused = false;				//Unpause.
 }
 
 //Draw sprites
