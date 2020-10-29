@@ -113,5 +113,5 @@ void GameOver_Update_Input(void)														 // check input for button inputs
 
 void Exit_GameOver(void)
 {
-	
+	_fcloseall();
 }
