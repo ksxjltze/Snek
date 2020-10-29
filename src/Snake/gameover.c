@@ -15,7 +15,7 @@ void Draw_GameOver_Score(void)															// function to print score
 	sprintf_s(highscore_buffer, 16, "%d", hs);											//convert recorded highscore into char buffer
 
 	CP_Font_DrawText(gameover_score.text, (float)WINDOW_WIDTH / 2.5f, WINDOW_HEIGHT / 2.5f); // drawing of text
-	CP_Font_DrawText(highscore.text, (float)WINDOW_WIDTH / 2.5f, WINDOW_HEIGHT / 2.0f);	// drawing of highscore
+	CP_Font_DrawText(highscore.text, (float)WINDOW_WIDTH / 2.5f, WINDOW_HEIGHT / 2.0f);		// drawing of highscore. 1 s = 1 point, 1 food = 5 points
 
 	CP_Font_DrawText(playerscore_buffer, WINDOW_WIDTH / 1.6f, WINDOW_HEIGHT / 2.5f); 
 
