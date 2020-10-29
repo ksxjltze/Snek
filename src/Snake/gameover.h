@@ -4,7 +4,8 @@
 #include "MainMenu.h"
 #include "score.h"
 #include "music.h"
-#include "file_manager.h"
+#include "files.h"
+#include "food.h"
 
 struct Highscore
 {
@@ -45,8 +46,9 @@ struct Quit_button
 	float y;
 }quit_button;
 
-void GameOver_Score(int total_score, int high_score);
-void GameOver_Button_Init(void);
+void Draw_GameOver_Score(void);
+void GameOver_Var_Init(void);
+void GameOver_Update_Input(void);
 void Init_GameOver(void);
 void Update_GameOver(void);
 void Exit_GameOver(void);

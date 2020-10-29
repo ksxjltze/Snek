@@ -10,6 +10,7 @@ float move_timer;
 
 static CP_Vector WINDOW_CENTRE;
 bool paused;
+bool lock;
 
 CP_Vector grid[GRID_SIZE]; //Grid Positions, Full grid.
 CP_Vector grid_field[GRID_SIZE - BOUNDARY_SIZE]; //Truncated grid (without boundary)
@@ -25,7 +26,8 @@ enum Directions			//Integer values used to determine snake direction. Modulo (%)
 
 void Snake_Init(void)
 {
-	CP_Image img_snake = CP_Image_Load("./Assets/snek.png");
+	CP_Image img_snake = CP_Image_Load("./Assets/head.png");
+	CP_Image img_body = CP_Image_Load("./Assets/body.png");
 	WINDOW_CENTRE = CP_Vector_Set((float)WINDOW_WIDTH / 2, (float)WINDOW_HEIGHT / 2);
 	CP_Settings_Stroke(CP_Color_Create(255, 255, 255, 255)); //White lines
 	BACKGROUND_COLOR = CP_Color_Create(0, 0, 0, 255);		 //Black background
@@ -36,6 +38,7 @@ void Snake_Init(void)
 	move_timer = 0.0f;
 
 	the_snake.sprite.image = img_snake;
+	the_snake.body_sprite.image = img_body;
 	the_snake.grid_position = Random_Snake_Grid_Pos();		//Sets a random position
 	the_snake.position = grid[the_snake.grid_position]; //Screen Position
 	the_snake.direction = RIGHT;						//Snake faces right by default.
@@ -43,27 +46,17 @@ void Snake_Init(void)
 	//Initialize snake's segments
 	Snake_Init_Segments();
 
-	//Test
-	//Snake_Grow();
-	//Snake_Grow();
-	//Snake_Grow();
-
 	the_snake.sprite.width = GRID_WIDTH;
 	the_snake.sprite.height = GRID_WIDTH;
 
 	init_food(grid_field);
 	Button_Init();
-	Init_Score();
+	Init_Scores_Var();
 	Init_GameOver();
-<<<<<<< Updated upstream
 	Snake_PauseMenu_Init();
 	//Init_Music();
 	paused = false;
-=======
-	//WriteFile();
-	//ReadFile();
-	//Init_Music();
->>>>>>> Stashed changes
+	lock = false;
 
 }
 
@@ -75,8 +68,9 @@ void Snake_Update(void)
 	}
 	else
 	{
-		Snake_UpdateInput();
 		Snake_Timer();
+		Snake_UpdateInput();
+		Snake_Collide();
 		Snake_UpdateMovement();
 		food_update(grid_field);
 		Snake_Draw();
@@ -90,7 +84,7 @@ void Snake_Update(void)
 
 void Snake_Exit(void)
 {
-
+	_fcloseall();
 }
 
 void Snake_Death(void)
@@ -98,7 +92,6 @@ void Snake_Death(void)
 	CP_Engine_SetNextGameState(Init_GameOver, Update_GameOver, Exit_GameOver);
 }
 
-<<<<<<< Updated upstream
 void Snake_Init_Segments()
 {
 	for (int i = 0; i < GRID_SIZE - 1; i++)		//Minus 1 to account for snake's head.
@@ -109,8 +102,19 @@ void Snake_Init_Segments()
 	}
 }
 
-=======
->>>>>>> Stashed changes
+void Snake_Collide()
+{
+	CP_Vector pos = the_snake.position;
+	for (int i = 0; i < GRID_SIZE - 1; i++)
+	{
+		if (the_snake.segments[i].position.x == pos.x && the_snake.segments[i].position.y == pos.y)
+		{
+			Snake_Death();
+			return;
+		}
+	}
+}
+
 //Makes the snake grow longer.
 void Snake_Grow()
 {
@@ -142,33 +146,42 @@ void Snake_Grow()
 void Snake_Timer(void)
 {
 	move_timer -= CP_System_GetDt();
+	if (move_timer <= 0)
+		lock = false;
 }
 
 //Check Input and Update Snake's direction.
 void Snake_UpdateInput(void)
 {
-	if (CP_Input_KeyTriggered(KEY_W) || CP_Input_KeyTriggered(KEY_UP))
-	{
-		if (the_snake.direction != DOWN)
-			the_snake.direction = UP;
 
-	}
-	else if (CP_Input_KeyTriggered(KEY_A) || CP_Input_KeyTriggered(KEY_LEFT))
+	if (lock == false)
 	{
-		if (the_snake.direction != RIGHT)
-			the_snake.direction = LEFT;
+		if (CP_Input_KeyTriggered(KEY_W) || CP_Input_KeyTriggered(KEY_UP))
+		{
+			if (the_snake.direction != DOWN)
+				the_snake.direction = UP;
+			lock = true;
 
-	}
-	else if (CP_Input_KeyTriggered(KEY_S) || CP_Input_KeyTriggered(KEY_DOWN))
-	{
-		if (the_snake.direction != UP)
-			the_snake.direction = DOWN;
+		}
+		else if (CP_Input_KeyTriggered(KEY_A) || CP_Input_KeyTriggered(KEY_LEFT))
+		{
+			if (the_snake.direction != RIGHT)
+				the_snake.direction = LEFT;
+			lock = true;
+		}
+		else if (CP_Input_KeyTriggered(KEY_S) || CP_Input_KeyTriggered(KEY_DOWN))
+		{
+			if (the_snake.direction != UP)
+				the_snake.direction = DOWN;
+			lock = true;
+		}
+		else if (CP_Input_KeyTriggered(KEY_D) || CP_Input_KeyTriggered(KEY_RIGHT))
+		{
+			if (the_snake.direction != LEFT)
+				the_snake.direction = RIGHT;
+			lock = true;
+		}
 
-	}
-	else if (CP_Input_KeyTriggered(KEY_D) || CP_Input_KeyTriggered(KEY_RIGHT))
-	{
-		if (the_snake.direction != LEFT)
-			the_snake.direction = RIGHT;
 	}
 }
 
@@ -205,11 +218,6 @@ void Snake_UpdateMovement(void)
 			}
 		}
 
-		if (the_snake.position.y == grid[GRID_SIZE - 1].y || the_snake.position.x == grid[GRID_SIZE - 1].x) //at the last cell
-		{
-			Snake_Death();
-		}
-
 		the_snake.grid_position = pos;			//Update head's grid position.
 		the_snake.destination = grid[pos];
 		//the_snake.position = grid[pos];			//Screen Position
@@ -218,6 +226,7 @@ void Snake_UpdateMovement(void)
 		if (the_snake.position.y == grid[GRID_SIZE - 1].y || the_snake.position.x == grid[GRID_SIZE - 1].x ||
 			the_snake.position.y == grid[0].y || the_snake.position.x == grid[0].x)
 		{
+			Score_Manager();
 			Snake_Death();
 		}
 
@@ -268,7 +277,7 @@ void Snake_Reset(void)
 	move_timer = 0.0f;
 
 	Snake_Init_Segments();		//Reset Snake body.
-	Init_Score();				//Reset Score.
+	Init_Scores_Var();				//Reset Score.
 
 	paused = false;				//Unpause.
 }
@@ -291,7 +300,7 @@ void Snake_Draw(void)
 		struct Segment segment = the_snake.segments[i];
 		if (segment.active)
 		{
-			CP_Image_Draw(the_snake.sprite.image, 
+			CP_Image_Draw(the_snake.body_sprite.image,
 				segment.position.x, segment.position.y,
 				the_snake.sprite.width, the_snake.sprite.height, 255);
 		}

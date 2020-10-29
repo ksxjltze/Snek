@@ -4,7 +4,6 @@
 #include "score.h"
 #include "gameover.h"
 #include "music.h"
-#include "file_manager.h"
 #include "sprite.h"
 #include "cprocessing.h"
 #include "globals.h"
@@ -23,6 +22,7 @@ struct Segment					//Segment of Snake body.
 struct Snake								//Snake (Player)
 {
 	struct Sprite sprite;
+	struct Sprite body_sprite;
 	struct Segment segments[GRID_SIZE - 1]; //Snake Body
 
 	CP_Vector position;						//Screen position (pixels)
@@ -59,3 +59,5 @@ void Snake_Death(void);
 //Pause and Reset
 void Snake_UnPause();
 void Snake_Reset(void);
+
+void Snake_Collide();
