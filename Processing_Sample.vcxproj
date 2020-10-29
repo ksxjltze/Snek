@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="sfx.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\Snake\button.c" />
     <ClCompile Include="src\Snake\files.c" />
@@ -29,12 +28,12 @@
     <ClCompile Include="src\Snake\MainMenu.c" />
     <ClCompile Include="src\Snake\music.c" />
     <ClCompile Include="src\Snake\pause.c" />
+    <ClCompile Include="src\Snake\sfx.c" />
     <ClCompile Include="src\Snake\snake.c" />
     <ClCompile Include="src\Snake\score.c" />
     <ClCompile Include="src\Snake\utils.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sfx.h" />
     <ClInclude Include="src\Snake\button.h" />
     <ClInclude Include="src\Snake\files.h" />
     <ClInclude Include="src\Snake\food.h" />
@@ -43,6 +42,7 @@
     <ClInclude Include="src\Snake\grid.h" />
     <ClInclude Include="src\Snake\music.h" />
     <ClInclude Include="src\Snake\pause.h" />
+    <ClInclude Include="src\Snake\sfx.h" />
     <ClInclude Include="src\Snake\snake.h" />
     <ClInclude Include="src\Snake\sprite.h" />
     <ClInclude Include="src\Snake\utils.h" />
