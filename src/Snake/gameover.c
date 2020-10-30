@@ -11,7 +11,7 @@ void Draw_GameOver_Score(void)															// function to print score
 	char highscore_buffer[16];															// buffer for highscore
 	CP_Settings_TextSize(50.0f);
 
-	sprintf_s(playerscore_buffer, 16, "%d", score.total);								// coverts score into char buffer
+	sprintf_s(playerscore_buffer, 16, "%d", Player.score);								// coverts score into char buffer
 	sprintf_s(highscore_buffer, 16, "%d", hs);											//convert recorded highscore into char buffer
 
 	CP_Font_DrawText(gameover_score.text, (float)WINDOW_WIDTH / 2.5f, WINDOW_HEIGHT / 2.5f); // drawing of text
@@ -19,7 +19,7 @@ void Draw_GameOver_Score(void)															// function to print score
 
 	CP_Font_DrawText(playerscore_buffer, WINDOW_WIDTH / 1.6f, WINDOW_HEIGHT / 2.5f); 
 
-	if (score.total >= hs)																// if total > recorded highscore, print total as highscore
+	if (Player.score >= hs)																// if total > recorded highscore, print total as highscore
 	{
 		CP_Font_DrawText(playerscore_buffer, WINDOW_WIDTH / 1.6f, WINDOW_HEIGHT / 2.0f); 
 	}
@@ -53,7 +53,7 @@ void GameOver_Var_Init(void)															//initialize variables for the button
 void Init_GameOver(void)																// initializing variables for gameover screen
 {
 	GameOver_Var_Init();
-	Exit_Music();
+	Stop_Music();
 }
 
 void Update_GameOver(void)																// updates the rendering based on 

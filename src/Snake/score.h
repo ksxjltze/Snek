@@ -3,11 +3,16 @@
 #include <stdio.h>
 #include "gameover.h"
 
+struct Player
+{
+	char name[20];
+	int score;
+} Player;
+
 struct Score
 {
 	CP_Color text;
 	float y;
-	int total;
 }score;
 struct Timer
 {

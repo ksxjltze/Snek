@@ -1,6 +1,6 @@
 #include "sfx.h"
 
-void Init_SFX()
+void Crunch_SFX()
 {
 	CP_Sound_Play(CP_Sound_LoadMusic("./Assets/Crunch_1.wav"));
 }

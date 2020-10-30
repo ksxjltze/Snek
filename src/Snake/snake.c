@@ -54,7 +54,7 @@ void Snake_Init(void)
 	Init_Scores_Var();
 	Init_GameOver();
 	Snake_PauseMenu_Init();
-	//Init_Music();
+	//Play_Music();
 	paused = false;
 	lock = false;
 

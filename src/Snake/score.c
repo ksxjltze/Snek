@@ -34,7 +34,7 @@ void Draw_Score(void)									// Function to draw score at gameover screen
 	CP_Font_DrawText(Food_score.text, Food_score.x, score.y);										// Draw Food text
 	CP_Font_DrawText(foodscore_buffer, Food_score.x + 50.0f, score.y);								// Draw Food score
 	
-	score.total = ((int)Time_score.count) - (int)Time_score.offset + 5* Food_score.count;			// combined food and time score.
+	Player.score = ((int)Time_score.count) - (int)Time_score.offset + 5* Food_score.count;			// combined food and time score.
 }
 
 
@@ -47,13 +47,13 @@ void Score_Manager(void)
 {
 	high_score = Read_Score();
 
-	if (score.total > high_score)
+	if (Player.score > high_score)
 	{
-		Write_Score(score.total);
+		Write_Score(Player.score);
 	}
 	else if (high_score == 0)
 	{
-		Write_Score(score.total);
+		Write_Score(Player.score);
 	}
 }
 
