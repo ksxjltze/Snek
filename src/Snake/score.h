@@ -5,7 +5,7 @@
 
 struct Player
 {
-	char name[20];
+	const char* name;
 	int score;
 } Player;
 

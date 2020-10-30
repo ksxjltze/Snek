@@ -3,9 +3,9 @@
 #include "score.h"
 #include <stdio.h>
 
-typedef struct Leader
+typedef struct Leaders
 {
-	char name[20];
+	char* name;
 	int score;
 } Leader;
 
