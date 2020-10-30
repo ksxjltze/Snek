@@ -38,7 +38,7 @@ int main(void)
 	is being fixed*/
 	CP_System_ShowConsole();
 	freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
-
+	printf("test");
 
 	CP_Engine_SetNextGameState(Menu_init, Menu_update, Menu_exit);
 	CP_Engine_Run();
