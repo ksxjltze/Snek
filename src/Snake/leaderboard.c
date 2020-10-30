@@ -3,7 +3,7 @@ void kill_me(void)
 
 }
 
-
+//
 //#include "leaderboard.h"
 //
 //#define MAX_CHAR_PER_LINE 30
@@ -29,26 +29,25 @@ void kill_me(void)
 //
 //	else if (error == 0)						// 0 is successful.
 //	{
-//		char read_buffer[MAX_CHAR_PER_LINE];	// char array of max 30 characters.
+//		char buffer[MAX_CHAR_PER_LINE];	// char array of max 30 characters.
 //		int leaders_count = 0;
 //
-//		while (fgets(read_buffer, MAX_CHAR_PER_LINE, leaderboard_scores) != NULL)
+//		while (fgets(buffer, MAX_CHAR_PER_LINE, leaderboard_scores) != NULL)
 //		{
 //			if (leaders_count < MAX_LEADERS)
 //			{
 //				break;							// I only want 3 leaders
 //			}
 //
-//			int a = sscanf(read_buffer, "%s %d", Leaders[leaders_count].name, Leaders[leaders_count].score);
+//			int a = sscanf(buffer, "%s %d", Leaders[leaders_count].name, &Leaders[leaders_count].score);
 //
-//			if (a == 2)
+//			if (a != 2)
 //			{
-//				sscanf(read_buffer, "%s %d", Leaders[leaders_count].name, Leaders[leaders_count].score);
-//				leaders_count++;				//increment leaders by 1
+//				// TODO complain about incorect format. But while reading from .txt file, should be no problems.
 //			}
 //			else
 //			{
-//				// TODO complain about incorect format. But while reading from .txt file, should be no problems.
+//				leaders_count++;
 //			}
 //		}
 //		fclose(leaderboard_scores);
