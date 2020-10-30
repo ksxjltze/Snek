@@ -5,6 +5,7 @@
 #define MAX_LEADERS 3
 
 Leader LeaderBoard[MAX_LEADERS];
+int x = 0;
 
 
 void Read_Leaderboard_Score(void)
@@ -106,9 +107,26 @@ void Update_LeaderBoard(void)
 	CP_Font_DrawTextBox("CONGRATULATIONS, YOU WON A SPOT ON THE LEADERBOARD\n"
 		"Please Enter Your Name! (Up to 20 characters)", (float)WINDOW_WIDTH / 2, (float)WINDOW_HEIGHT / 2, 100.0f);
 
+	LeaderBoard_ReadInput();
+	CP_Font_DrawText(Player.name, 100, 100);
 	//scanf("%20c", Player.name);
-	Player.name = "Player";
+	//Player.name = "Player";
 
+}
+
+void LeaderBoard_ReadInput()
+{
+	if (x >= 20)
+		return;
+
+	for (int i = KEY_A; i < KEY_Z; i++)
+	{
+		if (CP_Input_KeyTriggered(i))
+		{
+			Player.name[x] = (char)i;
+			x++;
+		}
+	}
 }
 
 void Exit_LeaderBoard(void)

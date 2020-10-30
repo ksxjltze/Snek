@@ -16,3 +16,4 @@ void Exit_LeaderBoard(void);
 void Read_Leaderboard_Score(void);
 void Write_Leaderboard_Score(void);
 void Check_If_Leader(void);
+void LeaderBoard_ReadInput();
