@@ -3,6 +3,14 @@
 #include "score.h"
 #include <stdio.h>
 
+struct LeaderBoard
+{
+	CP_Color text_color;
+	const char* text;
+	float x, y;
+}Leaderboard_Variables;
+
+
 typedef struct Leaders
 {
 	char* name;
@@ -13,7 +21,8 @@ void Init_LeaderBoard(void);
 void Update_LeaderBoard(void);
 void Exit_LeaderBoard(void);
 
-void Read_Leaderboard_Score(void);
-void Write_Leaderboard_Score(void);
+void Read_Leaderboard_Data(void);
+void Write_Leaderboard_Data(void);
 void Check_If_Leader(void);
 void LeaderBoard_ReadInput();
+void Draw_LeaderBoard(void);

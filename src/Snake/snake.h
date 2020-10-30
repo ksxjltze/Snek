@@ -10,6 +10,7 @@
 #include "grid.h"
 #include "food.h"
 #include "pause.h"
+#include "leaderboard.h"
 
 struct Segment					//Segment of Snake body.
 {

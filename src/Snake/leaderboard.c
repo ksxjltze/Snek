@@ -1,35 +1,32 @@
 
 #include "leaderboard.h"
 
-#define MAX_CHAR_PER_LINE 20
+#define MAX_NAME_CHAR 20
 #define MAX_LEADERS 3
 
 Leader LeaderBoard[MAX_LEADERS];
 int x = 0;
 
 
-void Read_Leaderboard_Score(void)
+void Read_Leaderboard_Data(void)
 {
 	FILE* leaderboard_scores;
 	errno_t error;
 
 	error = fopen_s(&leaderboard_scores, "leaderboard.txt", "r");
 
-	if (leaderboard_scores == 0)
+	if (leaderboard_scores == 0 || leaderboard_scores == NULL)
 	{
 		fopen_s(&leaderboard_scores, "leaderboard.txt", "w");		// write empty placement in?
-		if (leaderboard_scores)
-			fprintf(leaderboard_scores, "Leaderboards are empty!");	// write into the file leader boards are empty
+		fprintf(leaderboard_scores, "%s %d", "Leaderboards are empty!", 0);	// write into the file leader boards are empty
 		return;
 	}
-
-
 	else if (error == 0)						// 0 is successful.
 	{
-		char buffer[MAX_CHAR_PER_LINE];			// char array of max 30 characters.
+		char buffer[MAX_NAME_CHAR];			// char array of max 30 characters.
 		int leaders_count = 0;
 
-		while (fgets(buffer, MAX_CHAR_PER_LINE, leaderboard_scores) != NULL)
+		while (fgets(buffer, MAX_NAME_CHAR, leaderboard_scores) != NULL)
 		{
 			if (leaders_count < MAX_LEADERS)
 			{
@@ -49,23 +46,23 @@ void Read_Leaderboard_Score(void)
 				leaders_count++;
 			}
 		}
-		fclose(leaderboard_scores);
 	}
+	fclose(leaderboard_scores);
 }
 
-void Write_Leaderboard_Score(void)
+void Write_Leaderboard_Data(void)
 {
 	FILE* leaderboard_scores;
 	errno_t error;
 
 	error = fopen_s(&leaderboard_scores, "leaderboard.txt", "w");
 
-	if (leaderboard_scores == 0)
+	if (leaderboard_scores == 0) //file not found
 	{
 		return;
 	}
 
-	else if (error != 0)
+	else if (error == 0)		// error = 0 successfully opened
 	{
 		for (int i = 0; i < MAX_LEADERS; i++)
 		{
@@ -94,12 +91,19 @@ void Check_If_Leader(void)
 }
 
 void Init_LeaderBoard(void)
-{
+{	
+	Leaderboard_Variables.text_color = CP_Color_Create(255, 255, 255, 255);
+	Leaderboard_Variables.text = "Leaders:";
+	Leaderboard_Variables.x = (float)(WINDOW_WIDTH / 2.0);
+	Leaderboard_Variables.y = (float)(WINDOW_HEIGHT / 5.0);
+
+	Read_Leaderboard_Data();
 
 }
 
 void Update_LeaderBoard(void)
 {
+
 	CP_Settings_Background(CP_Color_Create(0, 0, 0, 255));
 	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
 	CP_Settings_TextSize(50.0f);
@@ -109,14 +113,14 @@ void Update_LeaderBoard(void)
 
 	LeaderBoard_ReadInput();
 	CP_Font_DrawText(Player.name, 100, 100);
-	//scanf("%20c", Player.name);
-	//Player.name = "Player";
+
+	Draw_LeaderBoard();
 
 }
 
 void LeaderBoard_ReadInput()
 {
-	if (x >= 20)
+	if (x >= MAX_NAME_CHAR)
 		return;
 
 	for (int i = KEY_A; i < KEY_Z; i++)
@@ -126,6 +130,18 @@ void LeaderBoard_ReadInput()
 			Player.name[x] = (char)i;
 			x++;
 		}
+	}
+}
+
+void Draw_LeaderBoard(void)
+{
+	CP_Settings_TextSize(50.0f);
+	CP_Settings_Fill(Leaderboard_Variables.text_color);
+	CP_Font_DrawText(Leaderboard_Variables.text, Leaderboard_Variables.x, Leaderboard_Variables.y);
+
+	for (int i = 0; i < MAX_LEADERS; i++)
+	{
+		CP_Font_DrawText(LeaderBoard[i].name, Leaderboard_Variables.x, Leaderboard_Variables.y + 50.0f + (i * 50.0f));
 	}
 }
 

@@ -80,6 +80,12 @@ void Snake_Update(void)
 	if (CP_Input_KeyTriggered(KEY_ESCAPE))
 		paused = Snake_Pause(paused);
 
+
+	if (CP_Input_KeyTriggered(KEY_Q)) // debug leaderboard
+	{
+		CP_Engine_SetNextGameState(Init_LeaderBoard, Update_LeaderBoard, Exit_LeaderBoard);
+	}
+
 }
 
 void Snake_Exit(void)
@@ -89,6 +95,7 @@ void Snake_Exit(void)
 
 void Snake_Death(void)
 {
+	//Check_If_Leader();
 	CP_Engine_SetNextGameState(Init_GameOver, Update_GameOver, Exit_GameOver);
 }
 
