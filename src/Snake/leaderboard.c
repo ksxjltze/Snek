@@ -6,7 +6,6 @@
 
 Leader LeaderBoard[MAX_LEADERS] = {0};
 const char leaderboard_file[] = "leaderboard.txt";
-int x = 0;
 int leaders_count;
 int name_count;
 
@@ -50,12 +49,13 @@ void Read_Leaderboard_Data(void)
 
 				if (leaders_count < MAX_LEADERS)
 				{
-					int a = sscanf_s(buffer, "%s %d", LeaderBoard[leaders_count].name, (unsigned)sizeof buffer, &LeaderBoard[leaders_count].score);
+					int index = leaders_count;
+					int a = sscanf_s(buffer, "%s %d", LeaderBoard[index].name, (unsigned)sizeof buffer, &LeaderBoard[index].score);
 
 					printf("A value is %d\n", a);
 					printf("buffer is %s\n", buffer);
-					printf("name is %s\n", LeaderBoard[leaders_count].name);
-					printf("score is %d\n", LeaderBoard[leaders_count].score);
+					printf("name is %s\n", LeaderBoard[index].name);
+					printf("score is %d\n", LeaderBoard[index].score);
 
 					if (a != 2)
 					{
