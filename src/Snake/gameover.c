@@ -17,10 +17,6 @@
 
 extern const int WINDOW_WIDTH, WINDOW_HEIGHT;
 
-/// <summary>
-/// 
-/// </summary>
-/// <param name=""></param>
 void Draw_GameOver_Score(void)															// function to print score
 {
 	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_BASELINE);

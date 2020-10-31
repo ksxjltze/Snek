@@ -2,6 +2,8 @@
 #include "cprocessing.h"
 #include "score.h"
 #include <stdio.h>
+#include "button.h"
+#include <string.h>
 
 struct LeaderBoard
 {
@@ -26,3 +28,4 @@ void Write_Leaderboard_Data(void);
 void Check_If_Leader(void);
 void LeaderBoard_ReadInput();
 void Draw_LeaderBoard(void);
+void Load_Main_Menu(void);
