@@ -8,7 +8,7 @@ Leader LeaderBoard[MAX_LEADERS] = {0};
 const char leaderboard_file[] = "leaderboard.txt";
 int x = 0;
 int leaders_count;
-
+int name_count;
 
 void Read_Leaderboard_Data(void)
 {	
@@ -127,7 +127,7 @@ void Init_LeaderBoard(void)
 	Leaderboard_Variables.y = (float)(WINDOW_HEIGHT / 5.0);
 
 	leaders_count = 0;
-
+	name_count = 0;
 	Read_Leaderboard_Data();
 }
 
@@ -142,9 +142,15 @@ void Update_LeaderBoard(void)
 		(float)(WINDOW_WIDTH / WINDOW_WIDTH), (float)WINDOW_HEIGHT / 16, (float)WINDOW_WIDTH);
 
 	LeaderBoard_ReadInput();
-
+	LeaderBoard_Display_PlayerName();
 	Draw_LeaderBoard(); 
 
+}
+
+void LeaderBoard_Display_PlayerName()
+{
+	if (Player.name)
+		CP_Font_DrawText(Player.name, (float)WINDOW_WIDTH / 2, (float)WINDOW_HEIGHT / 2);
 }
 
 void LeaderBoard_ReadInput() // function to read input from file?
@@ -153,13 +159,16 @@ void LeaderBoard_ReadInput() // function to read input from file?
 	{
 		if (CP_Input_KeyTriggered(i))
 		{
-			if (x < sizeof Player.name)
+			if (name_count < 19)
 			{
-				Player.name[x] = (char)i;
-				x++;
+				Player.name[name_count] = (char)i;
+				name_count++;
 			}
 			else
+			{
 				return;
+			}
+
 		}
 	}
 }

@@ -26,3 +26,5 @@ void Write_Leaderboard_Data(void);
 void Check_If_Leader(void);
 void LeaderBoard_ReadInput();
 void Draw_LeaderBoard(void);
+
+void LeaderBoard_Display_PlayerName();
