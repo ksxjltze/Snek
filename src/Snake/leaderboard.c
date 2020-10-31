@@ -1,12 +1,14 @@
 #include "leaderboard.h"
 
 #define MAX_LINE_INPUT 100
+#define BUFFER_SIZE 20
 #define MAX_LEADERS 3
 
 Leader LeaderBoard[MAX_LEADERS] = {0};
 const char leaderboard_file[] = "leaderboard.txt";
 int x = 0;
 int leaders_count;
+int name_count;
 
 struct Button Button_Exit;
 
@@ -138,6 +140,8 @@ void Init_LeaderBoard(void)
 	Button_Set_Text_Size(&Button_Exit, 50);
 	Button_Set_Callback(&Button_Exit, ptr_exit);
 
+	leaders_count = 0;
+	name_count = 0;
 	Read_Leaderboard_Data();
 }
 
@@ -155,7 +159,7 @@ void Update_LeaderBoard(void)
 		(float)(WINDOW_WIDTH / WINDOW_WIDTH), (float)WINDOW_HEIGHT / 16, (float)WINDOW_WIDTH);
 
 	LeaderBoard_ReadInput();
-
+	LeaderBoard_Display_PlayerName();
 	Draw_LeaderBoard(); 
 	Update_Button(Button_Exit, mousex, mousey);
 
@@ -166,21 +170,43 @@ void Load_Main_Menu(void)
 	CP_Engine_SetNextGameState(Menu_init, Menu_update, Menu_exit);
 }
 
+void LeaderBoard_Display_PlayerName()
+{
+	if (Player.name)
+		CP_Font_DrawText(Player.name, (float)WINDOW_WIDTH / 2, (float)WINDOW_HEIGHT / 2);
+}
+
 void LeaderBoard_ReadInput() // function to read input from file?
 {
-	for (int i = KEY_A; i < KEY_Z; i++)
+	if (CP_Input_KeyTriggered(KEY_BACKSPACE))
 	{
-		if (CP_Input_KeyTriggered(i))
+		if (name_count > 0)
 		{
-			if (x < sizeof Player.name)
-			{
-				Player.name[x] = (char)i;
-				x++;
-			}
-			else
-				return;
+			name_count--;
+			Player.name[name_count] = '\0';
 		}
 	}
+
+	for (int i = KEY_A, j = KEY_0; i <= KEY_Z; i++, j++)
+	{
+		if (name_count >= BUFFER_SIZE)
+			return;
+
+		if (CP_Input_KeyTriggered(i))
+		{
+			Player.name[name_count] = (char)i;
+			name_count++;
+		}
+		else if (CP_Input_KeyTriggered(j))
+		{
+			if (j > KEY_9)
+				return;
+
+			Player.name[name_count] = (char)j;
+			name_count++;
+		}
+	}
+
 }
 
 void Draw_LeaderBoard(void)
