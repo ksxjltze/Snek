@@ -155,22 +155,35 @@ void LeaderBoard_Display_PlayerName()
 
 void LeaderBoard_ReadInput() // function to read input from file?
 {
-	for (int i = KEY_A; i < KEY_Z; i++)
+	if (CP_Input_KeyTriggered(KEY_BACKSPACE))
 	{
-		if (CP_Input_KeyTriggered(i))
+		if (name_count > 0)
 		{
-			if (name_count < 19)
-			{
-				Player.name[name_count] = (char)i;
-				name_count++;
-			}
-			else
-			{
-				return;
-			}
-
+			name_count--;
+			Player.name[name_count] = '\0';
 		}
 	}
+
+	for (int i = KEY_A, j = KEY_0; i <= KEY_Z; i++, j++)
+	{
+		if (name_count >= 20)
+			return;
+
+		if (CP_Input_KeyTriggered(i))
+		{
+			Player.name[name_count] = (char)i;
+			name_count++;
+		}
+		else if (CP_Input_KeyTriggered(j))
+		{
+			if (j > KEY_9)
+				return;
+
+			Player.name[name_count] = (char)j;
+			name_count++;
+		}
+	}
+
 }
 
 void Draw_LeaderBoard(void)
