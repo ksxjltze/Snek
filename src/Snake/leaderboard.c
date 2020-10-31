@@ -49,33 +49,32 @@ void Read_Leaderboard_Data(void)
 			while(fgets(buffer, MAX_LINE_INPUT, leaderboard) != NULL)
 			{
 				printf("Hello World Again!\n"); //debug prints
-				//if (leaders_count > MAX_LEADERS)
-				//{
-				//	printf("break on 3 leaders test\n");//debug prints
-				//
-				//	break;							// I only want 3 leaders
-				//}
-				//int test = 0;
-				//int a = sscanf_s(buffer, "%d", &test);
-				printf("%s\n", buffer);
-				//char test[20];
-				//int a = sscanf_s(buffer, "%s", LeaderBoard[0].name, (unsigned int)sizeof test);
-				//printf("%s\n", LeaderBoard[0].name);
-				int a = sscanf_s(buffer, "%s %d", LeaderBoard[leaders_count].name, (unsigned)sizeof buffer, &LeaderBoard[leaders_count].score);
 
-				printf("A value is %d\n", a);
-				printf("buffer is %s\n", buffer);
-				printf("name is %s\n", LeaderBoard[0].name);
-				printf("score is %d\n", LeaderBoard[0].score);
-
-				if (a != 2)
+				if (leaders_count < MAX_LEADERS)
 				{
-					// TODO complain about incorect format. But while reading from .txt file, should be no problems.
+					int a = sscanf_s(buffer, "%s %d", LeaderBoard[leaders_count].name, (unsigned)sizeof buffer, &LeaderBoard[leaders_count].score);
+
+					printf("A value is %d\n", a);
+					printf("buffer is %s\n", buffer);
+					printf("name is %s\n", LeaderBoard[0].name);
+					printf("score is %d\n", LeaderBoard[0].score);
+
+					if (a != 2)
+					{
+						// TODO complain about incorect format. But while reading from .txt file, should be no problems.
+					}
+					else
+					{
+						leaders_count++;
+					}
+
 				}
 				else
 				{
-					leaders_count++;
+					printf("break on 3 leaders test\n");//debug prints
+					break;
 				}
+
 			}
 
 			fclose(leaderboard);
