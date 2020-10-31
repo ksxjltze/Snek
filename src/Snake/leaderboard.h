@@ -13,7 +13,7 @@ struct LeaderBoard
 
 typedef struct Leaders
 {
-	char* name;
+	char name[20];
 	int score;
 } Leader;
 

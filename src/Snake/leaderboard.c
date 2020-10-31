@@ -31,9 +31,12 @@ void Read_Leaderboard_Data(void)
 		printf("Bitch\n");//debug prints
 		fopen_s(&leaderboard, "leaderboard.txt", "w");
 
-		fprintf(leaderboard, "%s %d","nil",  69);	// write into the file leader boards are empty %s "Leaderboards are empty!"
+		if (leaderboard)
+		{
+			fprintf(leaderboard, "%s %d","nil",  69);	// write into the file leader boards are empty %s "Leaderboards are empty!"
+			fclose(leaderboard);
+		}
 
-		fclose(leaderboard);
 		return;
 	}
 
@@ -41,36 +44,44 @@ void Read_Leaderboard_Data(void)
 	{
 		printf("Hello World!\n"); //debug prints
 
-		while(fgets(buffer, MAX_LINE_INPUT, leaderboard) != NULL)
+		if (leaderboard)
 		{
-			printf("Hello World Again!\n"); //debug prints
-			if (leaders_count > MAX_LEADERS)
+			while(fgets(buffer, MAX_LINE_INPUT, leaderboard) != NULL)
 			{
-				printf("break on 3 leaders test\n");//debug prints
-				
-				break;							// I only want 3 leaders
-			}
-			//int test = 0;
-			//int a = sscanf_s(buffer, "%d", &test);
+				printf("Hello World Again!\n"); //debug prints
+				//if (leaders_count > MAX_LEADERS)
+				//{
+				//	printf("break on 3 leaders test\n");//debug prints
+				//
+				//	break;							// I only want 3 leaders
+				//}
+				//int test = 0;
+				//int a = sscanf_s(buffer, "%d", &test);
+				printf("%s\n", buffer);
+				//char test[20];
+				//int a = sscanf_s(buffer, "%s", LeaderBoard[0].name, (unsigned int)sizeof test);
+				//printf("%s\n", LeaderBoard[0].name);
+				int a = sscanf_s(buffer, "%s %d", LeaderBoard[leaders_count].name, (unsigned)sizeof buffer, &LeaderBoard[leaders_count].score);
 
-			int a = sscanf_s(buffer, "%s %d", LeaderBoard[leaders_count].name, (unsigned)sizeof buffer, &LeaderBoard[leaders_count].score);
+				printf("A value is %d\n", a);
+				printf("buffer is %s\n", buffer);
+				printf("name is %s\n", LeaderBoard[0].name);
+				printf("score is %d\n", LeaderBoard[0].score);
 
-			printf("A value is %d\n", a);
-			printf("buffer is %s\n", buffer);
-			printf("name is %s\n", LeaderBoard[0].name);
-			printf("score is %d\n", LeaderBoard[0].score);
+				if (a != 2)
+				{
+					// TODO complain about incorect format. But while reading from .txt file, should be no problems.
+				}
+				else
+				{
+					leaders_count++;
+				}
+			}
 
-			if (a != 2)
-			{
-				// TODO complain about incorect format. But while reading from .txt file, should be no problems.
-			}
-			else
-			{
-				leaders_count++;
-			}
+			fclose(leaderboard);
 		}
+
 	}
-	fclose(leaderboard);
 }
 
 void Write_Leaderboard_Data(void)
@@ -93,7 +104,7 @@ void Write_Leaderboard_Data(void)
 			if (Player.score > LeaderBoard[i].score) // check if total score is higher than any registered leader score
 			{
 				leader.score = Player.score;		 // if higher, write score total as leader score
-				leader.name = Player.name;
+				strcpy_s(leader.name, 20, Player.name);
 			}
 		}
 		fclose(leaderboard);
@@ -142,15 +153,17 @@ void Update_LeaderBoard(void)
 
 void LeaderBoard_ReadInput()
 {
-	if (x >= MAX_LINE_INPUT)
-		return;
-
 	for (int i = KEY_A; i < KEY_Z; i++)
 	{
 		if (CP_Input_KeyTriggered(i))
 		{
-			Player.name[x] = (char)i;
-			x++;
+			if (x < sizeof Player.name)
+			{
+				Player.name[x] = (char)i;
+				x++;
+			}
+			else
+				return;
 		}
 	}
 }
