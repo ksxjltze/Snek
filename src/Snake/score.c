@@ -1,3 +1,16 @@
+//---------------------------------------------------------
+// file:	score.c
+// author:	[Bryan Koh Yan Wei]
+// email:	[yanweibryan.koh@digipen.edu]
+//
+// brief:	Function which track, calculates and draws the score to the screen
+//
+// documentation link:
+// https://inside.digipen.edu/main/GSDP:GAM100/CProcessing
+//
+// Copyright © 2020 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include "score.h"
 
 extern const int WINDOW_WIDTH, WINDOW_HEIGHT;

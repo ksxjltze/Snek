@@ -7,7 +7,7 @@
 Leader LeaderBoard[MAX_LEADERS] = {0};
 const char leaderboard_file[] = "leaderboard.txt";
 int x = 0;
-int leaders_count = 0;
+int leaders_count;
 
 
 void Read_Leaderboard_Data(void)
@@ -20,11 +20,6 @@ void Read_Leaderboard_Data(void)
 
 	printf("\nwhore\n");//debug prints
  
-//if (leaderboard == 0 || leaderboard == NULL)	
-//{	
-//	fclose(leaderboard);
-//	return;
-//}	
 	if (error != 0)						
 	{
 
@@ -56,8 +51,8 @@ void Read_Leaderboard_Data(void)
 
 					printf("A value is %d\n", a);
 					printf("buffer is %s\n", buffer);
-					printf("name is %s\n", LeaderBoard[0].name);
-					printf("score is %d\n", LeaderBoard[0].score);
+					printf("name is %s\n", LeaderBoard[leaders_count].name);
+					printf("score is %d\n", LeaderBoard[leaders_count].score);
 
 					if (a != 2)
 					{
@@ -99,11 +94,12 @@ void Write_Leaderboard_Data(void)
 	{
 		for (int i = 0; i < MAX_LEADERS; i++)
 		{
-			Leader leader = LeaderBoard[i];
+			//Leader leader = LeaderBoard[i]; // what dis
 			if (Player.score > LeaderBoard[i].score) // check if total score is higher than any registered leader score
 			{
-				leader.score = Player.score;		 // if higher, write score total as leader score
-				strcpy_s(leader.name, 20, Player.name);
+				LeaderBoard[i].score = Player.score;		 // if higher, write score total as leader score
+				strcpy_s(LeaderBoard[i].name, 20, Player.name); //whut
+				printf("leader name is %s\n", LeaderBoard[i].name);
 			}
 		}
 		fclose(leaderboard);
@@ -130,6 +126,8 @@ void Init_LeaderBoard(void)
 	Leaderboard_Variables.x = (float)(WINDOW_WIDTH / 2.0);
 	Leaderboard_Variables.y = (float)(WINDOW_HEIGHT / 5.0);
 
+	leaders_count = 0;
+
 	Read_Leaderboard_Data();
 }
 
@@ -140,17 +138,16 @@ void Update_LeaderBoard(void)
 	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
 	CP_Settings_TextSize(50.0f);
 
-	CP_Font_DrawTextBox("CONGRATULATIONS, YOU WON A SPOT ON THE LEADERBOARD! Please Enter Your Name! (Up to 20 characters)", (float)(WINDOW_WIDTH / WINDOW_WIDTH), (float)WINDOW_HEIGHT / 16, (float)WINDOW_WIDTH);
+	CP_Font_DrawTextBox("CONGRATULATIONS, YOU WON A SPOT ON THE LEADERBOARD! Please Enter Your Name! (Up to 20 characters)", 
+		(float)(WINDOW_WIDTH / WINDOW_WIDTH), (float)WINDOW_HEIGHT / 16, (float)WINDOW_WIDTH);
 
 	LeaderBoard_ReadInput();
-	
-	// CP_Font_DrawText(Player.name, 100, 100); // this is null now
 
 	Draw_LeaderBoard(); 
 
 }
 
-void LeaderBoard_ReadInput()
+void LeaderBoard_ReadInput() // function to read input from file?
 {
 	for (int i = KEY_A; i < KEY_Z; i++)
 	{
@@ -173,15 +170,16 @@ void Draw_LeaderBoard(void)
 	CP_Settings_Fill(Leaderboard_Variables.text_color);
 	CP_Font_DrawText(Leaderboard_Variables.text, Leaderboard_Variables.x, Leaderboard_Variables.y);
 
-	char leaderscore_buffer[16];
-	sprintf_s(leaderscore_buffer, 16, "%c", LeaderBoard[0].score);//debug prints
 
 
 	for (int i = 0; i < leaders_count; i++)
 	{	
 
-		CP_Font_DrawText(leaderscore_buffer, Leaderboard_Variables.x + 100.0f, Leaderboard_Variables.y);
-		CP_Font_DrawText(LeaderBoard[i].name, Leaderboard_Variables.x, Leaderboard_Variables.y);
+		char leaderscore_buffer[16];
+		sprintf_s(leaderscore_buffer, 16, "%d", LeaderBoard[i].score);//debug prints
+
+		CP_Font_DrawText(leaderscore_buffer, Leaderboard_Variables.x + 300.0f, Leaderboard_Variables.y + 100.0f + (i * 100));
+		CP_Font_DrawText(LeaderBoard[i].name, Leaderboard_Variables.x + 100.0f, Leaderboard_Variables.y + 100.0f + (i * 100));
 	}
 }
 

@@ -1,21 +1,39 @@
+//---------------------------------------------------------
+// file:	gameover.c
+// author:	[Bryan Koh Yan Wei]
+// email:	[yanweibryan.koh@digipen.edu]
+//
+// brief:	function which prints playerscore, high and 2 
+//			interactive buttons to the screen.
+			
+//
+// documentation link:
+// https://inside.digipen.edu/main/GSDP:GAM100/CProcessing
+//
+// Copyright © 2020 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include "gameover.h"
 
 extern const int WINDOW_WIDTH, WINDOW_HEIGHT;
 
-
+/// <summary>
+/// 
+/// </summary>
+/// <param name=""></param>
 void Draw_GameOver_Score(void)															// function to print score
 {
 	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_BASELINE);
 	int hs = Read_Score();																// Call function Read_Score() which return recorded highscore
-	char playerscore_buffer[16];														//buffer for current game score
+	char playerscore_buffer[16];														// buffer for current game score
 	char highscore_buffer[16];															// buffer for highscore
 	CP_Settings_TextSize(50.0f);
 
-	sprintf_s(playerscore_buffer, 16, "%d", Player.score);								// coverts score into char buffer
+	sprintf_s(playerscore_buffer, 16, "%d", Player.score);								//coverts score into char buffer
 	sprintf_s(highscore_buffer, 16, "%d", hs);											//convert recorded highscore into char buffer
 
 	CP_Font_DrawText(gameover_score.text, (float)WINDOW_WIDTH / 2.5f, WINDOW_HEIGHT / 2.5f); // drawing of text
-	CP_Font_DrawText(highscore.text, (float)WINDOW_WIDTH / 2.5f, WINDOW_HEIGHT / 2.0f);		// drawing of highscore. 1 s = 1 point, 1 food = 5 points
+	CP_Font_DrawText(highscore.text, (float)WINDOW_WIDTH / 2.5f, WINDOW_HEIGHT / 2.0f);		// drawing of highscore.
 
 	CP_Font_DrawText(playerscore_buffer, WINDOW_WIDTH / 1.6f, WINDOW_HEIGHT / 2.5f); 
 
@@ -53,10 +71,10 @@ void GameOver_Var_Init(void)															//initialize variables for the button
 void Init_GameOver(void)																// initializing variables for gameover screen
 {
 	GameOver_Var_Init();
-	Stop_Music();
+	Stop_Music();																		// stops music at gameover screen
 }
 
-void Update_GameOver(void)																// updates the rendering based on 
+void Update_GameOver(void)																// updates
 {
 
 	CP_Settings_Background(CP_Color_Create(160, 160, 160, 255));
@@ -75,7 +93,7 @@ void GameOver_Update_Input(void)														 // check input for button inputs
 		CP_Settings_Fill(gameover_button.hover);
 		if (CP_Input_MouseClicked())													 // check for retry button input
 		{
-			Food_score.count = 0;
+			Food_score.count = 0;														 //reset food score to 0
 			CP_Engine_SetNextGameState(Snake_Init, Snake_Update, Snake_Exit);			 //initialize game if retry clicked
 		}
 	}
