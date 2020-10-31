@@ -140,8 +140,15 @@ void Init_LeaderBoard(void)
 	Button_Set_Text_Size(&Button_Exit, 50);
 	Button_Set_Callback(&Button_Exit, ptr_exit);
 
+	if (Player.name)
+	{
+		name_count = (int)strlen(Player.name);
+	}
+	else
+		name_count = 0;
+
 	leaders_count = 0;
-	name_count = 0;
+
 	Read_Leaderboard_Data();
 }
 
