@@ -6,8 +6,6 @@
 
 Leader LeaderBoard[MAX_LEADERS] = {0};
 const char leaderboard_file[] = "leaderboard.txt";
-int leaders_count;
-int name_count;
 
 struct Button Button_Exit;
 
@@ -47,9 +45,9 @@ void Read_Leaderboard_Data(void)
 			{
 				printf("Hello World Again!\n"); //debug prints
 
-				if (leaders_count < MAX_LEADERS)
+				if (counter.leaders_count < MAX_LEADERS)
 				{
-					int index = leaders_count;
+					int index = counter.leaders_count;
 					int a = sscanf_s(buffer, "%s %d", LeaderBoard[index].name, (unsigned)sizeof buffer, &LeaderBoard[index].score);
 
 					printf("A value is %d\n", a);
@@ -63,7 +61,7 @@ void Read_Leaderboard_Data(void)
 					}
 					else
 					{
-						leaders_count++;
+						counter.leaders_count++;
 					}
 
 				}
@@ -124,7 +122,7 @@ void Check_If_Leader(void)
 
 void Init_LeaderBoard(void)
 {	
-	leaders_count = 0;
+	counter.leaders_count = 0;
 	Leaderboard_Variables.text_color = CP_Color_Create(255, 255, 255, 255);
 	Leaderboard_Variables.text = "Leaders:";
 	Leaderboard_Variables.x = (float)(WINDOW_WIDTH / 2.0);
@@ -142,12 +140,10 @@ void Init_LeaderBoard(void)
 
 	if (Player.name)
 	{
-		name_count = (int)strlen(Player.name);
+		counter.name_length = (int)strlen(Player.name);
 	}
 	else
-		name_count = 0;
-
-	leaders_count = 0;
+		counter.name_length = 0;
 
 	Read_Leaderboard_Data();
 }
@@ -187,30 +183,30 @@ void LeaderBoard_ReadInput() // function to read input from file?
 {
 	if (CP_Input_KeyTriggered(KEY_BACKSPACE))
 	{
-		if (name_count > 0)
+		if (counter.name_length > 0)
 		{
-			name_count--;
-			Player.name[name_count] = '\0';
+			counter.name_length--;
+			Player.name[counter.name_length] = '\0';
 		}
 	}
 
 	for (int i = KEY_A, j = KEY_0; i <= KEY_Z; i++, j++)
 	{
-		if (name_count >= BUFFER_SIZE)
+		if (counter.name_length >= BUFFER_SIZE)
 			return;
 
 		if (CP_Input_KeyTriggered(i))
 		{
-			Player.name[name_count] = (char)i;
-			name_count++;
+			Player.name[counter.name_length] = (char)i;
+			counter.name_length++;
 		}
 		else if (CP_Input_KeyTriggered(j))
 		{
 			if (j > KEY_9)
 				return;
 
-			Player.name[name_count] = (char)j;
-			name_count++;
+			Player.name[counter.name_length] = (char)j;
+			counter.name_length++;
 		}
 	}
 
@@ -222,7 +218,7 @@ void Draw_LeaderBoard(void)
 	CP_Settings_Fill(Leaderboard_Variables.text_color);
 	CP_Font_DrawText(Leaderboard_Variables.text, Leaderboard_Variables.x, Leaderboard_Variables.y);
 
-	for (int i = 0; i < leaders_count; i++)
+	for (int i = 0; i < counter.leaders_count; i++)
 	{	
 
 		char leaderscore_buffer[16];

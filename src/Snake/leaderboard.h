@@ -19,6 +19,12 @@ typedef struct Leaders
 	int score;
 } Leader;
 
+struct Counters
+{
+	int leaders_count;
+	int name_length;
+}counter;
+
 void Init_LeaderBoard(void);
 void Update_LeaderBoard(void);
 void Exit_LeaderBoard(void);
