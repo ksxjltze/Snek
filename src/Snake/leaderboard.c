@@ -2,6 +2,7 @@
 #include "leaderboard.h"
 
 #define MAX_LINE_INPUT 100
+#define BUFFER_SIZE 20
 #define MAX_LEADERS 3
 
 Leader LeaderBoard[MAX_LEADERS] = {0};
@@ -166,7 +167,7 @@ void LeaderBoard_ReadInput() // function to read input from file?
 
 	for (int i = KEY_A, j = KEY_0; i <= KEY_Z; i++, j++)
 	{
-		if (name_count >= 20)
+		if (name_count >= BUFFER_SIZE)
 			return;
 
 		if (CP_Input_KeyTriggered(i))
