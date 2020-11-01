@@ -106,6 +106,7 @@ void Snake_Init_Segments()
 		the_snake.segments[i].active = false;	//Not active, will not be drawn.
 		the_snake.segments[i].position = CP_Vector_Set(0, 0);
 		the_snake.segments[i].grid_position = 0;
+		the_snake.segments[i].direction = RIGHT;
 	}
 }
 
@@ -122,14 +123,20 @@ void Snake_Collide()
 	}
 }
 
-//Makes the snake grow longer.
-void Snake_Grow()
+int Snake_Normalize_Direction(int direction)
 {
-	int direction = the_snake.direction;
 	if (direction % 2 == 0) //Horizontal
 		direction /= 2;			//"Normalize" to become 1.
 	else					//Vertical
 		direction *= GRID_WIDTH;
+
+	return direction;
+}
+
+//Makes the snake grow longer.
+void Snake_Grow()
+{
+	int direction = Snake_Normalize_Direction(the_snake.direction);
 
 	//Finds and sets the next segment's position, sets it to active then returns.
 	for (int i = 0; i < GRID_SIZE - 1; i++)
@@ -138,8 +145,15 @@ void Snake_Grow()
 		if (!segment->active) //Find first inactive segment. i.e. Segment after the "Last Segment".
 		{
 			segment->active = true;
+
 			if (i > 0)
-				segment->grid_position = the_snake.segments[i - 1].grid_position - direction;	//Segments after the first.
+			{
+				struct Segment previous_segment = the_snake.segments[i - 1];
+				direction = Snake_Normalize_Direction(previous_segment.direction);
+
+				segment->grid_position = previous_segment.grid_position - direction;	//Segments after the first.
+				
+			}
 			else
 				segment->grid_position = the_snake.grid_position - direction;					//First segment after the head.
 
@@ -214,11 +228,15 @@ void Snake_UpdateMovement(void)
 			if (segment->active)				//Finds active segments from the back of the array.
 			{
 				if (i > 0)						//Not first segment (before head)
-					segment->grid_position =	//Sets current segment's position to be the position of the segment before it.
-					the_snake.segments[i - 1].grid_position;
-				else							//Segment before head
-					segment->grid_position =	//Set first segment's position to be the position of the head.
-					the_snake.grid_position;
+				{
+					segment->grid_position = the_snake.segments[i - 1].grid_position;	//Sets current segment's position to be the position of the segment before it.
+					segment->direction = the_snake.segments[i - 1].direction;
+				}
+				else							//Segment before head.
+				{
+					segment->grid_position = the_snake.grid_position;					//Set first segment's position to be the position of the head.
+					segment->direction = the_snake.direction;
+				}
 
 				segment->destination = grid[segment->grid_position];	//Update screen position. (Pixels)
 
