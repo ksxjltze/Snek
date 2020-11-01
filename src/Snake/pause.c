@@ -22,9 +22,11 @@ void Snake_PauseMenu_Init()
 
 	CP_Vector pos_continue = CP_Vector_Set((float)WINDOW_WIDTH / 2 - offsetX, (float)WINDOW_HEIGHT * 0.25f);
 	CP_Vector pos_restart = CP_Vector_Set((float)WINDOW_WIDTH / 2 - offsetX, (float)WINDOW_HEIGHT * 0.5f);
+	CP_Vector pos_quit = CP_Vector_Set((float)WINDOW_WIDTH / 2 - offsetX, (float)WINDOW_HEIGHT * 0.75f);
 
 	menu.btn_Continue = Create_TextButton(pos_continue, width, height, "Continue");
 	menu.btn_Restart = Create_TextButton(pos_restart, width, height, "Restart");
+	menu.btn_Quit = Create_TextButton(pos_quit, width, height, "Quit");
 
 	CP_Color idle = CP_Color_Create(100, 100, 100, 255);
 	CP_Color hover = CP_Color_Create(100, 0, 100, 255);
@@ -33,9 +35,16 @@ void Snake_PauseMenu_Init()
 
 	Button_Set_Colors(&menu.btn_Continue, idle, hover, clicked, text);
 	Button_Set_Colors(&menu.btn_Restart, idle, hover, clicked, text);
+	Button_Set_Colors(&menu.btn_Quit, idle, hover, clicked, text);
 
 	Button_Set_Callback(&menu.btn_Continue, &Snake_Pause_Continue);
 	Button_Set_Callback(&menu.btn_Restart, &Snake_Pause_Restart);
+	Button_Set_Callback(&menu.btn_Quit, &Snake_Pause_Quit);
+}
+
+void Snake_Pause_Quit()
+{
+	Snake_Quit();
 }
 
 void Snake_Pause_Restart()
@@ -62,5 +71,6 @@ void Snake_PauseMenu_Update()
 	CP_Settings_Background(backgroundColor);
 	Update_Button(menu.btn_Continue, mouseX, mouseY);
 	Update_Button(menu.btn_Restart, mouseX, mouseY);
+	Update_Button(menu.btn_Quit, mouseX, mouseY);
 
 }

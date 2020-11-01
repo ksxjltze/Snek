@@ -91,6 +91,7 @@ void Snake_Update(void)
 
 void Snake_Exit(void)
 {
+	Snake_Reset();
 	_fcloseall();
 }
 
@@ -293,6 +294,12 @@ void Snake_Move(CP_Vector* old_pos, CP_Vector new_pos)
 void Snake_UnPause()
 {
 	paused = false;
+}
+
+void Snake_Quit()
+{
+	Stop_Music();
+	CP_Engine_SetNextGameState(Menu_init, Menu_update, Menu_exit);
 }
 
 void Snake_Reset(void)

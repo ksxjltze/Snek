@@ -61,6 +61,7 @@ void Snake_Death(void);
 //Pause and Reset
 void Snake_UnPause();
 void Snake_Reset(void);
+void Snake_Quit();
 
 void Snake_Collide();
 int Snake_Normalize_Direction(int direction);
