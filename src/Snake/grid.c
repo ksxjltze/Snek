@@ -79,7 +79,6 @@ void Snake_DrawGrid_Truncated()
 {
 	float start = (float)offset + CELL_WIDTH;
 	float end = CELL_WIDTH * (GRID_WIDTH - 1) + offset;
-
 	for (int i = 1; i <= GRID_WIDTH - 1; i++)
 	{
 		float row = i * CELL_WIDTH + offset;

@@ -12,6 +12,8 @@
 //Define in Snake.c
 extern const int WINDOW_WIDTH, WINDOW_HEIGHT;
 static CP_Color BACKGROUND_COLOR;
+struct Button btnPause;
+struct Button btnMusic;
 
 static float start_speed = 0.5f;
 float grid_seconds = 0.5f; //seconds per grid (movement)
@@ -60,10 +62,11 @@ void Snake_Init(void)
 	init_food(grid_field);
 	Button_Init();
 	Init_Scores_Var();
-	Init_GameOver();
 	Snake_PauseMenu_Init();
+	Snake_Buttons_Init();
+
 	CP_Sound_SetGroupPitch(CP_SOUND_GROUP_MUSIC, (start_speed / grid_seconds) / 2);
-	Play_Music();
+	//Play_Music();
 	paused = false;
 	lock = false;
 
@@ -77,6 +80,7 @@ void Snake_Update(void)
 	}
 	else
 	{
+		Snake_Buttons_Update();
 		Snake_Timer();
 		Snake_UpdateInput();
 		Snake_Collide();
@@ -87,12 +91,12 @@ void Snake_Update(void)
 	}
 	
 	if (CP_Input_KeyTriggered(KEY_ESCAPE))
-		paused = Snake_Pause(paused);
+		Snake_Pause();
 
 
-	if (CP_Input_KeyTriggered(KEY_Q)) // debug leaderboard
+	if (CP_Input_KeyTriggered(KEY_Q)) // debug 
 	{
-		CP_Engine_SetNextGameState(Init_GameOver, Update_GameOver, Exit_GameOver);
+		CP_Engine_SetNextGameState(Gameover_Init, Gameover_Update, Gameover_Exit);
 	}
 
 }
@@ -103,10 +107,46 @@ void Snake_Exit(void)
 	_fcloseall();
 }
 
+void Snake_Pause()
+{
+	paused = !paused;
+}
+
 void Snake_Death(void)
 {
 	//Check_If_Leader();
-	CP_Engine_SetNextGameState(Init_GameOver, Update_GameOver, Exit_GameOver);
+	CP_Engine_SetNextGameState(Gameover_Init, Gameover_Update, Gameover_Exit);
+}
+
+void Snake_Buttons_Update()
+{
+	float mouseX, mouseY;
+	mouseX = CP_Input_GetMouseX();
+	mouseY = CP_Input_GetMouseY();
+
+	Update_Button(btnPause, mouseX, mouseY);
+	Update_Button(btnMusic, mouseX, mouseY);
+}
+
+void Snake_Buttons_Init()
+{
+	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
+
+	CP_Vector pos = CP_Vector_Set((float)WINDOW_WIDTH * 0.7f, (float)WINDOW_HEIGHT * 0.2f);
+	CP_Vector pos2 = CP_Vector_Set((float)WINDOW_WIDTH * 0.7f, (float)WINDOW_HEIGHT * 0.4f);
+
+	btnPause = Create_TextButton(pos, 275.0f, 100.0f, "Pause");
+	btnMusic = Create_TextButton(pos2, 275.0f, 100.0f, "BGM");
+
+	CP_Color idle = CP_Color_Create(100, 100, 100, 255);
+	CP_Color hover = CP_Color_Create(100, 0, 100, 255);
+	CP_Color clicked = CP_Color_Create(100, 100, 0, 255);
+	CP_Color text = CP_Color_Create(255, 255, 255, 255);
+
+	Button_Set_Colors(&btnPause, idle, hover, clicked, text);
+	Button_Set_Colors(&btnMusic, idle, hover, clicked, text);
+	Button_Set_Callback(&btnPause, &Snake_Pause);
+	Button_Set_Callback(&btnMusic, &Toggle_Music);
 }
 
 void Snake_Init_Segments()

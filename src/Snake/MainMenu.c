@@ -10,6 +10,7 @@ void Menu_init(void)
 	CP_System_SetWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
 	Button_init();
+	Read_Leaderboard_Data();
 }
 void Menu_update(void)
 {	
@@ -46,7 +47,7 @@ void MainMenu_Exit_Game()
 	CP_Engine_Terminate();
 }
 
-void MainMenu_View_LeaderBoard(void)
+void View_LeaderBoard(void)
 {
 	CP_Engine_SetNextGameState(Init_LeaderBoard, Update_LeaderBoard, Exit_LeaderBoard);
 }
@@ -56,7 +57,7 @@ void Button_init(void)
 	Init_Menu_Button();
 	void(*ptr_play)() = &MainMenu_Load_Game;
 	void(*ptr_exit)() = &MainMenu_Exit_Game;
-	void(*ptr_leaderboard)() = &MainMenu_View_LeaderBoard;
+	void(*ptr_leaderboard)() = &View_LeaderBoard;
 
 	CP_Vector pos = CP_Vector_Zero();
 	pos.x = (float)(WINDOW_WIDTH * 0.5f) - (Menu_button.width / 2);
@@ -72,7 +73,7 @@ void Button_init(void)
 
 	Button_Play = Create_TextButton(pos, Menu_button.width, Menu_button.height, "Play");
 	Button_Exit = Create_TextButton(pos2, Menu_button.width, Menu_button.height, "Exit");
-	Button_LeaderBoard = Create_TextButton(pos3, Menu_button.width, Menu_button.height, "LeaderBoards");
+	Button_LeaderBoard = Create_TextButton(pos3, Menu_button.width, Menu_button.height, "LeaderBoard");
 
 	Button_Set_Colors(&Button_Play, Menu_button.idle, Menu_button.hover, Menu_button.clicked, Menu_button.text);
 	Button_Set_Colors(&Button_Exit, Menu_button.idle, Menu_button.hover, Menu_button.clicked, Menu_button.text);

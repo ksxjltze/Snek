@@ -8,6 +8,7 @@
 // Copyright © 2020 DigiPen, All rights reserved.
 //---------------------------------------------------------
 #include "music.h"
+int playing;
 
 /// <Play music>
 /// 
@@ -16,10 +17,20 @@
 
 void Play_Music(void)
 {
+	playing = 1;
 	CP_Sound_PlayMusic(CP_Sound_LoadMusic("./Assets/snakelmao.wav"));
 }
 
 void Stop_Music(void)
 {
+	playing = 0;
 	CP_Sound_StopAll();
+}
+
+void Toggle_Music(void)
+{
+	if (playing)
+		Stop_Music();
+	else
+		Play_Music();
 }
