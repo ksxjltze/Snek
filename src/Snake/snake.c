@@ -143,7 +143,7 @@ int Snake_Normalize_Direction(int direction)
 	return direction;
 }
 
-//Makes the snake grow longer.
+//Makes the snake grow longer. (Lee Jia Keat)
 void Snake_Grow()
 {
 	int direction = Snake_Normalize_Direction(the_snake.direction);
@@ -226,7 +226,7 @@ void Snake_UpdateInput(void)
 	}
 }
 
-//Update snake's position.
+//Update snake's position. (Lee Jia Keat)
 void Snake_UpdateMovement(void)
 {
 	//Update snake's target cell/position (including body).
