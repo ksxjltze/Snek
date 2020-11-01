@@ -57,7 +57,8 @@ void collision(CP_Vector position, CP_Vector grid[])
 		//play sfx
 		Crunch_SFX();
 		Snake_Grow();
-		the_food.grid_position = CP_Random_RangeInt(0, 324);     // food position generated inside the barrier
+		the_food.grid_position = CP_Random_RangeInt(0, 323);     // food position generated inside the barrier
+
 		the_food.position = grid[the_food.grid_position];		 //Screen Position
 		Food_score.count++;
 	}	

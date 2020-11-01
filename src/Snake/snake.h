@@ -64,3 +64,4 @@ void Snake_Reset(void);
 
 void Snake_Collide();
 int Snake_Normalize_Direction(int direction);
+void Snake_Speed_Up();

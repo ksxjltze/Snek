@@ -5,7 +5,7 @@
 extern const int WINDOW_WIDTH, WINDOW_HEIGHT;
 static CP_Color BACKGROUND_COLOR;
 
-static float grid_seconds = 0.5f; //seconds per grid (movement)
+float grid_seconds = 0.5f; //seconds per grid (movement)
 float move_timer;
 
 static CP_Vector WINDOW_CENTRE;
@@ -29,7 +29,6 @@ void Snake_Init(void)
 	CP_Image img_snake = CP_Image_Load("./Assets/head.png");
 	CP_Image img_body = CP_Image_Load("./Assets/body.png");
 	WINDOW_CENTRE = CP_Vector_Set((float)WINDOW_WIDTH / 2, (float)WINDOW_HEIGHT / 2);
-	CP_Settings_Stroke(CP_Color_Create(255, 255, 255, 255)); //White lines
 	BACKGROUND_COLOR = CP_Color_Create(0, 0, 0, 255);		 //Black background
 
 	Snake_Grid_Init();									//Initialize Grid specific variables
@@ -137,6 +136,7 @@ int Snake_Normalize_Direction(int direction)
 void Snake_Grow()
 {
 	int direction = Snake_Normalize_Direction(the_snake.direction);
+	Snake_Speed_Up();
 
 	//Finds and sets the next segment's position, sets it to active then returns.
 	for (int i = 0; i < GRID_SIZE - 1; i++)
@@ -161,6 +161,11 @@ void Snake_Grow()
 			return;
 		}
 	}
+}
+
+void Snake_Speed_Up()
+{
+	grid_seconds *= 0.95f; //snake moves 5% faster.
 }
 
 //Update Movement Timer
@@ -312,7 +317,7 @@ void Snake_Draw(void)
 {
 	//Clear Buffer
 	CP_Settings_Background(BACKGROUND_COLOR);
-	Snake_DrawGrid_Truncated();
+	//Snake_DrawGrid_Truncated();
 
 	//Draw Snake's head.
 	CP_Image_Draw(the_snake.sprite.image, 
