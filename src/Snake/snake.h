@@ -10,7 +10,9 @@
 #include "grid.h"
 #include "food.h"
 #include "pause.h"
+#include "button.h"
 #include "leaderboard.h"
+#include "music.h"
 
 struct Segment					//Segment of Snake body.
 {
@@ -59,6 +61,7 @@ void Snake_Grow(void);
 void Snake_Death(void);
 
 //Pause and Reset
+void Snake_Pause();
 void Snake_UnPause();
 void Snake_Reset(void);
 void Snake_Quit();
@@ -66,3 +69,6 @@ void Snake_Quit();
 void Snake_Collide();
 int Snake_Normalize_Direction(int direction);
 void Snake_Speed_Up();
+
+void Snake_Buttons_Update();
+void Snake_Buttons_Init();
