@@ -260,15 +260,6 @@ void Snake_UpdateMovement(void)
 			Snake_Death();
 		}
 
-		//for (int i = GRID_SIZE - 2; i >= 0; i--)
-		//{
-		//	if (the_snake.position.x == the_snake.segments[i].position.x || 
-		//		the_snake.position.y == the_snake.segments[i].position.y)  //at the last cell
-		//	{
-		//		Snake_Death();
-		//	}
-		//}
-
 	}
 	else
 	{
