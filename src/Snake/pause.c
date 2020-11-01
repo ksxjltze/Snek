@@ -67,11 +67,6 @@ void Snake_Pause_Continue()
 	Snake_UnPause();
 }
 
-bool Snake_Pause(bool isPaused)
-{
-	return !isPaused;
-}
-
 void Snake_PauseMenu_Update()
 {
 	float mouseX, mouseY;
