@@ -32,7 +32,7 @@ void Read_Leaderboard_Data(void)
 
 		if (leaderboard)
 		{
-			fprintf(leaderboard, "%s %d","nil",  69);	// write into the file leader boards are empty %s "Leaderboards are empty!"
+			fprintf(leaderboard, "%s %d","Leaderboards are empty!", 0);	// write into the file leader boards are empty %s "Leaderboards are empty!"
 			fclose(leaderboard);
 		}
 
@@ -88,7 +88,7 @@ void Write_Leaderboard_Data(void)
 	FILE* leaderboard = leaderboard_file;
 	errno_t error;
 
-	error = fopen_s(&leaderboard, "leaderboard.txt", "a");
+	error = fopen_s(&leaderboard, "leaderboard.txt", "w+");
 
 	if (leaderboard == 0) //file not found
 	{
@@ -97,7 +97,10 @@ void Write_Leaderboard_Data(void)
 
 	else if (error == 0)		// error = 0 successfully opened
 	{
-		fprintf(leaderboard, "\n%s %d", Player.name, Player.score);
+		for (int i = 0; i < MAX_LEADERS; i++)
+		{
+			fprintf(leaderboard, "%s %d\n", LeaderBoard[i].name, LeaderBoard[i].score);
+		}
 	}
 
 	fclose(leaderboard);
@@ -259,17 +262,19 @@ void Sort_Data(int test[], int n)
 	{
 		for (j = i + 1; j < n; j++)
 		{
-			if (test[i] > test[j])
+			if (test[i] < test[j])
 			{
 				temp = test[i];											// If score gets sorted
 				strcpy_s(Temp_name, BUFFER_SIZE, LeaderBoard[i].name);  // Sort name also
-
+				
 				test[i] = test[j];
-				strcpy_s(LeaderBoard[i].name, BUFFER_SIZE, LeaderBoard[j].name);
+				strcpy_s(LeaderBoard[i].name, BUFFER_SIZE, LeaderBoard[j].name); // 
 
 				test[j] = temp;
 				strcpy_s(LeaderBoard[j].name, BUFFER_SIZE, Temp_name);
 			}
 		}
+		LeaderBoard[i].score = LeaderBoard_Scores[i];					// Write Sorted scores into struct
 	}
+	Write_Leaderboard_Data();											// Write sorted data into file
 }

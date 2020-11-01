@@ -83,7 +83,7 @@ void Snake_Update(void)
 
 	if (CP_Input_KeyTriggered(KEY_Q)) // debug leaderboard
 	{
-		CP_Engine_SetNextGameState(Init_LeaderBoard, Update_LeaderBoard, Exit_LeaderBoard);
+		CP_Engine_SetNextGameState(Init_GameOver, Update_GameOver, Exit_GameOver);
 	}
 
 }

@@ -1,4 +1,3 @@
-john 69
-bob 33
-dad 50
-BBB 0
+You 20
+Me 5
+Dad 1
