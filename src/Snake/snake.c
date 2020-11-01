@@ -169,6 +169,7 @@ void Snake_Grow()
 void Snake_Speed_Up()
 {
 	grid_seconds *= 0.95f; //snake moves 5% faster.
+	printf("%f", CP_Sound_GetGroupPitch(CP_SOUND_GROUP_MUSIC));
 	if ((start_speed / grid_seconds) / 2 < 3)
 		CP_Sound_SetGroupPitch(CP_SOUND_GROUP_MUSIC, (start_speed / grid_seconds) / 2); //Music plays 5% faster.
 }

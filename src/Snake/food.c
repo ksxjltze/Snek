@@ -63,6 +63,31 @@ void collision(CP_Vector position, CP_Vector grid[])
 		the_food.grid_position = CP_Random_RangeInt(0, 323);     // food position generated inside the barrier
 		the_food.position = grid[the_food.grid_position];		 //Screen Position
 
+		while (1)
+		{
+			int conflict = 0;
+			for (int i = 0; i < GRID_SIZE - 1; i++)
+			{
+				struct Segment* segment = &the_snake.segments[i];
+				if (segment->active)
+				{
+					if (Snake_Collision_AABB(the_food.sprite.width, the_food.sprite.height, the_food.position,
+						the_snake.sprite.width, the_snake.sprite.height, segment->position))
+					{
+						conflict = 1;
+
+						the_food.grid_position = CP_Random_RangeInt(0, 323);     // food position generated inside the barrier
+						the_food.position = grid[the_food.grid_position];		 //Screen Position
+						break;
+					}
+				}
+			}
+
+			if (conflict == 0)
+				break;
+
+		}
+
 		Food_score.count++;
 	}	
 }
