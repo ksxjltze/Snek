@@ -56,20 +56,6 @@ void Update_Score(void)
 	Draw_Score();
 }
 
-void Score_Manager(void)
-{
-	high_score = Read_Score();
-
-	if (Player.score > high_score)
-	{
-		Write_Score(Player.score);
-	}
-	else if (high_score == 0)
-	{
-		Write_Score(Player.score);
-	}
-}
-
 void Exit_Score(void)
 {
 

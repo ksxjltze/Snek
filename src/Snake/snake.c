@@ -63,7 +63,7 @@ void Snake_Init(void)
 	Init_Scores_Var();
 	Snake_PauseMenu_Init();
 	CP_Sound_SetGroupPitch(CP_SOUND_GROUP_MUSIC, (start_speed / grid_seconds) / 2);
-	//Play_Music();
+	Play_Music();
 	paused = false;
 	lock = false;
 
@@ -105,7 +105,7 @@ void Snake_Exit(void)
 
 void Snake_Death(void)
 {
-	//Check_If_Leader();
+	Stop_Music();
 	CP_Engine_SetNextGameState(Gameover_Init, Gameover_Update, Gameover_Exit);
 }
 
@@ -135,9 +135,9 @@ void Snake_Collide()
 
 int Snake_Normalize_Direction(int direction)
 {
-	if (direction % 2 == 0) //Horizontal
+	if (direction % 2 == 0)		//Horizontal
 		direction /= 2;			//"Normalize" to become 1.
-	else					//Vertical
+	else						//Vertical
 		direction *= GRID_WIDTH;
 
 	return direction;
@@ -271,7 +271,6 @@ void Snake_UpdateMovement(void)
 		if (the_snake.position.y == grid[GRID_SIZE - 1].y || the_snake.position.x == grid[GRID_SIZE - 1].x ||
 			the_snake.position.y == grid[0].y || the_snake.position.x == grid[0].x)
 		{
-			Score_Manager();
 			Snake_Death();
 		}
 

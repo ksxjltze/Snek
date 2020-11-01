@@ -33,4 +33,3 @@ void Init_Scores_Var(void);
 void Update_Score(void);
 void Exit_Score(void);
 void Draw_Score(void);
-void Score_Manager(void);

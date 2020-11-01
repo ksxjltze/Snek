@@ -1,3 +1,13 @@
+//---------------------------------------------------------
+// file:	leaderboard.c
+// author:	Bryan Koh Yan Wei
+// email:	yanweibryan.koh@digipen.edu
+//
+// brief:	Displays leaderboard, sorts the scores.
+//
+// Copyright © 2020 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include "leaderboard.h"
 
 #define MAX_LINE_INPUT 100
@@ -56,16 +66,10 @@ void Read_Leaderboard_Data(void)
 					{
 						LeaderBoard_Scores[i] = LeaderBoard[i].score;
 					}
-
-					if (a != 2)
-					{
-						// TODO complain about incorect format. But while reading from .txt file, should be no problems.
-					}
-					else
+					if (a == 2)
 					{
 						counter.leaders_count++;
 					}
-
 				}
 				else
 				{
