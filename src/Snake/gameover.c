@@ -19,7 +19,7 @@ extern const int WINDOW_WIDTH, WINDOW_HEIGHT;
 struct Button Button_Play;
 struct Button Button_LeaderBoard;
 
-void Draw_Gameover_Score(void)
+void Draw_Gameover_Score(void) // Draws the score at gameover
 {
 	char playerscore_buffer[16];
 
@@ -31,10 +31,10 @@ void Draw_Gameover_Score(void)
 }
 
 
-void Gameover_Init(void)
+void Gameover_Init(void)	// Initialize variables for gameover screen
 {
 	Init_Menu_Button();
-	void(*ptr_play)() = &MainMenu_Load_Game; // Same duty as MainMenu_Load_game even tho at gameover screen
+	void(*ptr_play)() = &MainMenu_Load_Game; 
 	void(*ptr_leaderboard)() = &View_LeaderBoard;
 
 	CP_Vector pos = CP_Vector_Zero();
@@ -60,7 +60,7 @@ void Gameover_Init(void)
 	CP_Engine_SetNextGameState(Gameover_Init, Gameover_Update, Gameover_Exit);
 }
 
-void Gameover_Update(void)
+void Gameover_Update(void)			// Draws and tracks input for button on gameover screen
 {
 	CP_Settings_Background(CP_Color_Create(0, 0, 0, 255));
 

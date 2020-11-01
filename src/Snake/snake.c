@@ -111,7 +111,8 @@ void Snake_Exit(void)
 void Snake_Pause()
 {
 	paused = !paused;
-}
+	CP_Sound_PauseGroup(CP_SOUND_GROUP_MUSIC);
+}	
 
 void Snake_Death(void)
 {
@@ -341,6 +342,7 @@ void Snake_Move(CP_Vector* old_pos, CP_Vector new_pos)
 
 void Snake_UnPause()
 {
+	CP_Sound_ResumeGroup(CP_SOUND_GROUP_MUSIC);
 	paused = false;
 }
 

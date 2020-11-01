@@ -18,7 +18,7 @@ int playing;
 void Play_Music(void)
 {
 	playing = 1;
-	CP_Sound_PlayMusic(CP_Sound_LoadMusic("./Assets/unhtz.wav"));
+	CP_Sound_PlayMusic(CP_Sound_LoadMusic("./Assets/snakelmao.wav"));
 }
 
 void Stop_Music(void)

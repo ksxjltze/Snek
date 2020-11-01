@@ -23,7 +23,7 @@ const char leaderboard_file[] = "leaderboard.txt";
 struct Button Button_Exit;
 
 
-void Read_Leaderboard_Data(void)
+void Read_Leaderboard_Data(void)			// Read inputs from leadboard.txt file
 {	
 	FILE* leaderboard = leaderboard_file;
 	errno_t error;
@@ -40,9 +40,8 @@ void Read_Leaderboard_Data(void)
 		{
 			for (int i = 0; i < MAX_LEADERS; i++)
 			{
-				fprintf(leaderboard, "%s %d\n", "nil", 0);	// write into the file leader boards are empty %s "Leaderboards are empty!"
+				fprintf(leaderboard, "%s %d\n", "nil", 0);
 			}
-			printf("Fuck\n");//debug prints
 			fclose(leaderboard);
 		}
 
@@ -51,12 +50,10 @@ void Read_Leaderboard_Data(void)
 
 	else if (error == 0)						// 0 is successful.
 	{
-
 		if (leaderboard)
 		{
 			while(fgets(buffer, MAX_LINE_INPUT, leaderboard) != NULL)
 			{
-
 				if (counter.leaders_count < MAX_LEADERS)
 				{
 					int index = counter.leaders_count;
@@ -75,16 +72,13 @@ void Read_Leaderboard_Data(void)
 				{
 					break;
 				}
-
 			}
-
 			fclose(leaderboard);
 		}
-
 	}
 }
 
-void Write_Leaderboard_Data(void)
+void Write_Leaderboard_Data(void)			// Writes playername and score into leaderboard.txt
 {
 	FILE* leaderboard = leaderboard_file;
 	errno_t error;
@@ -96,7 +90,7 @@ void Write_Leaderboard_Data(void)
 		LeaderBoard[MAX_LEADERS - 1].score = Player.score;
 	}
 
-	if (leaderboard == 0) //file not found
+	if (leaderboard == 0)		//file not found
 	{
 		return;
 	}
@@ -113,7 +107,7 @@ void Write_Leaderboard_Data(void)
 	fclose(leaderboard);
 }
 
-void Check_If_Leader(void)
+void Check_If_Leader(void)		// Function to check if player is on entitled leaderboard placement
 {
 	for (int i = 0; i < MAX_LEADERS; i++)
 	{
@@ -125,7 +119,7 @@ void Check_If_Leader(void)
 		is_leader = true;
 }
 
-void Init_LeaderBoard(void)
+void Init_LeaderBoard(void)		// Initialize leaderboard variables
 {	
 	Read_Leaderboard_Data();
 
@@ -157,7 +151,7 @@ void Init_LeaderBoard(void)
 		counter.name_length = 0;
 }
 
-void Update_LeaderBoard(void)
+void Update_LeaderBoard(void)		// Draws and checks every frame of leaderboard
 {
 	CP_Settings_Background(CP_Color_Create(0, 0, 0, 255));
 	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
@@ -171,18 +165,18 @@ void Update_LeaderBoard(void)
 
 }
 
-void Load_Main_Menu(void)
+void Load_Main_Menu(void)			// Function to return from leaderboard screen to main menu
 {
 	CP_Engine_SetNextGameState(Menu_init, Menu_update, Menu_exit);
 }
 
-void LeaderBoard_Display_PlayerName()
+void LeaderBoard_Display_PlayerName()	// function to display name onto screen
 {
 	if (Player.name)
 		CP_Font_DrawText(Player.name, Leaderboard_Variables.x, Leaderboard_Variables.y);
 }
 
-void LeaderBoard_ReadInput() // function to read input from file?
+void LeaderBoard_ReadInput()			// function to read input for player name
 {
 	if (CP_Input_KeyTriggered(KEY_ENTER))
 	{
@@ -222,7 +216,7 @@ void LeaderBoard_ReadInput() // function to read input from file?
 
 }
 
-void Draw_LeaderBoard(void)
+void Draw_LeaderBoard(void)			// function whichs draws leaderboard variables
 {
 	CP_Settings_TextSize(50.0f);
 	CP_Settings_Fill(Leaderboard_Variables.text_color);
@@ -247,7 +241,7 @@ void Exit_LeaderBoard(void)
 	_fcloseall();
 }
 
-void Sort_Data(int test[], int n)
+void Sort_Data(int test[], int n)	// function which sorts scores in descending order
 {
 	int i, j, temp;
 	char Temp_name[BUFFER_SIZE];
@@ -272,7 +266,7 @@ void Sort_Data(int test[], int n)
 	Write_Leaderboard_Data();											// Write sorted data into file
 }
 
-void Player_Is_Leader(void)
+void Player_Is_Leader(void)			// Function which ask player to enter name if entitled leaderboard placement
 {
 	if (is_leader)
 	{

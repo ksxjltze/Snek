@@ -51,7 +51,7 @@ void Draw_Score(void)									// Function to draw score at gameover screen
 }
 
 
-void Update_Score(void)
+void Update_Score(void)									//Draws scores to screen every frame	
 {
 	Draw_Score();
 }
