@@ -1,3 +1,13 @@
+//---------------------------------------------------------
+// file:	grid.c
+// author:	Lee Jia Keat
+// email:	l.jiakeat@digipen.edu
+//
+// brief:	Grid system for snake.
+//
+// Copyright © 2020 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include "grid.h"
 #include "cprocessing.h"
 #include "globals.h"

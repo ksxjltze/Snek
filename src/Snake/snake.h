@@ -17,6 +17,7 @@ struct Segment					//Segment of Snake body.
 	CP_Vector position;			//Screen position.
 	CP_Vector destination;		//Next position
 	int grid_position;			//Grid position. (Index of array)
+	int direction;
 	bool active;				//Used in array to determine if segment should be updated.
 };
 
@@ -60,5 +61,8 @@ void Snake_Death(void);
 //Pause and Reset
 void Snake_UnPause();
 void Snake_Reset(void);
+void Snake_Quit();
 
 void Snake_Collide();
+int Snake_Normalize_Direction(int direction);
+void Snake_Speed_Up();

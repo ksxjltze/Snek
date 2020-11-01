@@ -16,7 +16,7 @@
 
 void Play_Music(void)
 {
-	CP_Sound_PlayMusic(CP_Sound_LoadMusic("./Assets/snek.wav"));
+	CP_Sound_PlayMusic(CP_Sound_LoadMusic("./Assets/snakelmao.wav"));
 }
 
 void Stop_Music(void)

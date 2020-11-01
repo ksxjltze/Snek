@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\Snake\aabb.c" />
     <ClCompile Include="src\Snake\button.c" />
     <ClCompile Include="src\Snake\files.c" />
     <ClCompile Include="src\Snake\food.c" />
@@ -35,6 +36,7 @@
     <ClCompile Include="src\Snake\utils.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Snake\aabb.h" />
     <ClInclude Include="src\Snake\button.h" />
     <ClInclude Include="src\Snake\files.h" />
     <ClInclude Include="src\Snake\food.h" />

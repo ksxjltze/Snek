@@ -1,3 +1,11 @@
+//---------------------------------------------------------
+// file:	snake.c
+// author:	Team Asteroids
+//
+// brief:	Snake game scene.
+// Copyright © 2020 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include "snake.h"
 #include "utils.h"
 
@@ -5,7 +13,8 @@
 extern const int WINDOW_WIDTH, WINDOW_HEIGHT;
 static CP_Color BACKGROUND_COLOR;
 
-static float grid_seconds = 0.5f; //seconds per grid (movement)
+static float start_speed = 0.5f;
+float grid_seconds = 0.5f; //seconds per grid (movement)
 float move_timer;
 
 static CP_Vector WINDOW_CENTRE;
@@ -29,7 +38,6 @@ void Snake_Init(void)
 	CP_Image img_snake = CP_Image_Load("./Assets/head.png");
 	CP_Image img_body = CP_Image_Load("./Assets/body.png");
 	WINDOW_CENTRE = CP_Vector_Set((float)WINDOW_WIDTH / 2, (float)WINDOW_HEIGHT / 2);
-	CP_Settings_Stroke(CP_Color_Create(255, 255, 255, 255)); //White lines
 	BACKGROUND_COLOR = CP_Color_Create(0, 0, 0, 255);		 //Black background
 
 	Snake_Grid_Init();									//Initialize Grid specific variables
@@ -53,7 +61,8 @@ void Snake_Init(void)
 	Button_Init();
 	Init_Scores_Var();
 	Snake_PauseMenu_Init();
-	//Play_Music();
+	CP_Sound_SetGroupPitch(CP_SOUND_GROUP_MUSIC, (start_speed / grid_seconds) / 2);
+	Play_Music();
 	paused = false;
 	lock = false;
 
@@ -89,6 +98,7 @@ void Snake_Update(void)
 
 void Snake_Exit(void)
 {
+	Snake_Reset();
 	_fcloseall();
 }
 
@@ -105,6 +115,7 @@ void Snake_Init_Segments()
 		the_snake.segments[i].active = false;	//Not active, will not be drawn.
 		the_snake.segments[i].position = CP_Vector_Set(0, 0);
 		the_snake.segments[i].grid_position = 0;
+		the_snake.segments[i].direction = RIGHT;
 	}
 }
 
@@ -121,14 +132,21 @@ void Snake_Collide()
 	}
 }
 
-//Makes the snake grow longer.
-void Snake_Grow()
+int Snake_Normalize_Direction(int direction)
 {
-	int direction = the_snake.direction;
 	if (direction % 2 == 0) //Horizontal
 		direction /= 2;			//"Normalize" to become 1.
 	else					//Vertical
 		direction *= GRID_WIDTH;
+
+	return direction;
+}
+
+//Makes the snake grow longer. (Lee Jia Keat)
+void Snake_Grow()
+{
+	int direction = Snake_Normalize_Direction(the_snake.direction);
+	Snake_Speed_Up();
 
 	//Finds and sets the next segment's position, sets it to active then returns.
 	for (int i = 0; i < GRID_SIZE - 1; i++)
@@ -137,15 +155,31 @@ void Snake_Grow()
 		if (!segment->active) //Find first inactive segment. i.e. Segment after the "Last Segment".
 		{
 			segment->active = true;
+
 			if (i > 0)
-				segment->grid_position = the_snake.segments[i - 1].grid_position - direction;	//Segments after the first.
+			{
+				struct Segment previous_segment = the_snake.segments[i - 1];
+				direction = Snake_Normalize_Direction(previous_segment.direction);
+
+				segment->grid_position = previous_segment.grid_position - direction;	//Segments after the first.
+				
+			}
 			else
 				segment->grid_position = the_snake.grid_position - direction;					//First segment after the head.
 
 			segment->position = grid[segment->grid_position];
+			segment->destination = segment->position;
 			return;
 		}
 	}
+}
+
+void Snake_Speed_Up()
+{
+	grid_seconds *= 0.95f; //snake moves 5% faster.
+	printf("%f", CP_Sound_GetGroupPitch(CP_SOUND_GROUP_MUSIC));
+	if ((start_speed / grid_seconds) / 2 < 3)
+		CP_Sound_SetGroupPitch(CP_SOUND_GROUP_MUSIC, (start_speed / grid_seconds) / 2); //Music plays 5% faster.
 }
 
 //Update Movement Timer
@@ -191,7 +225,7 @@ void Snake_UpdateInput(void)
 	}
 }
 
-//Update snake's position.
+//Update snake's position. (Lee Jia Keat)
 void Snake_UpdateMovement(void)
 {
 	//Update snake's target cell/position (including body).
@@ -213,11 +247,15 @@ void Snake_UpdateMovement(void)
 			if (segment->active)				//Finds active segments from the back of the array.
 			{
 				if (i > 0)						//Not first segment (before head)
-					segment->grid_position =	//Sets current segment's position to be the position of the segment before it.
-					the_snake.segments[i - 1].grid_position;
-				else							//Segment before head
-					segment->grid_position =	//Set first segment's position to be the position of the head.
-					the_snake.grid_position;
+				{
+					segment->grid_position = the_snake.segments[i - 1].grid_position;	//Sets current segment's position to be the position of the segment before it.
+					segment->direction = the_snake.segments[i - 1].direction;
+				}
+				else							//Segment before head.
+				{
+					segment->grid_position = the_snake.grid_position;					//Set first segment's position to be the position of the head.
+					segment->direction = the_snake.direction;
+				}
 
 				segment->destination = grid[segment->grid_position];	//Update screen position. (Pixels)
 
@@ -235,15 +273,6 @@ void Snake_UpdateMovement(void)
 			Score_Manager();
 			Snake_Death();
 		}
-
-		//for (int i = GRID_SIZE - 2; i >= 0; i--)
-		//{
-		//	if (the_snake.position.x == the_snake.segments[i].position.x || 
-		//		the_snake.position.y == the_snake.segments[i].position.y)  //at the last cell
-		//	{
-		//		Snake_Death();
-		//	}
-		//}
 
 	}
 	else
@@ -274,6 +303,12 @@ void Snake_UnPause()
 	paused = false;
 }
 
+void Snake_Quit()
+{
+	Stop_Music();
+	CP_Engine_SetNextGameState(Menu_init, Menu_update, Menu_exit);
+}
+
 void Snake_Reset(void)
 {
 	//Reset snake position (random)
@@ -281,6 +316,8 @@ void Snake_Reset(void)
 	the_snake.position = grid[the_snake.grid_position];		//Screen Position
 	the_snake.direction = RIGHT;
 	move_timer = 0.0f;
+	grid_seconds = start_speed;
+	CP_Sound_SetGroupPitch(CP_SOUND_GROUP_MUSIC, (start_speed / grid_seconds) / 2);
 
 	Snake_Init_Segments();		//Reset Snake body.
 	Init_Scores_Var();				//Reset Score.
@@ -293,7 +330,7 @@ void Snake_Draw(void)
 {
 	//Clear Buffer
 	CP_Settings_Background(BACKGROUND_COLOR);
-	Snake_DrawGrid_Truncated();
+	//Snake_DrawGrid_Truncated();
 
 	//Draw Snake's head.
 	CP_Image_Draw(the_snake.sprite.image, 
