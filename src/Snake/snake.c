@@ -62,7 +62,7 @@ void Snake_Init(void)
 	Init_Scores_Var();
 	Snake_PauseMenu_Init();
 	CP_Sound_SetGroupPitch(CP_SOUND_GROUP_MUSIC, (start_speed / grid_seconds) / 2);
-	Play_Music();
+	//Play_Music();
 	paused = false;
 	lock = false;
 

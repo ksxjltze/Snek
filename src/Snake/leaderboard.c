@@ -21,17 +21,21 @@ void Read_Leaderboard_Data(void)
 
 	error = fopen_s(&leaderboard, "leaderboard.txt", "r");
 
-	//printf("\nwhore\n");//debug prints
+	printf("\nwhore\n");//debug prints
  
-	if (error != 0)						
+	if (error != 0)				 // 		
 	{
 
-		//printf("Bitch\n");//debug prints
+		printf("Bitch\n");//debug prints
 		fopen_s(&leaderboard, "leaderboard.txt", "w");
 
 		if (leaderboard)
 		{
-			fprintf(leaderboard, "%s %d","Leaderboards are empty!", 0);	// write into the file leader boards are empty %s "Leaderboards are empty!"
+			for (int i = 0; i < MAX_LEADERS; i++)
+			{
+				fprintf(leaderboard, "%s %d\n", "nil", 0);	// write into the file leader boards are empty %s "Leaderboards are empty!"
+			}
+			printf("Fuck\n");//debug prints
 			fclose(leaderboard);
 		}
 
@@ -119,6 +123,8 @@ void Check_If_Leader(void)
 
 void Init_LeaderBoard(void)
 {	
+	Read_Leaderboard_Data();
+
 	is_leader = false;
 	counter.leaders_count = 0;
 	Leaderboard_Variables.text_color = CP_Color_Create(255, 255, 255, 255);
@@ -136,6 +142,9 @@ void Init_LeaderBoard(void)
 	Button_Set_Text_Size(&Button_Exit, 50);
 	Button_Set_Callback(&Button_Exit, ptr_exit);
 
+	int n = sizeof(LeaderBoard_Scores) / sizeof(LeaderBoard_Scores[0]);
+	Sort_Data(LeaderBoard_Scores, n);
+
 	if (Player.name)
 	{
 		counter.name_length = (int)strlen(Player.name);
@@ -143,21 +152,21 @@ void Init_LeaderBoard(void)
 	else
 		counter.name_length = 0;
 
-	Read_Leaderboard_Data();
+	//Read_Leaderboard_Data();
 
-	int n = sizeof(LeaderBoard_Scores) / sizeof(LeaderBoard_Scores[0]);
-	for (int i = 0; i < MAX_LEADERS; i++)
-	{
-		printf("\nOriginal LeaderBoard_Data is Name: %s Score: %d\n", LeaderBoard[i].name, LeaderBoard_Scores[i]); //debug prints
-	}
+	//int n = sizeof(LeaderBoard_Scores) / sizeof(LeaderBoard_Scores[0]);
+	//for (int i = 0; i < MAX_LEADERS; i++)
+	//{
+	//	printf("\nOriginal LeaderBoard_Data is Name: %s Score: %d\n", LeaderBoard[i].name, LeaderBoard_Scores[i]); //debug prints
+	//}
 
 	//printf("n is %d\n", n);
 	
-	Sort_Data(LeaderBoard_Scores, n);
-	for (int i = 0; i < MAX_LEADERS; i++)
-	{
-		printf("\nSorted LeaderBoard_Data is Name: %s Score: %d\n", LeaderBoard[i].name, LeaderBoard_Scores[i]);//debug prints
-	}
+	//Sort_Data(LeaderBoard_Scores, n);
+//	for (int i = 0; i < MAX_LEADERS; i++)
+//	{
+//		printf("\nSorted LeaderBoard_Data is Name: %s Score: %d\n", LeaderBoard[i].name, LeaderBoard_Scores[i]);//debug prints
+//	}
 }
 
 void Update_LeaderBoard(void)
@@ -174,8 +183,9 @@ void Update_LeaderBoard(void)
 
 	LeaderBoard_ReadInput();
 	LeaderBoard_Display_PlayerName();
-	Draw_LeaderBoard(); 
+
 	Update_Button(Button_Exit, mousex, mousey);
+	Draw_LeaderBoard(); 
 
 }
 
@@ -235,9 +245,8 @@ void Draw_LeaderBoard(void)
 	CP_Settings_TextSize(50.0f);
 	CP_Settings_Fill(Leaderboard_Variables.text_color);
 
-	for (int i = 0; i < counter.leaders_count; i++)
+	for (int i = 0; i < MAX_LEADERS; i++)
 	{	
-
 		char leaderscore_buffer[16];
 		sprintf_s(leaderscore_buffer, 16, "%d", LeaderBoard[i].score);//debug prints
 

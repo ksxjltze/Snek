@@ -10,6 +10,7 @@ void Menu_init(void)
 	CP_System_SetWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
 	Button_init();
+	Read_Leaderboard_Data();
 }
 void Menu_update(void)
 {	
