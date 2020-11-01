@@ -40,6 +40,7 @@ void Snake_Init(void)
 	WINDOW_CENTRE = CP_Vector_Set((float)WINDOW_WIDTH / 2, (float)WINDOW_HEIGHT / 2);
 	BACKGROUND_COLOR = CP_Color_Create(0, 0, 0, 255);		 //Black background
 
+	Init_LeaderBoard();
 	Snake_Grid_Init();									//Initialize Grid specific variables
 	Snake_SetGrid(grid);								//Populates the grid array with CP_Vector positions.
 	Snake_TruncateGrid(grid, grid_field);

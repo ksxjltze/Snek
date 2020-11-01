@@ -16,7 +16,7 @@ struct LeaderBoard
 
 typedef struct Leaders
 {
-	char name[20];
+	char name[21];
 	int score;
 } Leader;
 

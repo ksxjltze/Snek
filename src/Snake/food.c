@@ -52,7 +52,7 @@ void init_food(CP_Vector grid[])
 	the_food.position = grid[the_food.grid_position]; //Screen Position
 	the_food.sprite.width = GRID_WIDTH;
 	the_food.sprite.height = GRID_WIDTH;
-
+	Food_score.count = 0;
 };
 
 void food_update(CP_Vector grid[])
