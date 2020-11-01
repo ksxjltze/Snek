@@ -1,3 +1,12 @@
+//---------------------------------------------------------
+// file:	utils.h
+// author:	Lee Jia Keat
+// email:	l.jiakeat@digipen.edu
+//
+// brief:	Useful functions
+//
+// Copyright © 2020 DigiPen, All rights reserved.
+//---------------------------------------------------------
 #pragma once
 #include "cprocessing.h"
 #include "globals.h"

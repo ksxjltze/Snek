@@ -1,3 +1,13 @@
+//---------------------------------------------------------
+// file:	aabb.c
+// author:	Lee Jia Keat
+// email:	l.jiakeat@digipen.edu
+//
+// brief:	AABB collision.
+//
+// Copyright © 2020 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include "aabb.h"
 
 bool Snake_Collision_AABB(float width1, float height1, CP_Vector pos1, float width2, float height2, CP_Vector pos2)

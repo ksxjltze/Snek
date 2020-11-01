@@ -1,3 +1,13 @@
+//---------------------------------------------------------
+// file:	food.c
+// author:	Liu Ke
+// email:	
+//
+// brief:	food
+//
+// Copyright © 2020 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include "food.h"
 #include "sprite.h"
 #include "cprocessing.h"

@@ -1,4 +1,12 @@
-#pragma once
+//---------------------------------------------------------
+// file:	utils.c
+// author:	Lee Jia Keat
+// email:	l.jiakeat@digipen.edu
+//
+// brief:	Useful functions
+//
+// Copyright © 2020 DigiPen, All rights reserved.
+//---------------------------------------------------------
 #include "utils.h"
 
 CP_Vector Random_Pos()

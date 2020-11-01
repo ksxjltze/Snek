@@ -1,3 +1,13 @@
+//---------------------------------------------------------
+// file:	files.c
+// author:	Lee Jia Keat
+// email:	l.jiakeat@digipen.edu
+//
+// brief:	Basic File management for reading and writing scores.
+//
+// Copyright © 2020 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include "files.h"
 
 void Write_Score(int player_score) // function to write score into file

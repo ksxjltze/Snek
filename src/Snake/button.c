@@ -1,3 +1,13 @@
+//---------------------------------------------------------
+// file:	button.c
+// author:	Lee Jia Keat
+// email:	l.jiakeat@digipen.edu
+//
+// brief:	Buttons.
+//
+// Copyright © 2020 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include "button.h"
 #include "snake.h"   //Game loop functions
 #include <stdbool.h> //bool

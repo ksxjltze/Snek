@@ -1,3 +1,13 @@
+//---------------------------------------------------------
+// file:	pause.c
+// author:	Lee Jia Keat
+// email:	l.jiakeat@digipen.edu
+//
+// brief:	Pause menu.
+//
+// Copyright © 2020 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include "pause.h"
 CP_Color backgroundColor;
 

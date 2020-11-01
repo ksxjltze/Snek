@@ -1,3 +1,11 @@
+//---------------------------------------------------------
+// file:	snake.c
+// author:	Team Asteroids
+//
+// brief:	Snake game scene.
+// Copyright © 2020 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include "snake.h"
 #include "utils.h"
 
