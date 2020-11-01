@@ -4,13 +4,12 @@
 #define BUFFER_SIZE 20
 #define MAX_LEADERS 3
 
+bool is_leader;
 
-Leader Temp[1];
 Leader LeaderBoard[MAX_LEADERS] = {0};
-const char leaderboard_file[] = "leaderboard.txt";
-
 int LeaderBoard_Scores[MAX_LEADERS];
 
+const char leaderboard_file[] = "leaderboard.txt";
 struct Button Button_Exit;
 
 
@@ -110,29 +109,28 @@ void Check_If_Leader(void)
 {
 	for (int i = 0; i < MAX_LEADERS; i++)
 	{
-		if (Player.score > LeaderBoard[i].score)											// If true, draw different screen for leaderboard?????
-		{
-			CP_Engine_SetNextGameState(Init_LeaderBoard, Update_LeaderBoard, Exit_LeaderBoard);
-		}
-		else
-			CP_Engine_SetNextGameState(Init_GameOver, Update_GameOver, Exit_GameOver);		// Normal gameover screen
+		if (Player.score > LeaderBoard[i].score)
+			is_leader = true;
 	}
+
+	if (CP_Input_KeyTriggered(KEY_1))
+		is_leader = true;
 }
 
 void Init_LeaderBoard(void)
 {	
-	
+	is_leader = false;
 	counter.leaders_count = 0;
 	Leaderboard_Variables.text_color = CP_Color_Create(255, 255, 255, 255);
-	Leaderboard_Variables.text = "Leaders:";
 	Leaderboard_Variables.x = (float)(WINDOW_WIDTH / 2.0);
-	Leaderboard_Variables.y = (float)(WINDOW_HEIGHT / 5.0);
-
+	Leaderboard_Variables.y = (float)(WINDOW_HEIGHT / 3.5);
 
 	void(*ptr_exit)() = &Load_Main_Menu;
+
 	CP_Vector pos = CP_Vector_Zero();
 	pos.x = (float)(WINDOW_WIDTH * 0.5f) - (Menu_button.width / 2);
 	pos.y = (float)(WINDOW_HEIGHT * 0.8f) - (Menu_button.height / 2);
+
 	Button_Exit = Create_TextButton(pos, Menu_button.width, Menu_button.height, "Exit");
 	Button_Set_Colors(&Button_Exit, Menu_button.idle, Menu_button.hover, Menu_button.clicked, Menu_button.text);
 	Button_Set_Text_Size(&Button_Exit, 50);
@@ -164,7 +162,6 @@ void Init_LeaderBoard(void)
 
 void Update_LeaderBoard(void)
 {
-
 	CP_Settings_Background(CP_Color_Create(0, 0, 0, 255));
 	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
 	CP_Settings_TextSize(50.0f);
@@ -277,4 +274,17 @@ void Sort_Data(int test[], int n)
 		LeaderBoard[i].score = LeaderBoard_Scores[i];					// Write Sorted scores into struct
 	}
 	Write_Leaderboard_Data();											// Write sorted data into file
+}
+
+void Player_Is_Leader(void)
+{
+	if (is_leader)
+	{
+		CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+		CP_Font_DrawTextBox("CONGRATULATIONS, YOU WON A SPOT ON THE LEADERBOARD! Please Enter Your Name! (Up to 20 characters):",
+			(float)(WINDOW_WIDTH / WINDOW_WIDTH), (float)WINDOW_HEIGHT / 6.0f, (float)WINDOW_WIDTH);
+
+		LeaderBoard_Display_PlayerName();
+		LeaderBoard_ReadInput();
+	}
 }

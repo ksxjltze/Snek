@@ -23,3 +23,4 @@ void Menu_exit(void);
 
 void MainMenu_Load_Game();
 void MainMenu_Exit_Game();
+void View_LeaderBoard(void);

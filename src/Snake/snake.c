@@ -52,7 +52,6 @@ void Snake_Init(void)
 	init_food(grid_field);
 	Button_Init();
 	Init_Scores_Var();
-	Init_GameOver();
 	Snake_PauseMenu_Init();
 	//Play_Music();
 	paused = false;
@@ -81,9 +80,9 @@ void Snake_Update(void)
 		paused = Snake_Pause(paused);
 
 
-	if (CP_Input_KeyTriggered(KEY_Q)) // debug leaderboard
+	if (CP_Input_KeyTriggered(KEY_Q)) // debug 
 	{
-		CP_Engine_SetNextGameState(Init_GameOver, Update_GameOver, Exit_GameOver);
+		CP_Engine_SetNextGameState(Gameover_Init, Gameover_Update, Gameover_Exit);
 	}
 
 }
@@ -96,7 +95,7 @@ void Snake_Exit(void)
 void Snake_Death(void)
 {
 	//Check_If_Leader();
-	CP_Engine_SetNextGameState(Init_GameOver, Update_GameOver, Exit_GameOver);
+	CP_Engine_SetNextGameState(Gameover_Init, Gameover_Update, Gameover_Exit);
 }
 
 void Snake_Init_Segments()

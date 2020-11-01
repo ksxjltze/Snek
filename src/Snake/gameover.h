@@ -6,6 +6,9 @@
 #include "music.h"
 #include "files.h"
 #include "food.h"
+#include "MainMenu.h"
+#include "leaderboard.h"
+#include <stdbool.h>
 
 struct Highscore
 {
@@ -52,3 +55,8 @@ void GameOver_Update_Input(void);
 void Init_GameOver(void);
 void Update_GameOver(void);
 void Exit_GameOver(void);
+
+void Draw_Gameover_Score(void);
+void Gameover_Init(void);
+void Gameover_Update(void);
+void Gameover_Exit(void);

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "button.h"
 #include <string.h>
+#include <stdbool.h>
 
 struct LeaderBoard
 {
@@ -39,3 +40,4 @@ void Draw_LeaderBoard(void);
 
 void LeaderBoard_Display_PlayerName();
 void Sort_Data(int LeaderBoard_Scores[], int n);
+void Player_Is_Leader(void);
