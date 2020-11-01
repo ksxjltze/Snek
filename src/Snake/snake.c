@@ -160,6 +160,7 @@ void Snake_Grow()
 				segment->grid_position = the_snake.grid_position - direction;					//First segment after the head.
 
 			segment->position = grid[segment->grid_position];
+			segment->destination = segment->position;
 			return;
 		}
 	}
@@ -168,7 +169,8 @@ void Snake_Grow()
 void Snake_Speed_Up()
 {
 	grid_seconds *= 0.95f; //snake moves 5% faster.
-	CP_Sound_SetGroupPitch(CP_SOUND_GROUP_MUSIC, (start_speed / grid_seconds) / 2); //Music plays 5% faster.
+	if ((start_speed / grid_seconds) / 2 < 3)
+		CP_Sound_SetGroupPitch(CP_SOUND_GROUP_MUSIC, (start_speed / grid_seconds) / 2); //Music plays 5% faster.
 }
 
 //Update Movement Timer
@@ -299,6 +301,8 @@ void Snake_Reset(void)
 	the_snake.position = grid[the_snake.grid_position];		//Screen Position
 	the_snake.direction = RIGHT;
 	move_timer = 0.0f;
+	grid_seconds = start_speed;
+	CP_Sound_SetGroupPitch(CP_SOUND_GROUP_MUSIC, (start_speed / grid_seconds) / 2);
 
 	Snake_Init_Segments();		//Reset Snake body.
 	Init_Scores_Var();				//Reset Score.

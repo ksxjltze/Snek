@@ -6,6 +6,7 @@
 #include "snake.h"
 #include "stdbool.h"
 #include "sfx.h"
+#include "aabb.h"
 
 
 //CP_Vector grid[GRID_SIZE]; //Grid Positions, Full grid.
@@ -37,7 +38,7 @@ void init_food(CP_Vector grid[])
 
 	the_food.sprite.image = img_food;
 
-	the_food.grid_position = CP_Random_RangeInt(0, 324);
+	the_food.grid_position = CP_Random_RangeInt(0, 323);
 	the_food.position = grid[the_food.grid_position]; //Screen Position
 	the_food.sprite.width = GRID_WIDTH;
 	the_food.sprite.height = GRID_WIDTH;
@@ -52,14 +53,16 @@ void food_update(CP_Vector grid[])
 
 void collision(CP_Vector position, CP_Vector grid[])
 {
-	if (position.x == the_food.position.x && position.y == the_food.position.y)
+	if (Snake_Collision_AABB(the_food.sprite.width, the_food.sprite.height, the_food.position, 
+		the_snake.sprite.width, the_snake.sprite.height, the_snake.position))
 	{ 
 		//play sfx
 		Crunch_SFX();
 		Snake_Grow();
-		the_food.grid_position = CP_Random_RangeInt(0, 323);     // food position generated inside the barrier
 
+		the_food.grid_position = CP_Random_RangeInt(0, 323);     // food position generated inside the barrier
 		the_food.position = grid[the_food.grid_position];		 //Screen Position
+
 		Food_score.count++;
 	}	
 }
