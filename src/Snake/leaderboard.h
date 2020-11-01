@@ -38,3 +38,4 @@ void Load_Main_Menu(void);
 void Draw_LeaderBoard(void);
 
 void LeaderBoard_Display_PlayerName();
+void Sort_Data(int LeaderBoard_Scores[], int n);
