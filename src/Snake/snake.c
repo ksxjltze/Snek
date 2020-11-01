@@ -5,6 +5,7 @@
 extern const int WINDOW_WIDTH, WINDOW_HEIGHT;
 static CP_Color BACKGROUND_COLOR;
 
+static float start_speed = 0.5f;
 float grid_seconds = 0.5f; //seconds per grid (movement)
 float move_timer;
 
@@ -53,7 +54,8 @@ void Snake_Init(void)
 	Init_Scores_Var();
 	Init_GameOver();
 	Snake_PauseMenu_Init();
-	//Play_Music();
+	CP_Sound_SetGroupPitch(CP_SOUND_GROUP_MUSIC, (start_speed / grid_seconds) / 2);
+	Play_Music();
 	paused = false;
 	lock = false;
 
@@ -166,6 +168,7 @@ void Snake_Grow()
 void Snake_Speed_Up()
 {
 	grid_seconds *= 0.95f; //snake moves 5% faster.
+	CP_Sound_SetGroupPitch(CP_SOUND_GROUP_MUSIC, (start_speed / grid_seconds) / 2); //Music plays 5% faster.
 }
 
 //Update Movement Timer
